@@ -58,51 +58,16 @@
                                                 <h3>{{ auth()->user()->role }}</h3>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <h3>Action</h3>
+                                            </td>
+                                            <td align="center">
+                                                <button class="btn btn-primary"><a href="{{ route('change.index') }}"
+                                                        style="color:white">Password Change</a></button>
+                                            </td>
+                                        </tr>
                                     </table>
-
-                                    {{--  <form action="{{ url('category/insert') }}" method="POST" enctype="multipart/form-data"
-                                        class="theme-form theme-form-2 mega-form">
-                                        @csrf
-                                        <div class="mb-4 row align-items-center">
-                                            <label class="form-label-title col-sm-3 mb-0">Category
-                                                Name</label>
-                                            <div class="col-sm-9">
-                                                <input class="form-control" type="text" placeholder="Category Name"
-                                                    name="category_name">
-                                                @error('category_name')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-4 row align-items-center">
-                                            <label class="col-sm-3 col-form-label form-label-title">Category
-                                                Image</label>
-                                            <div class="form-group col-sm-9">
-                                                <input type="file" class="form-control" name="category_image">
-                                                @error('category_image')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="mb-4 row align-items-center">
-                                            <label class="col-sm-3 col-form-label form-label-title">Category
-                                                Description</label>
-                                            <div class="form-group col-sm-9">
-                                                <textarea name="category_description" id="" cols="30"></textarea>
-                                                @error('category_description')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="mb-4 row align-items-center">
-                                            <label class="col-sm-3 col-form-label form-label-title"></label>
-                                            <div class="form-group col-sm-9">
-                                                <button type="submit" class="btn btn-success">Add Category</button>
-                                            </div>
-                                        </div>
-
-                                    </form> --}}
                                 </div>
                             </div>
                         </div>
@@ -151,6 +116,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>

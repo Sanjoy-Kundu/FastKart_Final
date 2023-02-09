@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PasswordChangerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -60,6 +62,10 @@ Route::get('myProfile', [UserProfileController::class, 'index'])->name('myProfil
 Route::post('myProfile', [UserProfileController::class, 'store'])->name('myProfile.store');
 
 
+
+//::::::::::::::::::::password change ::::::::::::::::
+Route::get('change/password', [PasswordChangerController::class, 'index'])->name('change.index');
+Route::post('change/password', [PasswordChangerController::class, 'store'])->name('change.store');
 
 
 

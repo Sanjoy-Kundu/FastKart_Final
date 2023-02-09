@@ -142,11 +142,17 @@
                                 <img class="user-profile rounded-circle"
                                     src="{{ asset('assets') }}/images/users/4.jpg" alt="">
                                 <div class="user-name-hide media-body">
-                                    <span>Emay Walter</span>
-                                    <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
+                                    <span>{{ auth()->user()->name }}</span>
+                                    <p class="mb-0 font-roboto">{{ auth()->user()->role }}<i
+                                            class="middle ri-arrow-down-s-line"></i></p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
+                                <li>
+                                    <i data-feather="users"></i>
+                                    <span>{{ auth()->user()->email }}</span>
+
+                                </li>
                                 <li>
                                     <a href="{{ route('myProfile.index') }}">
                                         <i data-feather="users"></i>
