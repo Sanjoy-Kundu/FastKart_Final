@@ -10,4 +10,8 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['product_image'];
+
+    function relationshipWithCategory(){
+        return $this->hasOne(Category::class, 'id', 'product_category');
+    }
 }

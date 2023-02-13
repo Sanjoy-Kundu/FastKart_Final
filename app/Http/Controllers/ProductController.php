@@ -19,8 +19,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        return view('backend.product.product_list');
+        // $products = Product::latest()->get();
+            $products = Product::where('user_id', auth()->user()->id)->latest()->get();
+
+        return view('backend.product.product_list', compact('products'));
 
     }
 
@@ -77,6 +79,7 @@ class ProductController extends Controller
                  }
 
        $product_id =  Product::insertGetId([
+             'user_id'=>auth()->user()->id,
             'product_name' => $request->product_name,
             'product_category' => $request->product_category,
             'product_pruches_price' => $request->product_pruches_price,
@@ -88,6 +91,7 @@ class ProductController extends Controller
             'additional_information' => $request->additional_information,
             'care_instruction' => $request->care_instruction,
             'product_image' => $request->product_image,
+            'created_at' => Carbon::now()
 
         ]);
 

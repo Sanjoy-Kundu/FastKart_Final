@@ -15,6 +15,7 @@
                                         <h5>Product Information</h5>
                                     </div>
 
+
                                     <form method="post" action="{{ route('product.store') }}"
                                         class="theme-form theme-form-2 mega-form" enctype="multipart/form-data">
                                         @csrf

@@ -53,6 +53,9 @@
 
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets') }}/css/style.css">
+
+    <!-- Data Table css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/datatables.css">
 </head>
 
 <body>
@@ -139,8 +142,15 @@
                         </li>
                         <li class="profile-nav onhover-dropdown pe-0 me-0">
                             <div class="media profile-media">
-                                <img class="user-profile rounded-circle"
-                                    src="{{ asset('assets') }}/images/users/4.jpg" alt="">
+                                @if (auth()->user()->profile_photo)
+                                    <img class="user-profile rounded-circle"
+                                        src="{{ asset('uploads/profiles') }}/{{ auth()->user()->profile_photo }}"
+                                        alt="">
+                                @else
+                                    <img class="user-profile rounded-circle"
+                                        src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" alt="">
+                                @endif
+
                                 <div class="user-name-hide media-body">
                                     <span>{{ auth()->user()->name }}</span>
                                     <p class="mb-0 font-roboto">{{ auth()->user()->role }}<i
@@ -411,6 +421,10 @@
 
             <!-- Theme js -->
             <script src="{{ asset('assets') }}/js/script.js"></script>
+
+            <!-- Data table js -->
+            <script src="assets/js/jquery.dataTables.js"></script>
+            <script src="assets/js/custom-data-table.js"></script>
 </body>
 
 </html>
