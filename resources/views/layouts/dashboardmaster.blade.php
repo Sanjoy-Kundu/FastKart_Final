@@ -90,6 +90,7 @@
 
                 <div class="nav-right col-6 pull-right right-header p-0">
                     <ul class="nav-menus">
+
                         <li>
                             <span class="header-search">
                                 <i class="ri-search-line"></i>
@@ -135,6 +136,11 @@
                             </ul>
                         </li>
 
+                        <li>
+
+                            <a class="btn btn-primary" href="{{ route('index') }}">Visit Side</a>
+
+                        </li>
                         <li>
                             <div class="mode">
                                 <i class="ri-moon-line"></i>

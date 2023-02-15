@@ -473,14 +473,16 @@
                                     <div class="col  px-0">
                                         <div class="  px-0">
                                             <div class="product-box">
-                                                @if ($product->discount)
+                                                @if ($product->discount > 0)
                                                     <div class="label-tag">
                                                         <span>Discount {{ $product->discount }}%</span>
                                                     </div>
                                                 @else
-                                                    <div class="label-tag">
-                                                        <span>New</span>
-                                                    </div>
+                                                    @if ($product->created_at->diffInDays(now()) < 7)
+                                                        <div class="label-tag">
+                                                            <span>New</span>
+                                                        </div>
+                                                    @endif
                                                 @endif
 
                                                 <div class="product-image">

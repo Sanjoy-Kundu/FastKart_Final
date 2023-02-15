@@ -242,25 +242,27 @@
                                                 <i data-feather="user"></i>
                                             </div>
                                             <div class="delivery-detail">
-                                                <h6>Hello,</h6>
-                                                <h5>My Account</h5>
+                                                @auth()
+                                                    <h5>Hello</h5>
+                                                @else
+                                                    <h5>My Account</h5>
+                                                @endauth
                                             </div>
                                         </div>
 
                                         <div class="onhover-div onhover-div-login">
                                             <ul class="user-box-name">
-                                                <li class="product-box-contain">
-                                                    <i></i>
-                                                    <a href="login.html">Log In</a>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <a href="sign-up.html">Register</a>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <a href="forgot.html">Forgot Password</a>
-                                                </li>
+                                                @auth()
+                                                    <li class="product-box-contain">
+                                                        <i></i>
+                                                        <a href="{{ route('dashboard') }}">Go to Your Dashboard</a>
+                                                    </li>
+                                                @else
+                                                    <li class="product-box-contain">
+                                                        <i></i>
+                                                        <a href="{{ route('login') }}">Log In</a>
+                                                    </li>
+                                                @endauth
                                             </ul>
                                         </div>
                                     </li>

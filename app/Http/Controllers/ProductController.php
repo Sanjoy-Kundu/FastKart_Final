@@ -22,7 +22,7 @@ class ProductController extends Controller
         // $products = Product::latest()->get();
             $products = Product::where('user_id', auth()->user()->id)->latest()->get();
 
-        return view('backend.product.product_list', compact('products'));
+         return view('backend.product.product_list', compact('products'));
 
     }
 
@@ -128,7 +128,7 @@ class ProductController extends Controller
             }
     //::::::::::::::::::::::::::::::Featured photo upload end ::::::::::::::::::::::::::::::::::::
 
-     return back();
+     return back()->with('success', 'Product inserted successfully!.');
     }
 
     /**

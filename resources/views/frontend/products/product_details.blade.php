@@ -129,7 +129,6 @@
                             </div>
                         </div>
 
-                        {{ $product_details }}
                         <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="right-box-contain">
                                 <h6 class="offer-top"> {{ $product_details->discount }}% Off</h6>
@@ -316,44 +315,7 @@
 
                                     <div class="tab-pane fade" id="info" role="tabpanel"
                                         aria-labelledby="info-tab">
-                                        <div class="table-responsive">
-                                            <table class="table info-table">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Specialty</td>
-                                                        <td>Vegetarian</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Ingredient Type</td>
-                                                        <td>Vegetarian</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Brand</td>
-                                                        <td>Lavian Exotique</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Form</td>
-                                                        <td>Bar Brownie</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Package Information</td>
-                                                        <td>Box</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Manufacturer</td>
-                                                        <td>Prayagh Nutri Product Pvt Ltd</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Item part number</td>
-                                                        <td>LE 014 - 20pcs Crème Bakes (Pack of 2)</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Net Quantity</td>
-                                                        <td>40.00 count</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <p>{{ $product_details->additional_information }}</p>
                                     </div>
 
                                     <div class="tab-pane fade" id="care" role="tabpanel"
@@ -702,12 +664,21 @@
                         <div class="vendor-box">
                             <div class="verndor-contain">
                                 <div class="vendor-image">
-                                    <img src="{{ asset('frontend_assets') }}/images/product/vendor.png"
-                                        class="blur-up lazyload" alt="">
+                                    @if ($vendor->profile_photo)
+                                        <img src="{{ asset('uploads/profiles') }}/{{ $vendor->profile_photo }}"
+                                            class="blur-up lazyload" alt="">
+                                    @else
+                                        <img src="{{ asset('frontend_assets') }}/images/product/vendor.png"
+                                            class="blur-up lazyload" alt="">
+                                    @endif
+
+
                                 </div>
 
                                 <div class="vendor-name">
-                                    <h5 class="fw-500">Noodles Co.</h5>
+                                    <h4 class="fw-500">Name: {{ $vendor->name }}</h4>
+                                    <h5 class="fw-500">Role: {{ $vendor->role }}</h5>
+
 
                                     <div class="product-rating mt-1">
                                         <ul class="rating">
@@ -741,16 +712,16 @@
                                     <li>
                                         <div class="address-contact">
                                             <i data-feather="map-pin"></i>
-                                            <h5>Address: <span class="text-content">1288 Franklin Avenue</span></h5>
+                                            <h5>Email: <span class="text-content">{{ $vendor->email }}</span></h5>
                                         </div>
                                     </li>
 
-                                    <li>
+                                    {{--   <li>
                                         <div class="address-contact">
                                             <i data-feather="headphones"></i>
                                             <h5>Contact Seller: <span class="text-content">(+1)-123-456-789</span></h5>
                                         </div>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
