@@ -17,10 +17,12 @@ class FrontendController extends Controller
 
 
     function product_details ($id){
-        $product_details = Product::find($id);
+         $product_details = Product::find($id);
+         $product_details->product_category;
         $vendor = User::find($product_details->user_id);
          $featuer_photos = FeaturedPhoto::where('product_id',$id)->get();
+        $related_products = Product::where('product_category', $product_details->product_category)->where('id', '!=', $id)->get();
 
-     return view('frontend.products.product_details', compact('product_details', 'featuer_photos', 'vendor'));
+  return view('frontend.products.product_details', compact('product_details', 'featuer_photos', 'vendor', 'related_products'));
     }
 }

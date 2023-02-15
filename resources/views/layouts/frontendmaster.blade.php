@@ -293,66 +293,29 @@
                                 </div>
 
                                 <ul class="category-list">
-                                    <li class="onhover-category-list">
-                                        <a href="shop-top-filter.html" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/vegetable.svg"
-                                                alt="">
-                                            <h6>Vegetables & Fruit</h6>
 
-                                        </a>
-                                    </li>
+                                    @forelse (listOfCategories() as $category_list)
+                                        <li class="onhover-category-list">
+                                            <a href="" class="category-name">
+                                                <img src="{{ asset('uploads/categories') }}/{{ $category_list->category_image }}"
+                                                    alt="">
+                                                <h6>{{ $category_list->category_name }}</h6>
 
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/cup.svg" alt="">
-                                            <h6>Beverages</h6>
+                                            </a>
+                                        </li>
+                                    @empty
+                                        <li class="onhover-category-list">
+                                            <a href="" class="category-name">
+                                                <img src="{{ asset('frontend_assets') }}/svg/1/vegetable.svg"
+                                                    alt="">
+                                                <h6>No Category Upload</h6>
 
-                                        </a>
-                                    </li>
+                                            </a>
+                                        </li>
+                                    @endforelse
 
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/meats.svg" alt="">
-                                            <h6>Meats & Seafood</h6>
 
-                                        </a>
-                                    </li>
 
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/breakfast.svg"
-                                                alt="">
-                                            <h6>Breakfast & Dairy</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/frozen.svg"
-                                                alt="">
-                                            <h6>Frozen Foods</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/biscuit.svg"
-                                                alt="">
-                                            <h6>Biscuits & Snacks</h6>
-
-                                        </a>
-                                    </li>
-
-                                    <li class="onhover-category-list">
-                                        <a href="javascript:void(0)" class="category-name">
-                                            <img src="{{ asset('frontend_assets') }}/svg/1/grocery.svg"
-                                                alt="">
-                                            <h6>Grocery & Staples</h6>
-
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
