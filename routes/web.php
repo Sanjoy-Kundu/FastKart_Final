@@ -58,6 +58,7 @@ Route::post('product/store', [ProductController::class, 'store'])->name('product
 //::::::::::::::::::::::::::::::::::::ProductInventory Controller start ::::::::::::::::::::::::::::::::::
 Route::get('product/inventory', [ProductInventoryController::class,'product_inventory'])->name('product.inventory');
 Route::post('product/inventory/size', [ProductInventoryController::class,'product_inventory_size'])->name('product.inventory.size');
+Route::post('product/inventory/color', [ProductInventoryController::class,'product_inventory_color'])->name('product.inventory.color');
 
 //::::::::::::::::::::::::::::::::::::ProductInventory Controller end::::::::::::::::::::::::::::::::::
 

@@ -54,7 +54,11 @@ Abar kicu porduct ace je sudhu size matter kore kinto color matter kore na
         3.add inventory te amder 2 ta form thakebe akta hoiteace size er jonno and oporta color er jonno
 
         4. size er jonno amader alada database lagbe and model lagbe tai amra php artisan make:model Size -m ; baniye nilam and database only size er name thake .
-        
+
+        5. color er jonno amder alada form lagbe and and alada model and migration lagbe php artisan make:model Color -m
+            color add korar jonno color_name and color code database e dilam
+
+        6. product size and color list akare show korabo
 
 
 

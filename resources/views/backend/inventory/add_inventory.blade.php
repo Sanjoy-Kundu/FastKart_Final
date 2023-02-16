@@ -41,36 +41,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-lg-5 col-md-4 m-auto">
+                        <div class="col-sm-12 col-lg-5 col-md-6 m-auto">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="card-header-2">
-                                        <h5>Update Your Information</h5>
+                                        <h5>Add Your Product Color</h5>
                                     </div>
-                                    @if (session('success'))
-                                        <div class="alert alert-primary">{{ session('success') }}</div>
+                                    @if (session('color_success'))
+                                        <div class="alert alert-primary">{{ session('color_success') }}</div>
                                     @endif
-
-                                    <form action="{{ route('myProfile.store') }}" method="POST"
-                                        enctype="multipart/form-data" class="theme-form theme-form-2 mega-form">
+                                    <form action="{{ route('product.inventory.color') }}" method="POST"
+                                        class="theme-form theme-form-2 mega-form">
                                         @csrf
                                         <div class="mb-4 row align-items-center">
-                                            <label class="col-sm-3 col-form-label form-label-title">Update
-                                                Image</label>
-                                            <div class="form-group col-sm-9">
-                                                <input type="file" class="form-control" name="profile_image">
-                                                @error('profile_image')
+                                            <label class="form-label-title col-sm-3 mb-0">Product Color Name</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" name="color_name"
+                                                    placeholder="Enter your color name">
+                                                @error('color_name')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="mb-4 row align-items-center">
-                                            <label class="form-label-title col-sm-3 mb-0">Your Name
-                                                Name</label>
+                                            <label class="form-label-title col-sm-3 mb-0">Color Code</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" type="text" placeholder="Users Name"
-                                                    name="profile_name" value="{{ auth()->user()->name }}">
-                                                @error('profile_name')
+                                                <input class="form-control" style="width:100px; height:30px; "
+                                                    type="color" name="color_code">
+                                                @error('color_name')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -78,15 +76,83 @@
                                         <div class="mb-4 row align-items-center">
                                             <label class="col-sm-3 col-form-label form-label-title"></label>
                                             <div class="form-group col-sm-9">
-                                                <button type="submit" class="btn btn-success">Update Info</button>
+                                                <button type="submit" class="btn btn-success">Add Color</button>
                                             </div>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-5 col-md-6 m-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-header-2">
+                                        <h5>Product Sizes List</h5>
+                                    </div>
+                                    <table class="table table-bordered">
 
+                                        <tr>
+                                            <th class="text-center">Serial No</th>
+                                            <th class="text-center">Size Name</th>
+                                        </tr>
+                                        @forelse ($sizes as $size)
+                                            <tr>
+                                                <td align="center">{{ $loop->index + 1 }}</td>
+                                                <td align="center">{{ $size->size_name }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="1">No Size Inserted</td>
+                                            </tr>
+                                        @endforelse
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-5 col-md-6 m-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-header-2">
+                                        <h5>Product Colors List</h5>
+                                    </div>
+                                    <table class="table table-bordered">
+
+                                        <tr>
+                                            <th class="text-center">Serial No</th>
+                                            <th class="text-center">Color Name</th>
+                                            <th class="text-center">Color Code</th>
+                                        </tr>
+                                        @forelse ($colors as $color)
+                                            <tr>
+                                                <td align="center">{{ $loop->index + 1 }}</td>
+                                                <td align="center">
+                                                    {{ $color->color_name }}
+                                                    <span class="bdge"
+                                                        style="background-color:{{ $color->color_code }}; width:30px">
+                                                        &nbsp
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{ $color->color_code }}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="1">No Size Inserted</td>
+                                            </tr>
+                                        @endforelse
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
