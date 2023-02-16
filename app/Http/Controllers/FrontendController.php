@@ -17,6 +17,7 @@ class FrontendController extends Controller
 
 
     function product_details ($id){
+
          $product_details = Product::find($id);
          $product_details->product_category;
         $vendor = User::find($product_details->user_id);

@@ -284,15 +284,15 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-settings-line"></i>
-                                        <span>Attributes</span>
+                                        <span>Inventory Management</span>
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="attributes.html">Attributes</a>
+                                            <a href="attributes.html">Inventories</a>
                                         </li>
 
                                         <li>
-                                            <a href="add-new-attributes.html">Add Attributes</a>
+                                            <a href="{{ route('product.inventory') }}">Add Inventories</a>
                                         </li>
                                     </ul>
                                 </li>

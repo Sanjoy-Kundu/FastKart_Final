@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PasswordChangerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductInventoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserProfileController;
@@ -50,6 +52,13 @@ Route::get('product', [ProductController::class, 'create'])->name('product.creat
 Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::Product part end
+
+
+
+//::::::::::::::::::::::::::::::::::::ProductInventory Controller start ::::::::::::::::::::::::::::::::::
+Route::get('product/inventory', [ProductInventoryController::class,'product_inventory'])->name('product.inventory');
+
+//::::::::::::::::::::::::::::::::::::ProductInventory Controller end::::::::::::::::::::::::::::::::::
 
 //:::::::::::::User Start ::::::::::::::
 Route::get('user/form', [UserController::class, "create"])->name('user.create');

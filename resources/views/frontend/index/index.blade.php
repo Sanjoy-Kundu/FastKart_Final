@@ -486,7 +486,7 @@
                                                 @endif
 
                                                 <div class="product-image">
-                                                    <a href="product-left-thumbnail.html">
+                                                    <a href="{{ route('product.details', $product->id) }}">
                                                         <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $product->product_image }}"
                                                             class="img-fluid blur-up lazyload" alt="">
                                                     </a>
@@ -514,8 +514,9 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+
                                                 <div class="product-detail">
-                                                    <a href="product-left-thumbnail.html">
+                                                    <a href="{{ route('product.details', $product->id) }}">
                                                         <h6 class="name">{{ $product->product_name }}</h6>
                                                     </a>
 
