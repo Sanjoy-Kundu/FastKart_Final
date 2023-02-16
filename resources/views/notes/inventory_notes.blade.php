@@ -59,8 +59,29 @@ Abar kicu porduct ace je sudhu size matter kore kinto color matter kore na
             color add korar jonno color_name and color code database e dilam
 
         6. product size and color list akare show korabo
+=================INVENTORY DESCRIPTION END
 
 
+
+
+
+
+
+
+
+
+
+
+
+====================PRODUCT ADD INVENTORY ==============================
+1. Product e inventory set korar jonno ProductContoller giye route banabo
+Route::get('product/add/inventory', [ProductController::class, 'product_add_inventory'])->name('product.add.inventory');
+
+Inventory mane holo akta product er size and color niye asar jonno ja ja kora lagbe sei gula
+
+ProductController er details and prduct er size and color name and quantity koto hobe seita dekhar jonno
+just product_quantiry + product_color + product_size 3ta field nilam
+====================PRODUCT ADD INVENTORY End==============================
 
     -->
 </body>

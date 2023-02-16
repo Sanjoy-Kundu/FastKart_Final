@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\FeaturedPhoto;
 use App\Models\Product;
+use App\Models\Size;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -175,4 +177,13 @@ class ProductController extends Controller
     {
         //
     }
+
+
+
+ function product_add_inventory($id){
+  $product = Product::find($id);
+  $sizes = Size::all();
+  $colors = Color::all();
+return view('backend.product_inventory.create', compact('product', 'sizes', 'colors'));
+ }
 }

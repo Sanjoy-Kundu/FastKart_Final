@@ -857,7 +857,7 @@
                                 <div class="product-box-3 wow fadeInUp">
                                     <div class="product-header">
                                         <div class="product-image">
-                                            <a href="product-left.htm">
+                                            <a href="{{ route('product.details', $related_product->id) }}">
                                                 <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $related_product->product_image }}"
                                                     class="img-fluid blur-up lazyload" alt="">
                                             </a>

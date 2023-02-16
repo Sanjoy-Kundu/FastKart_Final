@@ -65,26 +65,9 @@
                                                     </td>
 
                                                     <td>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="order-detail.html">
-                                                                    <i class="ri-eye-line"></i>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="ri-pencil-line"></i>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleModalToggle">
-                                                                    <i class="ri-delete-bin-line"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
+                                                        <a class="btn btn-primary"
+                                                            href="{{ route('product.add.inventory', $product->id) }}">Add
+                                                            Inventory</a>
                                                     </td>
                                                 </tr>
                                             @empty

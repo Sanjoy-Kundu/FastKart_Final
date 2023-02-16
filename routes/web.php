@@ -50,6 +50,7 @@ Route::get('category/permanent/delete/{category_id}', [CategoryController::class
 Route::get('product/list', [ProductController::class, 'index'])->name('product.index');
 Route::get('product', [ProductController::class, 'create'])->name('product.create');
 Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('product/add/inventory/{id}', [ProductController::class, 'product_add_inventory'])->name('product.add.inventory');
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::Product part end
 
