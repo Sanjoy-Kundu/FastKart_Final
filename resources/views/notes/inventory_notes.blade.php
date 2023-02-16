@@ -36,14 +36,25 @@ Product ================ Size  ================ Color
 muri sudhu color matter kore kintu size matter kore na
 
 
+Abar kicu porduct ace je sudhu size matter kore kinto color matter kore na
+    Product ==================Size ================Color
+        Vim     ================= Xl    =================Green
+                    =================SM    ================Yellow
+                    ================= m    ================  Blue
+
+===AKHON AMRA AI PROCESS E AGABO ORTHAT AMDER SIZE AND COLOR TOYRI KORA LAGBE =============
 
 
 
 
-                    ==========INVENTORY DESCRIPTION  END=========
+ ==========INVENTORY DESCRIPTION  END=========
         1. Product er inventory add korar jonno
             php artisan make:model PorductInventory -mc (migration table + controller lagbe)
         2. web.php te rote gula delcrear kobo
+        3.add inventory te amder 2 ta form thakebe akta hoiteace size er jonno and oporta color er jonno
+
+        4. size er jonno amader alada database lagbe and model lagbe tai amra php artisan make:model Size -m ; baniye nilam and database only size er name thake .
+        
 
 
 

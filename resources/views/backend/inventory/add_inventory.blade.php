@@ -13,61 +13,31 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="card-header-2">
-                                        <h5>Your Information</h5>
+                                        <h5>Add Your Product Size</h5>
                                     </div>
-                                    {{--          @if (session('success'))
+                                    @if (session('success'))
                                         <div class="alert alert-primary">{{ session('success') }}</div>
-                                    @endif --}}
-                                    <table class="w-100" border="1">
-                                        <tr>
-                                            <td>Profile</td>
-                                            <td class="w-50">
-                                                @if (auth()->user()->profile_photo)
-                                                    <img src="{{ asset('uploads/profiles') }}/{{ auth()->user()->profile_photo }}"
-                                                        alt="" class="img-thumbnail">
-                                                @else
-                                                    <img src="{{ asset('uploads/profiles/profile_avatar.jpg') }}"
-                                                        alt="" class="img-thumbnail">
-                                                @endif
-
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <h3>Name :</h3>
-                                            </td>
-                                            <td>
-                                                <h3>{{ auth()->user()->name }}</h3>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <h3>Email: </h3>
-                                            </td>
-                                            <td>
-                                                <h3>{{ auth()->user()->email }}</h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h3>Role:</h3>
-                                            </td>
-                                            <td>
-                                                <h3>{{ auth()->user()->role }}</h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h3>Action</h3>
-                                            </td>
-                                            <td align="center">
-                                                <button class="btn btn-primary"><a href="{{ route('change.index') }}"
-                                                        style="color:white">Password Change</a></button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    @endif
+                                    <form action="{{ route('product.inventory.size') }}" method="POST"
+                                        class="theme-form theme-form-2 mega-form">
+                                        @csrf
+                                        <div class="mb-4 row align-items-center">
+                                            <label class="form-label-title col-sm-3 mb-0">Product Size</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" placeholder="Users Name"
+                                                    name="size_name" value="{{ old('size_name') }}">
+                                                @error('size_name')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-4 row align-items-center">
+                                            <label class="col-sm-3 col-form-label form-label-title"></label>
+                                            <div class="form-group col-sm-9">
+                                                <button type="submit" class="btn btn-success">Add Size</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
