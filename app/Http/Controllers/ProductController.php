@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\FeaturedPhoto;
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Size;
 use Carbon\Carbon;
@@ -179,11 +180,31 @@ class ProductController extends Controller
     }
 
 
+    //Product inventory start color + size + quantity
+    function product_add_inventory($id){
+        $product = Product::find($id);
+        $sizes = Size::all();
+        $colors = Color::all();
+        $inventories = Inventory::where('product_id', $id)->with('relationshipWIthProduct', 'relationshipWithSize', 'relationshipWithColor')->latest()->get();
+         return view('backend.product_inventory.create', compact('product', 'sizes', 'colors', 'inventories'));
+       }
 
- function product_add_inventory($id){
-  $product = Product::find($id);
-  $sizes = Size::all();
-  $colors = Color::all();
-return view('backend.product_inventory.create', compact('product', 'sizes', 'colors'));
- }
+
+    function product_inventory_insert(Request $request, $id){
+
+        Inventory::insert([
+            'product_id'=>$id,
+            'product_quantity' => $request->product_quantity,
+            'product_size_id' => $request->product_size,
+            'product_color_id' => $request->product_color,
+            'created_at' =>Carbon::now(),
+        ]);
+        return back()->with('inventory_success', 'Inventory added successfully');
+    }
+    //Product inventory start color + size + quantity
+
+
+
+
+
 }

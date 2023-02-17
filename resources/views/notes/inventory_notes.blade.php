@@ -81,6 +81,76 @@ Inventory mane holo akta product er size and color niye asar jonno ja ja kora la
 
 ProductController er details and prduct er size and color name and quantity koto hobe seita dekhar jonno
 just product_quantiry + product_color + product_size 3ta field nilam
+
+
+
+Product er inventory add korar jonno
+step:1
+Inventory name akta model and migration table banailam and migration table er moddey product_id, color_id and size_id thakbbe
+Inventroy Insert korar jonno  amra  chole jabo PorductController er vitore
+
+step:2
+'product_id' + 'poduct_quanity' + 'product_size_id' + 'product_color_id' database e insert korte hobe
+
+step:3
+product er llist dekhanor jonnno amder Inventory model ke call kore dekhate hobe
+        inventories table er product_id === passkora $id
+        $inventory = Inventory::where('product_id', $id)->latest()->get(); ai gulo ke show koro
+
+step:4
+akhon ai inventory varibale ke amra table er moddey loop chalabo
+
+step:5
+akhon amy product er name show korate hobe but amar kace to product name nai tai amy relationship toyri korte hobe . and amader jei bishoy ta mathay rakte hobe seita hoitece je amra loop jekhane chiteci sei table er model er sahote jeita ber korte cai tar model er relation korte hobe
+
+
+step:6
+amra loop guracchi kothey Inventory te amra chole jabo Inventroy er model e seikhane giye kar sathe relation korate chacci Product er sathe tai amra akta function declear korbo
+function relationshipwithProduct(){
+    return $this->hasOne(Product::class, 'inventory er id', 'inventory te thake product er id')
+     return $this->hasOne(Product::class, 'id', 'product_id');
+}
+
+steps-7
+product er size dekhar joono amder Inventory Model  er sahte Size model er relation ghotaiete hobe
+seita holo
+    function relationshipWithSize(){
+        id = inventroy er id
+        return $this->hasOne(Size::class, 'id','product_size_id');
+    }
+
+    steps:8
+    product er color powar jonno Inventroy er model er sathe Color Model er realtionship toyri korte hobe
+ function relationshipWIthColor(){
+        return $this->hasOne(Color::class, 'id', 'product_color_id');
+    }
+
+
+    steps -9
+    table er product addition ta valo kore lokkho koro
+
+    setps-10
+    Relatonshipgulo akebapre page load howar age niye lod dei
+
+    without relationship load
+     function product_add_inventory($id){
+        $product = Product::find($id);
+        $sizes = Size::all();
+        $colors = Color::all();
+        //inventory theke seigulo ke dekhaw jekhane product_id == $id er soman
+        $inventories = Inventory::where('product_id', $id)->latest()->get();
+         return view('backend.product_inventory.create', compact('product', 'sizes', 'colors', 'inventories'));
+       }
+
+       with relationship load
+        function product_add_inventory($id){
+        $product = Product::find($id);
+        $sizes = Size::all();
+        $colors = Color::all();
+        //inventory theke seigulo ke dekhaw jekhane product_id == $id er soman
+         $inventories = Inventory::where('product_id', $id)->with('relationshipWIthProduct', 'relationshipWithSize', 'relationshipWithColor')->latest()->get();
+         return view('backend.product_inventory.create', compact('product', 'sizes', 'colors', 'inventories'));
+       }
 ====================PRODUCT ADD INVENTORY End==============================
 
     -->

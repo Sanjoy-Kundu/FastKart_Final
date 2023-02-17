@@ -51,6 +51,7 @@ Route::get('product/list', [ProductController::class, 'index'])->name('product.i
 Route::get('product', [ProductController::class, 'create'])->name('product.create');
 Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
 Route::get('product/add/inventory/{id}', [ProductController::class, 'product_add_inventory'])->name('product.add.inventory');
+Route::post('product/inventory/insert/{id}', [ProductController::class, 'product_inventory_insert'])->name('product.inventory.insert');
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::Product part end
 

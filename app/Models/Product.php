@@ -14,4 +14,5 @@ class Product extends Model
     function relationshipWithCategory(){
         return $this->hasOne(Category::class, 'id', 'product_category');
     }
+
 }
