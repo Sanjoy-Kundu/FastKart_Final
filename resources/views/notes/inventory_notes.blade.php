@@ -153,7 +153,146 @@ seita holo
        }
 ====================PRODUCT ADD INVENTORY End==============================
 
-    -->
+
+
+
+
+
+
+=================================================================================
+PRODUCT INVENTORY LIST E JE JINISH GULO DEKTE HOEB
+Such as Walton light er black color er large size er 20 pice nilamn and skhon joi same light smae color er ro 10 pice nei tahole onno kono row add hobe na just quantiy ta add hobe
+
+tai aikhane amder akta if likte hobe .
+
+    function product_inventory_insert(Request $request, $id){
+        return $request; likhe dhorte hobe
+    }
+    akhon amy Inventroy table e giye check korete hobe je oi porudct_id er size_id and color_id ace naki nai . jehetu miltiple check korbo tai
+    akta system ace
+    Inventory table er kace jabo
+
+    ProductController
+    function product_inventory_insert(Request $request, $id){
+       // return  $request;
+    echo    Inventory::where([
+            'product_quantity'=>$request->product_quantity,
+            'product_size_id'=> $request->product_size,
+            'product_color_id'=>$request->product_color,
+        ])->exists();
+
+jjehutu databse e ace tai 1 reutrn korbe
+
+jodi 1 retrun kore tahole akta if likhe quanttry er man bariye dibo
+
+ function product_inventory_insert(Request $request, $id){
+
+    //    // return  $request;
+
+    //    if(Inventory::where([
+    //     'product_quantity'=>$request->product_quantity,
+    //     'product_size_id'=> $request->product_size,
+    //     'product_color_id'=>$request->product_color,
+    // ])->exists()){
+
+    //    }else{
+
+    //    }
+
+    if(Inventory::where([
+        'product_id' => $id,
+        'product_size_id'=> $request->product_size,
+        'product_color_id'=>$request->product_color,
+    ])->exists()){
+        //quantity incriment start hobe
+        Inventory::where([
+            'product_id' => $id,
+            'product_size_id'=> $request->product_size,
+            'product_color_id'=>$request->product_color,
+        ])->increment('product_quantity', $request->product_quantity);
+    //quantity increment end
+    }else{
+        Inventory::insert([
+            'product_id'=>$id,
+            'product_quantity' => $request->product_quantity,
+            'product_size_id' => $request->product_size,
+            'product_color_id' => $request->product_color,
+            'created_at' =>Carbon::now(),
+        ]);
+    }
+    // echo    Inventory::where([
+    //         'product_quantity'=>$request->product_quantity,
+    //         'product_size_id'=> $request->product_size,
+    //         'product_color_id'=>$request->product_color,
+    //     ])->exists();
+
+    //     die();
+    //     Inventory::insert([
+    //         'product_id'=>$id,
+    //         'product_quantity' => $request->product_quantity,
+    //         'product_size_id' => $request->product_size,
+    //         'product_color_id' => $request->product_color,
+    //         'created_at' =>Carbon::now(),
+    //     ]);
+        return back()->with('inventory_success', 'Inventory added successfully');
+    }
+    //Product inventory start color + size + quantity
+
+
+
+
+
+
+
+
+
+
+
+
+
+    =============create.blade file eee ==================
+    View Porduct korar jonno
+    <a href="{route('product.details', $product->id) }}" target="_blank" class="btn btn-primary w-50">View
+        Product</a>
+        ai button e click korete product ke dekhabe
+    =============create.blade file eee ==================
+
+
+
+
+
+
+
+
+    ===============Product details e size er list anar jonno ==============================
+    chole jabo product details
+    FrontendController er product_details er moddey \
+       $inventories = Inventory::where('product_id', $id)->get(); pass kore dibo
+
+       loop chaiye to size_id er number dekhaba amder name dekhano jonno relationship take call korbo
+
+                        <div class="product-packege ">
+                                    <div class="product-title">
+                                        <h4>Color</h4>
+                                    </div>
+
+                                    <select name="" class="form-control">
+                                        <option value="">--select one color---</option>
+                                        foreach ($inventories as $inventory)
+                                            <option value="">{ $inventory->relationshipWIthColor->color_name }}</option>
+                                        endforeach
+                                    </select>
+                                    <div class="product-title">
+                                        <h4>Size</h4>
+                                    </div>
+                                    <select name="" class="form-control">
+                                        <option value="">----select one size ---</option>
+                                        foreach ($inventories as $inventory)
+                                                <option value="">{ $inventory->relationshipWithSize->size_name }} </option>
+                                        endforeach
+                                    </select>
+                                </div>
+
 </body>
 
 </html>

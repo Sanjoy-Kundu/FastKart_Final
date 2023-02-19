@@ -171,20 +171,24 @@
                                     <div class="product-title">
                                         <h4>Color</h4>
                                     </div>
+
                                     <select name="" class="form-control">
-                                        <option value="">red</option>
-                                        <option value="">green</option>
-                                        <option value="">yellow</option>
+                                        <option value="">--select one color---</option>
+                                        @foreach ($inventories as $inventory)
+                                            <option value="">{{ $inventory->relationshipWIthColor->color_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     <div class="product-title">
                                         <h4>Size</h4>
                                     </div>
                                     <select name="" class="form-control">
-                                        <option value="">S</option>
-                                        <option value="">M</option>
-                                        <option value="">L</option>
-                                        <option value="">XL</option>
-                                        <option value="">XXL</option>
+                                        <option value="">----select one size ---</option>
+                                        @foreach ($inventories as $inventory)
+                                            <option value="">{{ $inventory->relationshipWithSize->size_name }}
+                                            </option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                                 <div class="note-box product-packege">
@@ -231,7 +235,7 @@
                                             <li>Selling Since:
                                                 {{ $product_details->relationshipWithCategory->created_at->format('d-M-Y') }}
                                             </li>
-                                            <li>Stock: ===</li>
+                                            <li>Stock:{{ $inventories->sum('product_quantity') }}</li>
 
                                         </ul>
                                     </div>

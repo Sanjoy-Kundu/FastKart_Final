@@ -46,27 +46,30 @@
                                                 <tr>
                                                     <td>{{ $loop->index + 1 }}</td>
                                                     <td>
-                                                        <div class="table-image">
-                                                            <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $product->product_image }}"
-                                                                alt="not found" class="img-fluid">
-                                                        </div>
+                                                        <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $product->product_image }}"
+                                                            alt="not-found" class="img-fluid" width="100" height="100">
                                                     </td>
 
                                                     <td>{{ $product->product_name }}</td>
 
                                                     <td>{{ $product->relationshipWithCategory->category_name }}</td>
 
-                                                    <td>{{ $product->created_at }}</td>
+                                                    <td>{{ $product->created_at->format('d-m-Y') }}</td>
 
                                                     <td class="td-price">${{ $product->product_regular_price }}</td>
 
                                                     <td class="status-danger">
-                                                        <span>Pending</span>
+                                                        @if ($product->updated_at)
+                                                            <span>{{ $product->updated_at->format('d-m-Y') }}</span>
+                                                        @else
+                                                            <span>Pending</span>
+                                                        @endif
                                                     </td>
 
                                                     <td>
                                                         <a class="btn btn-primary"
-                                                            href="{{ route('product.add.inventory', $product->id) }}">Add
+                                                            href="{{ route('product.add.inventory', $product->id) }}"
+                                                            target="_blank">Add
                                                             Inventory</a>
                                                     </td>
                                                 </tr>

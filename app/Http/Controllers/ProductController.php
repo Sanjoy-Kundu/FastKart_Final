@@ -185,13 +185,38 @@ class ProductController extends Controller
         $product = Product::find($id);
         $sizes = Size::all();
         $colors = Color::all();
-        $inventories = Inventory::where('product_id', $id)->with('relationshipWIthProduct', 'relationshipWithSize', 'relationshipWithColor')->latest()->get();
-         return view('backend.product_inventory.create', compact('product', 'sizes', 'colors', 'inventories'));
+     $inventories = Inventory::where('product_id', $id)->with('relationshipWIthProduct', 'relationshipWithSize', 'relationshipWithColor')->latest()->get();
+       return view('backend.product_inventory.create', compact('product', 'sizes', 'colors', 'inventories'));
        }
 
 
     function product_inventory_insert(Request $request, $id){
 
+    //    // return  $request;
+
+    //    if(Inventory::where([
+    //     'product_quantity'=>$request->product_quantity,
+    //     'product_size_id'=> $request->product_size,
+    //     'product_color_id'=>$request->product_color,
+    // ])->exists()){
+
+    //    }else{
+
+    //    }
+
+    if(Inventory::where([
+        'product_id' => $id,
+        'product_size_id'=> $request->product_size,
+        'product_color_id'=>$request->product_color,
+    ])->exists()){
+        //quantity incriment start hobe
+        Inventory::where([
+            'product_id' => $id,
+            'product_size_id'=> $request->product_size,
+            'product_color_id'=>$request->product_color,
+        ])->increment('product_quantity', $request->product_quantity);
+    //quantity increment end
+    }else{
         Inventory::insert([
             'product_id'=>$id,
             'product_quantity' => $request->product_quantity,
@@ -199,6 +224,21 @@ class ProductController extends Controller
             'product_color_id' => $request->product_color,
             'created_at' =>Carbon::now(),
         ]);
+    }
+    // echo    Inventory::where([
+    //         'product_quantity'=>$request->product_quantity,
+    //         'product_size_id'=> $request->product_size,
+    //         'product_color_id'=>$request->product_color,
+    //     ])->exists();
+
+    //     die();
+    //     Inventory::insert([
+    //         'product_id'=>$id,
+    //         'product_quantity' => $request->product_quantity,
+    //         'product_size_id' => $request->product_size,
+    //         'product_color_id' => $request->product_color,
+    //         'created_at' =>Carbon::now(),
+    //     ]);
         return back()->with('inventory_success', 'Inventory added successfully');
     }
     //Product inventory start color + size + quantity

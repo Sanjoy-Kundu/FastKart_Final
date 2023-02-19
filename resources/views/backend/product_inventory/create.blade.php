@@ -16,14 +16,20 @@
                                     <h2 class="text-center">Add Inventory of <span
                                             class="text-primary">{{ $product->product_name }}</span></h2>
                                     <h4><b>Descripiton</b> {{ $product->short_description }}</h4>
+
+
                                     <p style="width: 300px; height:250px;" class="mt-3">
                                         Photo:
                                         <img class="img-fluid img-thumbnail w-100 h-100"
                                             src="{{ asset('uploads/products/mainPHoto') }}/{{ $product->product_image }}"
                                             alt="">
+                                        <!-----View Porduct---->
+                                        <a href="{{ route('product.details', $product->id) }}" target="_blank"
+                                            class="btn btn-primary w-50">View
+                                            Product</a>
                                     </p>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body mt-5">
                                     <div class="card-header-2">
                                         <h5>Add Your Product Inventory</h5>
 
@@ -124,10 +130,8 @@
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $inventory->relationshipWIthProduct->product_name }}</td>
                                                 <td>
-                                                    <div class="table-image">
-                                                        <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $inventory->relationshipWIthProduct->product_image }}"
-                                                            alt="not-found" class="img-fluid" width="100" height="100">
-                                                    </div>
+                                                    <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $inventory->relationshipWIthProduct->product_image }}"
+                                                        alt="not-found" class="img-fluid" width="100" height="100">
                                                 </td>
                                                 <td>
                                                     {{ $inventory->relationshipWithSize->size_name }}
@@ -143,12 +147,13 @@
                                                     @endphp
                                                 </td>
                                             </tr>
+
                                         @empty
                                         @endforelse
                                         <tr>
-                                            <td colspan="6" align="right"> {{ $inventory->sum('product_quantity') }}
+                                            <td colspan="6" align="right">{{ $inventories->sum('product_quantity') }}
                                             </td>
-                                            <td>{{ $total_value }}</td>
+                                            <td align="right">{{ $total_value }}</td>
                                         </tr>
                                     </table>
                                 </div>
