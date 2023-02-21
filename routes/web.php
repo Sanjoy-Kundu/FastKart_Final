@@ -26,6 +26,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
+
+Route::get('product/wishlist/add/{id}', [FrontendController::class, 'product_wishlist_add'])->name('product.wishlist.add');
+Route::get('wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
+Route::get('product/wishlist/delete/{id}', [FrontendController::class, 'wishlist_delete'])->name('product.wishlist.delete');
 /* Route::get('/', function () {
     return view('welcome');
 }); */

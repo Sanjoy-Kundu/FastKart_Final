@@ -165,11 +165,20 @@
                                             </div>
                                         </a>
                                     </li>
+
                                     <li class="right-side">
-                                        <a href="wishlist.html" class="btn p-0 position-relative header-wishlist">
-                                            <i data-feather="heart"></i>
-                                        </a>
+                                        <div class="onhover-dropdown header-badge">
+                                            <a href="{{ route('wishlist') }}" type="button"
+                                                class="btn p-0 position-relative header-wishlist">
+                                                <i data-feather="heart"></i>
+                                                <span
+                                                    class="position-absolute top-0 start-100 translate-middle badge">{{ total_wishlist() }}
+                                                </span>
+                                            </a>
+                                        </div>
                                     </li>
+
+
                                     <li class="right-side">
                                         <div class="onhover-dropdown header-badge">
                                             <button type="button" class="btn p-0 position-relative header-wishlist">
@@ -384,7 +393,7 @@
             </li>
 
             <li>
-                <a href="wishlist.html" class="notifi-wishlist">
+                <a href="{{ route('wishlist') }}" class="notifi-wishlist">
                     <i class="iconly-Heart icli"></i>
                     <span>My Wish</span>
                 </a>

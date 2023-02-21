@@ -7,6 +7,8 @@ use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\ProductInventory;
 use App\Models\User;
+use App\Models\Wishlist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -21,7 +23,7 @@ class FrontendController extends Controller
     function product_details ($id){
 
          $product_details = Product::find($id);
-         $product_details->product_category;
+     //    $product_details->product_category;
         $vendor = User::find($product_details->user_id);
          $featuer_photos = FeaturedPhoto::where('product_id',$id)->get();
         $related_products = Product::where('product_category', $product_details->product_category)->where('id', '!=', $id)->get();
@@ -30,4 +32,38 @@ class FrontendController extends Controller
 
   return view('frontend.products.product_details', compact('product_details', 'featuer_photos', 'vendor', 'related_products', 'product_inventories', 'inventories'));
     }
+
+
+
+
+
+
+    //Product wishlist start
+    function wishlist(){
+        $wishlists = Wishlist::where('user_id', auth()->id())->with('relationshipWithProduct')->latest()->get();
+        return view('frontend.whishlist.wishlist', compact('wishlists'));
+    }
+
+
+    //wishlist insert start
+function product_wishlist_add($id){
+  //  return $id;
+   // return auth()->user()->name;
+    Wishlist::insert([
+        'user_id'=>auth()->user()->id,
+        'product_id' => $id,
+        'created_at' => Carbon::now(),
+    ]);
+    return back();
+}
+//wishlist insert end
+
+//wishlist delete start
+function wishlist_delete($id){
+    Wishlist::find($id)->delete();
+    return back()->with('success', 'Product deleted successfully');
+}
+//wishlist delete end
+    //Product wishlist end
+
 }

@@ -47,41 +47,6 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-
-
-
-
-                                            {{--   <div>
-                                                <div class="slider-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/3.jpg"
-                                                        data-zoom-image="{{ asset('frontend_assets') }}/images/product/category/3.jpg"
-                                                        class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div class="slider-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/4.jpg"
-                                                        data-zoom-image="{{ asset('frontend_assets') }}/images/product/category/4.jpg"
-                                                        class="img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div class="slider-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/5.jpg"
-                                                        data-zoom-image="{{ asset('frontend_assets') }}/images/product/category/5.jpg"
-                                                        class="img-fluid image_zoom_cls-4 blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div class="slider-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/6.jpg"
-                                                        data-zoom-image="{{ asset('frontend_assets') }}/images/product/category/6.jpg"
-                                                        class="img-fluid image_zoom_cls-5 blur-up lazyload" alt="">
-                                                </div>
-                                            </div> --}}
                                         </div>
                                     </div>
 
@@ -95,34 +60,7 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                            {{--
-                                            <div>
-                                                <div class="sidebar-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/3.jpg"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
 
-                                            <div>
-                                                <div class="sidebar-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/4.jpg"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div class="sidebar-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/5.jpg"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <div class="sidebar-image">
-                                                    <img src="{{ asset('frontend_assets') }}/images/product/category/6.jpg"
-                                                        class="img-fluid blur-up lazyload" alt="">
-                                                </div>
-                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -209,12 +147,30 @@
                                         class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
                                 </div>
 
-                                <div class="buy-box">
-                                    <a href="wishlist.html">
+                                @auth
+                                    <div class="buy-box">
+                                        @if (App\Models\Wishlist::where(['user_id' => auth()->id(), 'product_id' => $product_details->id])->exists())
+                                            <a href="#">
+                                                <i data-feather="heart" class="text-danger"></i>
+                                                <span class="text-danger">Already Added to wishlist</span>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('product.wishlist.add', $product_details->id) }}">
+                                                <i data-feather="heart"></i>
+                                                <span>Add To Wishlist</span>
+                                            </a>
+                                        @endif
+
+                                    </div>
+                                @endauth
+
+                                {{--       <div class="buy-box">
+                                    <a href="{{ route('product.add.to.wishlist', $product_details->id) }}">
                                         <i data-feather="heart"></i>
                                         <span>Add To Wishlist</span>
                                     </a>
                                 </div>
+ --}}
 
                                 <div class="pickup-box">
                                     <div class="product-title">
