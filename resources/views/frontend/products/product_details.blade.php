@@ -1,10 +1,46 @@
 @extends('layouts.frontendmaster')
 
 @section('content')
+    <!---LOGIN MODEL START---->
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Login Your account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-control" action="{{ route('custom.login') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" placeholder="Enter Your Email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Your Password</label>
+                            <input type="password" class="form-control" id="" placeholder="Enter Your Password"
+                                name="password">
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary bg-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---LOGIN MODEL END---->
+
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
             <div class="row">
+                @if (session('login_error'))
+                    <div class="alert alert-danger">{{ session('login_error') }}</div>
+                @endif
                 <div class="col-12">
                     <div class="breadscrumb-contain">
                         <h2>{{ $product_details->product_name }}</h2>
@@ -132,19 +168,31 @@
                                 <div class="note-box product-packege">
                                     <div class="cart_qty qty-box product-qty">
                                         <div class="input-group">
-                                            <button type="button" class="qty-right-plus" data-type="plus" data-field="">
+                                            <button type="button" class="qty-right-plus" data-type="plus"
+                                                data-field="">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                             <input class="form-control input-number qty-input" type="text"
                                                 name="quantity" value="0">
-                                            <button type="button" class="qty-left-minus" data-type="minus" data-field="">
+                                            <button type="button" class="qty-left-minus" data-type="minus"
+                                                data-field="">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </div>
 
-                                    <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                    @auth
+                                        <a href="#" class="btn btn-md bg-dark cart-button text-white w-100">Add To
+                                            Cart</a>
+                                    @else
+                                        <button type="button" class="btn btn-md bg-dark cart-button text-white w-100"
+                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                            Add To Cart
+                                        </button>
+                                        {{--   <a href="#" class="btn btn-md bg-dark cart-button text-white w-100">Please
+                                            login</a> --}}
+                                    @endauth
+
                                 </div>
 
                                 @auth

@@ -30,6 +30,7 @@ Route::get('product/details/{id}', [FrontendController::class, 'product_details'
 Route::get('product/wishlist/add/{id}', [FrontendController::class, 'product_wishlist_add'])->name('product.wishlist.add');
 Route::get('wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 Route::get('product/wishlist/delete/{id}', [FrontendController::class, 'wishlist_delete'])->name('product.wishlist.delete');
+Route::post('custom/login', [FrontendController::class, 'custom_login'])->name('custom.login');
 /* Route::get('/', function () {
     return view('welcome');
 }); */

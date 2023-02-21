@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -65,5 +66,22 @@ function wishlist_delete($id){
 }
 //wishlist delete end
     //Product wishlist end
+
+
+
+
+
+
+    //custom login start
+    function custom_login(Request $request){
+       // return $request;
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password,])) {
+            //echo "login password milse";
+            return back();
+        }else{
+            return back()->with('login_error', 'Your email and password does not match');
+        }
+    }
+    //custom login end
 
 }
