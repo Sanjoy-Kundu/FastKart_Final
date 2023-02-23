@@ -47,7 +47,41 @@ section('footer_script')
         });
     </script>
 endsection
+
+Steps:06
 aikhne hello button e click korlei hello world alert dibe
+but amra to aita chai na
+amra cahi dropdowon size e select kolre hello lekhar alert dekhabe
+
+amra ki korbo amra
+            <select id="size_dropdown">
+                            <option>hello</sption>
+                </select>
+        <script>
+            $(document).ready(function() {
+                $('#size_dropdown').change(function() {
+                    alert('dropdown change');
+                });
+            });
+        </script>
+
+
+
+Steps:07
+amra chai je page reload na niye jokhon size select korbo tokhon oi size er ja color ace seita chole asbe . Page reload na diye database theke amader database theke data niye aste hobe amder ajax er help nite hobe and aita lavel er documentation ei bola ace .
+armra chole jabo larvel.com ===>xcrf
+            X-CSRF-TOKEN ai toen er use korte hobe
+                <meta name="csrf-token" content="{{ csrf_token() }}"> aita use krobo meta tag er moddey
+    ajax setup ta likbo scripti code er moody
+                $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+
+
+
 
 
 

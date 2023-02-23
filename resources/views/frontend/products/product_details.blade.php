@@ -157,8 +157,8 @@
                                     <div class="product-title">
                                         <h4>Size</h4>
                                     </div>
-                                    <button id="hello_btn">hello</button>
-                                    <select name="" class="form-control">
+                                    {{-- <button id="hello_btn">hello</button> --}}
+                                    <select name="" id="size_dropdown" class="form-control">
                                         <option value="">----select one size ---</option>
                                         @foreach ($inventories->unique('product_size_id') as $inventory)
                                             <option value="">{{ $inventory->relationshipWithSize->size_name }}
@@ -970,9 +970,18 @@
 <!---Custom javascript from frontend master --->
 @section('footer_script')
     <script>
+        /*   =========Basic Jquery =========
+         $(document).ready(function() {
+                $('#hello_btn').click(function() {
+                    alert('Hello world');
+                });
+            });
+    */
+
+
         $(document).ready(function() {
-            $('#hello_btn').click(function() {
-                alert('Hello world');
+            $('#size_dropdown').change(function() {
+                alert('dropdown change');
             });
         });
     </script>
