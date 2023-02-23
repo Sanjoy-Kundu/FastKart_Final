@@ -971,18 +971,31 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-         $(document).ready(function() {
-                $('#hello_btn').click(function() {
-                    alert('Hello world');
-                });
-            });
-    */
-
-
+                                         $(document).ready(function() {
+                                                $('#hello_btn').click(function() {
+                                                    alert('Hello world');
+                                                });
+                                            });
+                                    */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
-                alert('dropdown change');
+                //alert('dropdown change');
+                //ajax setup
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "link here",
+
+                })
             });
+
+
+
+
         });
     </script>
 @endsection
