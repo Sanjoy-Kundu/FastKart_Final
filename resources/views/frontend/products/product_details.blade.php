@@ -144,11 +144,12 @@
                                 <div class="product-packege ">
                                     <div class="product-title">
                                         <h4>Color</h4>
+
                                     </div>
 
                                     <select name="" class="form-control">
                                         <option value="">--select one color---</option>
-                                        @foreach ($inventories as $inventory)
+                                        @foreach ($inventories->unique('product_color_id') as $inventory)
                                             <option value="">{{ $inventory->relationshipWIthColor->color_name }}
                                             </option>
                                         @endforeach
@@ -158,7 +159,7 @@
                                     </div>
                                     <select name="" class="form-control">
                                         <option value="">----select one size ---</option>
-                                        @foreach ($inventories as $inventory)
+                                        @foreach ($inventories->unique('product_size_id') as $inventory)
                                             <option value="">{{ $inventory->relationshipWithSize->size_name }}
                                             </option>
                                         @endforeach
