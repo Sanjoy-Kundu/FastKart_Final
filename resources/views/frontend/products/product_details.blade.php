@@ -157,6 +157,7 @@
                                     <div class="product-title">
                                         <h4>Size</h4>
                                     </div>
+                                    <button id="hello_btn">hello</button>
                                     <select name="" class="form-control">
                                         <option value="">----select one size ---</option>
                                         @foreach ($inventories->unique('product_size_id') as $inventory)
@@ -964,4 +965,15 @@
         </div>
     </section>
     <!-- Releted Product Section End -->
+@endsection
+
+<!---Custom javascript from frontend master --->
+@section('footer_script')
+    <script>
+        $(document).ready(function() {
+            $('#hello_btn').click(function() {
+                alert('Hello world');
+            });
+        });
+    </script>
 @endsection

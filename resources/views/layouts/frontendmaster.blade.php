@@ -978,6 +978,9 @@
 
     <!-- thme setting js -->
     <script src="{{ asset('frontend_assets') }}/js/theme-setting.js"></script>
+
+    <!--Custom js made by Sanjoy-->
+    @yield('footer_script')
 </body>
 
 </html>
