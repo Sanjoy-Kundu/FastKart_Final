@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Models\FeaturedPhoto;
 use App\Models\Inventory;
 use App\Models\Product;
@@ -83,5 +84,15 @@ function wishlist_delete($id){
         }
     }
     //custom login end
+
+
+
+
+    //working with ajax size to color
+    function get_color_list(Request $request){
+
+        return $request->size_id;
+        //return Color::all();
+    }
 
 }

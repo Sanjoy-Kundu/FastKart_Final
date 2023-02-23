@@ -161,7 +161,8 @@
                                     <select name="" id="size_dropdown" class="form-control">
                                         <option value="">----select one size ---</option>
                                         @foreach ($inventories->unique('product_size_id') as $inventory)
-                                            <option value="">{{ $inventory->relationshipWithSize->size_name }}
+                                            <option value="{{ $inventory->relationshipWithSize->id }}">
+                                                {{ $inventory->relationshipWithSize->size_name }}
                                             </option>
                                         @endforeach
 
@@ -971,26 +972,33 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                         $(document).ready(function() {
-                                                $('#hello_btn').click(function() {
-                                                    alert('Hello world');
-                                                });
-                                            });
-                                    */
+                                                                                         $(document).ready(function() {
+                                                                                                $('#hello_btn').click(function() {
+                                                                                                    alert('Hello world');
+                                                                                                });
+                                                                                            });
+                                                                                    */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 //alert('dropdown change');
                 //ajax setup
+                var size_id = $(this).val();
+                alert(size_id);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
                 $.ajax({
-                    type: "GET",
-                    url: "link here",
-
-                })
+                    type: "POST",
+                    url: "/get/color/list",
+                    data: {
+                        size_id: size_id
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
             });
 
 

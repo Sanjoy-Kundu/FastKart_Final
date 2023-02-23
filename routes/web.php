@@ -31,6 +31,7 @@ Route::get('product/wishlist/add/{id}', [FrontendController::class, 'product_wis
 Route::get('wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 Route::get('product/wishlist/delete/{id}', [FrontendController::class, 'wishlist_delete'])->name('product.wishlist.delete');
 Route::post('custom/login', [FrontendController::class, 'custom_login'])->name('custom.login');
+Route::get('get/color/list', [FrontendController::class, 'get_color_list'])->name('get.color.list');
 /* Route::get('/', function () {
     return view('welcome');
 }); */

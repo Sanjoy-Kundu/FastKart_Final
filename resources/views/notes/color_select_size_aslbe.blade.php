@@ -80,6 +80,170 @@ armra chole jabo larvel.com ===>xcrf
                         });
 
 
+Steps:8
+    amra ajax use korbo kothey product_details.blade.php te
+    section('footer_script')
+        <script>
+            $(document).ready(function() {
+                        $('#size_dropdown').change(function() {
+                                size_dropdown er moddey joto rokom karisma ace aitar moodey dekhabo
+                                //alert('dropdown change');
+                                //ajax setup start
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                                });
+                                //ajax setup end
+
+                                Ajax er moody kono request send korte hole ander likte hobe $.ajax(), akta
+
+                                function
+                                next ai $.ajax() er
+
+                                function er moddey {}
+                                cury braches dibo.
+                                for example:::
+                                    $.ajax({
+                                        aikhne je code dorkar seita likbo
+                                    })
+
+                                step: 1
+                                akhon ami ajax ke bolbo je ajax bondhu tumi server er kace request pthao
+                                    .Tokhon ajax amy bolbe je bondu ami kon dhoroner request pathbo GET OR POST request konta pathabo
+                                    .
+
+                                step: 2
+                                ajax ke bole dite hobe je ajax tmi kon url er kace jabe seita bolte hobe orhat url bole dite hobe
+                                    .ami bollam je ajax tumi(
+                                        url name) ai url er kace jao and tumi and tmr kono data niye asar dorkar nai
+                                    .jokhon dorkar hobe tokhon bolbo.
+
+                                step: 3
+                                ajax je database er kace gece and se jodi kono data niye ase tahole se to success tai se ki data niye asche seita dekhar jonno amy
+                                success: namelessfunction(parameter dibo data name) {
+                                    alert(data or parameter name)
+                                }
+                                se jodi kono data niye ase tahole seita dekbo
+                                success: function(data) {
+                                    alert(data)
+                                }
+                                step: 4
+                                ajax er error dekhar jonno amra browser er console a jabo
+                                    .and dropdown er akta ke select kore debo je 500 error ai akti server error aitar karon se je url er hit korece sei url pai nai
+                                    .
+
+                                step: 5
+                                url toyri korte hobe tai amra chole jabo web.php te seita amra url or route banabo
+                                    .jehetu aita frontend er part tai amra aita frontend er under e banabo
+                                Route::get('get/color/list', [FrontendController::class, 'get_color_list']) - > name(
+                                    'get.color.list');
+                                and frontendConteoller er jabo
+
+                                //working with ajax size to color
+                                function get_color_list() {
+                                    return "good";
+                                }
+
+                                good tokhoei kaj korbe jokhon success er moddey functio likhe ta moddey data pass korbo
+                                    .#ajax({
+                                        type: "GET",
+                                        url: "get/color/list",
+                                        success: function(data) {
+                                            alert(data)
+                                        }
+                                    })
+
+
+                                step: 6
+                                but amra to hello pass korte cai na amnra size e jokhon click korbo tokhon oi size er under er oi product er jotogulo color ace sob gulo dekhabe
+
+                                function get_color_list() {
+                                    return Color::all();
+                                }
+                                joto color ace sob gulo dekhabe database e total koto gulo color ace sob chole asebe
+
+                                step: 7
+                                akhon amr kaj hoise ami je size ke click korci tar id ke dhote parteci ki na orthat jodi small ke click kori tahole small er id te dhorte parteci kina seita dkebo
+                                    .
+                                PRODUCT_DETAILS.blade.php just value set kore dilam
+                                tar jonno ami chole jabo size e jekhane foreach chaice tar value diye dibo
+
+                                select name = ""
+                                id = "size_dropdown"
+                                class = "form-control" >
+                                    option value = "" > -- --select one size-- - < /option>
+                                foreach($inventories - > unique('product_size_id') as $inventory) <
+                                    option value = "{ $inventory->relationshipWithSize->id }}" > {
+                                        $inventory - > relationshipWithSize - > size_name
+                                    }
+                            }
+                            /option>
+                            endforeach <
+                            /select>
+
+
+                            step8 akhon mader size er id dhorte hobe
+                            .size er id amader akta variable er mnoddry rakte hobe $(document).ready(function() {
+                                $('#size_dropdown').change(function() {
+                                    //alert('dropdown change');
+                                    //ajax setup'
+                                    ===
+                                    ===
+                                    = VARIABLE START === ==
+                                        var size_id = $(this).val();
+                                    alert(size_id); ===
+                                    ===
+                                    = VARIABLE END === === alet diye deklam je kono no id
+                                    $.ajaxSetup({
+                                        headers: {
+                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                        }
+                                    });
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/get/color/list",
+                                        success: function(data) {
+                                            alert(data);
+                                        }
+                                    });
+                                });
+
+                                step 9:
+                                    akhon amra ai data ke database e pathiye data niye aste bolbo
+                                    .tar jonno amy ajax er moddy data: name akta filed nite hobe
+                                data: jekono_name size_id:
+                                    size_id size id ke size id namei pahailam jehetu data pathaichi tait type hobe POST and web
+                                    .php er type o hobe Post
+                                data: {
+                                    jekono_name: size_id valrialbe name
+                                }
+
+
+                                strep: 10
+                                FrontendController e jabo and
+
+                                function get_color_list(Request $request) {
+                                    return $request - > size_id;
+                                    //return Color::all();
+                                }
+                                and amy size_id dkhaibe.
+
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "link here",
+                                    success: function(data) {
+                                        alert(data)
+                                    };
+                                })
+                            });
+                        });
+        </script>
+
+
+    endsection
+
 
 
 
