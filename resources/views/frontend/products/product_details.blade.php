@@ -104,6 +104,7 @@
                         </div>
 
                         <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+
                             <div class="right-box-contain">
                                 <h6 class="offer-top"> {{ $product_details->discount }}% Off</h6>
                                 <h2 class="name"> {{ $product_details->product_name }}</h2>
@@ -146,9 +147,9 @@
                                         <h4>Color</h4>
 
                                     </div>
-
+                                    <h1 id="color_test">Available color</h1>
                                     <select name="" class="form-control">
-                                        <option value="">--select one color---</option>
+                                        <option value="">--select size first---</option>
                                         @foreach ($inventories->unique('product_color_id') as $inventory)
                                             <option value="">{{ $inventory->relationshipWIthColor->color_name }}
                                             </option>
@@ -972,18 +973,20 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                                                                         $(document).ready(function() {
-                                                                                                $('#hello_btn').click(function() {
-                                                                                                    alert('Hello world');
-                                                                                                });
-                                                                                            });
-                                                                                    */
+                                                                                                                                                                                                                         $(document).ready(function() {
+                                                                                                                                                                                                                                $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                    alert('Hello world');
+                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                    */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 //alert('dropdown change');
                 //ajax setup
                 var size_id = $(this).val();
-                alert(size_id);
+                var product_id = {{ $product_details->id }};
+                //  alert(product_id);
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -993,17 +996,16 @@
                     type: "POST",
                     url: "/get/color/list",
                     data: {
-                        size_id: size_id
+                        size_id: size_id,
+                        product_id: product_id,
                     },
                     success: function(data) {
-                        alert(data);
+
+                        $('#color_test').html(data);
+                        // alert(data);
                     }
                 });
             });
-
-
-
-
         });
     </script>
 @endsection

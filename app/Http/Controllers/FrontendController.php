@@ -90,8 +90,22 @@ function wishlist_delete($id){
 
     //working with ajax size to color
     function get_color_list(Request $request){
+      //  return $request->size_id;
+      //  return $request->product_id;
+/*        return   Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get(); */
 
-        return $request->size_id;
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+
+        foreach($Inventories as $inventory){
+            echo $inventory->relationshipWIthColor->color_name;
+        }
+
         //return Color::all();
     }
 
