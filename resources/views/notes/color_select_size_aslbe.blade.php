@@ -334,7 +334,10 @@ Steps:8
 
         $.ajax({
             jeikhnae code likhe seikhane giye id dhore .html diye data call kore dibo
+             success: function(data) {
+            $("#test_color").html(data);
         })
+    }
 
 
 
