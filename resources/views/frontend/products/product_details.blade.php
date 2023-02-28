@@ -147,13 +147,10 @@
                                         <h4>Color</h4>
 
                                     </div>
-                                    <h1 id="color_test">Available color</h1>
-                                    <select name="" class="form-control">
+                                    {{--    <h1 id="color_test">Available color</h1> --}}
+                                    <select name="" class="form-control" id="color_dropdown">
                                         <option value="">--select size first---</option>
-                                        @foreach ($inventories->unique('product_color_id') as $inventory)
-                                            <option value="">{{ $inventory->relationshipWIthColor->color_name }}
-                                            </option>
-                                        @endforeach
+
                                     </select>
                                     <div class="product-title">
                                         <h4>Size</h4>
@@ -973,12 +970,12 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                             $(document).ready(function() {
-                                                                                                                                                                                                                                    $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                        alert('Hello world');
-                                                                                                                                                                                                                                    });
-                                                                                                                                                                                                                                });
-                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                     $(document).ready(function() {
+                                                                                                                                                                                                                                                                            $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                alert('Hello world');
+                                                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                                                                */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 //alert('dropdown change');
@@ -1001,8 +998,8 @@
                     },
                     success: function(data) {
 
-                        $('#color_test').html(data);
-                        // alert(data);
+                        $('#color_dropdown').html(data);
+                        //  alert(data);
                     }
                 });
             });

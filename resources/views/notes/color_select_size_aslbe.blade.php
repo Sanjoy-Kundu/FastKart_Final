@@ -108,16 +108,33 @@ Steps:8
                                     aikhne je code dorkar seita likbo
                                 })
 
+
+
+
+
+
                             step: 1
                             akhon ami ajax ke bolbo je ajax bondhu tumi server er kace request pthao
                                 .Tokhon ajax amy bolbe je bondu ami kon dhoroner request pathbo GET OR POST request konta pathabo
                                 .
+
+
+
+
+
 
                             step: 2
                             ajax ke bole dite hobe je ajax tmi kon url er kace jabe seita bolte hobe orhat url bole dite hobe
                                 .ami bollam je ajax tumi(
                                     url name) ai url er kace jao and tumi and tmr kono data niye asar dorkar nai
                                 .jokhon dorkar hobe tokhon bolbo.
+
+
+
+
+
+
+
 
                             step: 3
                             ajax je database er kace gece and se jodi kono data niye ase tahole se to success tai se ki data niye asche seita dekhar jonno amy
@@ -128,10 +145,21 @@ Steps:8
                             success: function(data) {
                                 alert(data)
                             }
+
+
+
+
+
+
                             step: 4
                             ajax er error dekhar jonno amra browser er console a jabo
                                 .and dropdown er akta ke select kore debo je 500 error ai akti server error aitar karon se je url er hit korece sei url pai nai
                                 .
+
+
+
+
+
 
                             step: 5
                             url toyri korte hobe tai amra chole jabo web.php te seita amra url or route banabo
@@ -155,6 +183,11 @@ Steps:8
                                 })
 
 
+
+
+
+
+
                             step: 6
                             but amra to hello pass korte cai na amnra size e jokhon click korbo tokhon oi size er under er oi product er jotogulo color ace sob gulo dekhabe
 
@@ -162,6 +195,11 @@ Steps:8
                                 return Color::all();
                             }
                             joto color ace sob gulo dekhabe database e total koto gulo color ace sob chole asebe
+
+
+
+
+
 
                             step: 7
                             akhon amr kaj hoise ami je size ke click korci tar id ke dhote parteci ki na orthat jodi small ke click kori tahole small er id te dhorte parteci kina seita dkebo
@@ -181,6 +219,12 @@ Steps:8
                         /option>
                         endforeach <
                         /select>
+
+
+
+
+
+
 
 
                         step8 akhon mader size er id dhorte hobe
@@ -209,6 +253,11 @@ Steps:8
                                 });
                             });
 
+
+
+
+
+
                             step 9:
                                 akhon amra ai data ke database e pathiye data niye aste bolbo
                                 .tar jonno amy ajax er moddy data: name akta filed nite hobe
@@ -218,6 +267,12 @@ Steps:8
                             data: {
                                 jekono_name: size_id valrialbe name
                             }
+
+
+
+
+
+
 
 
                             strep: 10
@@ -242,6 +297,12 @@ Steps:8
 
 
 
+
+
+
+
+
+
                 steps: 10 akhon amra kono porduct er color and size dekteci seita dekhar ponno amader product er id lagbe
                 .Jahetu Product er sob detais frontendController theke Product_detail er moddey niye aschi tai $product_detaisl -
                 >
@@ -258,6 +319,12 @@ Steps:8
                             }; alert(product_id);
                         });
                 });
+
+
+
+
+
+
 
 
 
@@ -296,6 +363,12 @@ Steps:8
         </script>
 
 
+
+
+
+
+
+
         step:12
         akhon frontendController giye get_color_list() function ke bolbo je tmi inventory te jaw and seikhan theke tumi product_id and product_color_id ke diye aso  and aita ke amra akta variable er  moddey rakbo
 
@@ -316,6 +389,11 @@ Steps:8
                         ])->get();
 
 
+
+
+
+
+
         steps:13
         amader Inventories sob gulo ke dekhaite hobe tai amrader foreach loop chailete hobe
             amader aikhne lage prouct er ki ki color ace tai amra Inventroy Model e chole jabo and seikhan theke marm inventroy er sathe je Color er relationship ace seita dhore dak dibo .
@@ -327,17 +405,168 @@ Steps:8
         aita korte amder alert er moddey dekhabe but amra alert er moodey dekte chai na . amra dropdown er moodey dekte cai .
 
 
+
+
+
+
         steps:14
         ami jei size click korbo seigulo ke akta html tag er moddy dekhaite cai . tar jonno mai h1 tag er moody nilam Availavle color . and akta id dilam color-test
             Product_details.blade.php
         <h1 id="color_test">Available Color</h1>
 
         $.ajax({
-            jeikhnae code likhe seikhane giye id dhore .html diye data call kore dibo
+            jeikhnae code likhe seikhane giye id dhore .html diye data call kore dibo taholei html er moddey code ta dekte pabo
              success: function(data) {
             $("#test_color").html(data);
         })
     }
+
+
+
+
+    steps:15
+    but amra to html er moddey color er name dekhaite cai na  amra dropdown er moddey color name dekhaite cai.
+amra kaj hoitece jokhon ami size choose korbo tokhon oi size er joto color ace seita dripdown akare chole asbe . amra akhon ki korbo
+<option value ="111">RED</option> aitake cut kore Frontend Controller e niye jabo
+
+Product_details.blade.php
+          <h1 id="color_test">Available color</h1>
+                                    <select name="" class="form-control">
+                                        <option value="">--select size first---</option>
+                                        <option value="111">Red</option> //cut kore frontendController e niye jabo
+                                    </select>
+
+
+                    FrontendController
+                        //working with ajax size to color
+    function get_color_list(Request $request){
+      //  return $request->size_id;
+      //  return $request->product_id;
+/*        return   Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get(); */
+
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+        foreach($Inventories as $inventory){
+            echo $inventory->relationshipWIthColor->color_name;
+        }
+        //return Color::all();
+    }
+
+    amra  <option value="111">Red</option> aita ke cut kore foreach er upor e bosabo
+
+    function get_color_list(Request $request){
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+
+        <option value="111">Red</option>
+        foreach($Inventories as $inventory){
+            echo $inventory->relationshipWIthColor->color_name;
+        }
+    }
+
+
+    akhon function er por akta variable nibo
+    $generated_color_options = ""
+    and return kore dibo
+
+    function get_color_list(Request $request){
+            $generated_color_options = "";
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+
+        <option value="111">Red</option>
+        foreach($Inventories as $inventory){
+            echo $inventory->relationshipWIthColor->color_name;
+        }
+        reutrn $genereated_color_options;
+    }
+
+
+    akhon amra bolbo portibar jokhon foreach ghurbe tokhon oi $generated_color_options ke 1 kore barabe. and $generated_color_options ke connect hobe <option value="111">RED</option>
+
+    $generated_color_options .= er sathe concat korte hobe <option value="111">RED</option> aitar  jehetu <option value="111">RED</option> aita akta string tai aitake stirng er moddey rakbo "<option value="111">RED</option>"
+
+    $generatred_color_options .= "<option value="111">RED</option>" aita likte hobe
+    Example :
+    FrontendController
+    //working with ajax size to color
+    function get_color_list(Request $request){
+        $generated_color_options = " ";
+
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+
+       // <option value="111">Red</option>
+        foreach($Inventories as $inventory){
+            //echo $inventory->relationshipWIthColor->color_name;
+            $generated_color_options .= "<option value='111'>RED</option>";
+        }
+        return $generated_color_options;
+    }
+
+    aita htm er moddey dekhacche but amra aita alert er moddey dekta cai tai product_details.blade.php er moddey
+    $.ajax({
+      //  code
+    })
+    aitar moddey giye alert ke active kore dibo
+
+    and amra foreach er moddey option er name and value diye dilam
+        function get_color_list(Request $request){
+        $generated_color_options = " ";
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+
+       // <option value="111">Red</option>
+        foreach($Inventories as $inventory){
+            //echo $inventory->relationshipWIthColor->color_name;
+            $generated_color_options .= "<option value=".$inventory->relationshipWIthColor->id.">".$inventory->relationshipWIthColor->color_name."</option>";
+        }
+        return $generated_color_options;
+    }
+
+    Akhon alert er moddey value and color name asbe akhon amder kaj hoitece
+    anra color er option er kace jabo and seikhane akta id dino and sei id ke niye anra $.ajax({
+        er moddey diye dibo
+    })
+
+
+    color er select er akta id diye dibo
+        {{--    <h1 id="color_test">Available color</h1> --}}
+                                    <select name="" class="form-control" id="color_dropdown">
+                                        <option value="">--select size first---</option>
+
+                                    </select>
+
+                                    $.ajax er sei id pass kore dibo
+                                           $.ajax({
+                                            type: "POST",
+                                            url: "/get/color/list",
+                                            data: {
+                                                size_id: size_id,
+                                                product_id: product_id,
+                                            },
+                                            success: function(data) {
+
+                                                $('#color_dropdown').html(data);
+                                                //  alert(data);
+                                            }
+                                     });
+            Taholei code kaj korbe.............
+
+            ::::::::::::::::end ::::::::::::::::::::::::::::::::::End:::::::::::::::::::::::::::::::::End::::::::::::::::::::
 
 
 
