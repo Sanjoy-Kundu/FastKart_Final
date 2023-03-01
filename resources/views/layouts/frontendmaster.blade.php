@@ -352,6 +352,9 @@
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link" href="product-left-thumbnail.html">Product</a>
                                             </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link" href="product-left-thumbnail.html">Contact Us</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
