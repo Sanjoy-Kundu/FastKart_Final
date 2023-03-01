@@ -97,21 +97,18 @@ function wishlist_delete($id){
             'product_size_id' => $request->size_id,
         ])->get(); */
 
-        $generated_color_options = " ";
+        $generated_color_options = "<option value=' '>--select color---</option>";
 
         $Inventories =  Inventory::where([
             'product_id' => $request->product_id,
             'product_size_id' => $request->size_id,
         ])->get();
-
        // <option value="111">Red</option>
         foreach($Inventories as $inventory){
             //echo $inventory->relationshipWIthColor->color_name;
             $generated_color_options .= "<option value=".$inventory->relationshipWIthColor->id.">".$inventory->relationshipWIthColor->color_name."</option>";
         }
-
         return $generated_color_options;
-
     }
 
 }

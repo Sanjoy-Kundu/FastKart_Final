@@ -566,6 +566,33 @@ Product_details.blade.php
                                      });
             Taholei code kaj korbe.............
 
+
+            LAST STEPS:
+amra jokhonei size choose korteci tokhon ei sathe sahe color asetece aita vlo but ami chai jkhon size choose korbo tokhon color na ase lekha asbe je plese choose your color . lekha asbe tar jonno amra frontendController e chole jabo and seikhan poroduct_details.blade.php file theke <option value="">--select size first---</option> ai opton copy kore niye jabo .
+
+then frontendController e amra $genareated_option = " ai khane pate kore dibo "
+Orthat
+
+    function get_color_list(Request $request){
+        $generated_color_options = "<option value=' '>--select color---</option>";
+
+        $Inventories =  Inventory::where([
+            'product_id' => $request->product_id,
+            'product_size_id' => $request->size_id,
+        ])->get();
+        foreach($Inventories as $inventory){
+            //echo $inventory->relationshipWIthColor->color_name;
+            $generated_color_options .= "<option value=".$inventory->relationshipWIthColor->id.">".$inventory->relationshipWIthColor->color_name."</option>";
+        }
+        return $generated_color_options;
+    }
+
+    akhon jadi onno size choose kori tahole direct color na ase age asbe choose your color fitst.
+
+
+
+
+
             ::::::::::::::::end ::::::::::::::::::::::::::::::::::End:::::::::::::::::::::::::::::::::End::::::::::::::::::::
 
 

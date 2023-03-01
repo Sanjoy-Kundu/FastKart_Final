@@ -149,6 +149,7 @@
                                     </div>
                                     {{--    <h1 id="color_test">Available color</h1> --}}
                                     <select name="" class="form-control" id="color_dropdown">
+                                        {{-- <option value="">--select size first---</option> --}}
                                         <option value="">--select size first---</option>
 
                                     </select>
@@ -238,7 +239,7 @@
                                                 <b>{{ $product_details->relationshipWithCategory->category_name }}</b>
                                             </li>
                                             <li>Selling Since:
-                                                {{ $product_details->relationshipWithCategory->created_at->format('d-M-Y') }}
+                                                {{ $product_details->created_at->format('d-M-Y') }}
                                             </li>
                                             <li>Stock:{{ $inventories->sum('product_quantity') }}</li>
 
@@ -970,12 +971,12 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                     $(document).ready(function() {
-                                                                                                                                                                                                                                                                            $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                alert('Hello world');
-                                                                                                                                                                                                                                                                            });
-                                                                                                                                                                                                                                                                        });
-                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                 $(document).ready(function() {
+                                                                                                                                                                                                                                                                                        $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                            alert('Hello world');
+                                                                                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                                                                                    });
+                                                                                                                                                                                                                                                                            */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 //alert('dropdown change');
