@@ -973,12 +973,12 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                                                                         $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                                                                    alert('Hello world');
-                                                                                                                                                                                                                                                                                                                                });
-                                                                                                                                                                                                                                                                                                                            });
-                                                                                                                                                                                                                                                                                                                    */
+                                                                                                                                                                                                                                                                                                                                                                                                                                 $(document).ready(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                        $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                            alert('Hello world');
+                                                                                                                                                                                                                                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                                                                                                                                                                                                                                    });
+                                                                                                                                                                                                                                                                                                                                                                                                                            */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 $('#add_to_cart_btn').addClass('d-none'); //add_to_cart button hide(2 no steps)
@@ -1010,7 +1010,14 @@
             //working with color dropdown
             $("#color_dropdown").change(function() {
                 // alert("dropdown alert");
-                $("#add_to_cart_btn").removeClass('d-none'); //add_to_cart button show(setps-1)
+                var color_dropdown_value = $(this).val();
+                //alert(color_dropdown_value);
+                // $("#add_to_cart_btn").removeClass('d-none'); //add_to_cart button show(setps-1)
+                if (color_dropdown_value) {
+                    $("#add_to_cart_btn").removeClass('d-none');
+                } else {
+                    $("#add_to_cart_btn").addClass("d-none");
+                }
             });
         });
     </script>

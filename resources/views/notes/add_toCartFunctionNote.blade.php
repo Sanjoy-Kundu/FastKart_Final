@@ -40,6 +40,22 @@ $("#size_dropdown").change(function(){
     $("#add_to_cart_btn").addClass("d-none");
 })
 
+f. akhon amader akta problem ace seita holo amra jodi color select kori tahole amrader add to cart button asbe. otherwise amder kinto add to cart button asar kotha na.
+
+g. dhurun ami size choose korlam and color choose korlam. but ami jodi color choose na kore select one color choose kore tahole kinto add to cart button thakbe na . othart add to cart button tokhonei asbe jkhon ami color choose korbo.
+
+h.amra frontendController eee chole  jabo seikhne giye dekbo je $generated_options = <select  vlaue=" ">--slect one color --</select> select one color er value nei akhon ami ai vlue ke dhorbo.
+
+ajax er moodey giye dhoelam and alert kore deklam value ki ase
+   $("#color_dropdown").change(function() {
+                // alert("dropdown alert");
+                var color_dropdown_value = $(this).val();
+                alert(color_dropdown_value);
+   }
+
+
+
+   i. akhon akta if likbo je jodi value thake tahole add to cart button asbe r jodi vlaue na thake tahole add to cart button asbe na.
 :::::::::::::::::::Example:::::::::::
                 $(document).ready(function() {
             $('#size_dropdown').change(function() {
