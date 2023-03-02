@@ -184,12 +184,14 @@
                                     </div>
 
                                     @auth
-                                        <a href="#" class="btn btn-md bg-dark cart-button text-white w-100">Add To
+                                        <a href="#" class="btn btn-md bg-dark cart-button text-white w-100 d-none"
+                                            id="add_to_cart_btn">Add
+                                            To
                                             Cart</a>
                                     @else
                                         <button type="button" class="btn btn-md bg-dark cart-button text-white w-100"
                                             data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            Add To Cart
+                                            LogIn
                                         </button>
                                         {{--   <a href="#" class="btn btn-md bg-dark cart-button text-white w-100">Please
                                             login</a> --}}
@@ -971,14 +973,15 @@
 @section('footer_script')
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                                 $(document).ready(function() {
-                                                                                                                                                                                                                                                                                        $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                            alert('Hello world');
-                                                                                                                                                                                                                                                                                        });
-                                                                                                                                                                                                                                                                                    });
-                                                                                                                                                                                                                                                                            */
+                                                                                                                                                                                                                                                                                                                         $(document).ready(function() {
+                                                                                                                                                                                                                                                                                                                                $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                                                                    alert('Hello world');
+                                                                                                                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                                                                                                    */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
+                $('#add_to_cart_btn').addClass('d-none'); //add_to_cart button hide(2 no steps)
                 //alert('dropdown change');
                 //ajax setup
                 var size_id = $(this).val();
@@ -1003,6 +1006,11 @@
                         //  alert(data);
                     }
                 });
+            });
+            //working with color dropdown
+            $("#color_dropdown").change(function() {
+                // alert("dropdown alert");
+                $("#add_to_cart_btn").removeClass('d-none'); //add_to_cart button show(setps-1)
             });
         });
     </script>
