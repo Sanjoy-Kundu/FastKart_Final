@@ -56,6 +56,23 @@ ajax er moodey giye dhoelam and alert kore deklam value ki ase
 
 
    i. akhon akta if likbo je jodi value thake tahole add to cart button asbe r jodi vlaue na thake tahole add to cart button asbe na.
+   amra akhon  color_dropdown er vlaue dhorbo
+
+   Code :::::
+         $("#color_dropdown").change(function() {
+                // alert("dropdown alert");
+                var color_dropdown_value = $(this).val();
+                //alert(color_dropdown_value);
+                // $("#add_to_cart_btn").removeClass('d-none'); //add_to_cart button show(setps-1)
+                if (color_dropdown_value) {
+                    $("#add_to_cart_btn").removeClass('d-none');
+                } else {
+                    $("#add_to_cart_btn").addClass('d-none');
+                }
+            });
+   Code end ::::
+
+
 :::::::::::::::::::Example:::::::::::
                 $(document).ready(function() {
             $('#size_dropdown').change(function() {
