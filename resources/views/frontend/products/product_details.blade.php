@@ -162,22 +162,22 @@
                                         @foreach ($inventories->unique('product_size_id') as $inventory)
                                             <option value="{{ $inventory->relationshipWithSize->id }}">
                                                 {{ $inventory->relationshipWithSize->size_name }}
+
                                             </option>
                                         @endforeach
-
                                     </select>
                                 </div>
                                 <div class="note-box product-packege">
                                     <div class="cart_qty qty-box product-qty">
                                         <div class="input-group">
-                                            <button type="button" class="qty-right-plus" data-type="plus"
-                                                data-field="">
+                                            <button type="button" class="qty-right-plus addcart_button" data-type="plus"
+                                                data-field="" id="quantity_plus" onclick="incrementValue()">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                             <input class="form-control input-number qty-input" type="text"
-                                                name="quantity" value="0">
-                                            <button type="button" class="qty-left-minus" data-type="minus"
-                                                data-field="">
+                                                name="quantity" value="1" id="number">
+                                            <button type="button" class="qty-left-minus addcart_button"
+                                                data-type="minus" data-field="" onclick="decrementValue()">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -196,8 +196,13 @@
                                         {{--   <a href="#" class="btn btn-md bg-dark cart-button text-white w-100">Please
                                             login</a> --}}
                                     @endauth
-
                                 </div>
+
+                                <p>Color id : <span id="d_color_id"></span> </p>
+                                <p>Size id : <span id="d_size_id"></span></p>
+                                <p>User Quantity : <span id="user_quantiry"></span></p>
+                                <p>Product Id : <span id="d_product_id">{{ $product_details->id }}</span></p>
+
 
                                 @auth
                                     <div class="buy-box">
@@ -930,21 +935,24 @@
                                                 <del>${{ $related_product->product_regular_price }}</del>
                                             </h5>
                                             <div class="add-to-cart-box bg-white">
-                                                <button class="btn btn-add-cart addcart-button">Add
+                                                <button class="btn btn-add-cart addcart-button ">Add
                                                     <span class="add-icon bg-light-gray">
                                                         <i class="fa-solid fa-plus"></i>
                                                     </span>
                                                 </button>
                                                 <div class="cart_qty qty-box">
                                                     <div class="input-group bg-white">
-                                                        <button type="button" class="qty-left-minus bg-gray"
+
+                                                        <button type="button"
+                                                            class="qty-left-minus bg-gray addcart-button"
                                                             data-type="minus" data-field="">
                                                             <i class="fa fa-minus" aria-hidden="true"></i>
                                                         </button>
                                                         <input class="form-control input-number qty-input" type="text"
                                                             name="quantity" value="0">
-                                                        <button type="button" class="qty-right-plus bg-gray"
-                                                            data-type="plus" data-field="">
+                                                        <button type="button"
+                                                            class="qty-right-plus bg-gray addcart-button" data-type="plus"
+                                                            data-field="">
                                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
@@ -972,13 +980,22 @@
 <!---Custom javascript from frontend master --->
 @section('footer_script')
     <script>
+        var plusButton = document.getElementById('quantity_plus');
+        console.log("hello");
+        console.log(plusButton);
+    </script>
+
+
+
+
+    <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                                                                                                                                                                                                 $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            alert('Hello world');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    });
-                                                                                                                                                                                                                                                                                                                                                                                                                                            */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 $(document).ready(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            alert('Hello world');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 $('#add_to_cart_btn').addClass('d-none'); //add_to_cart button hide(2 no steps)
@@ -987,6 +1004,7 @@
                 var size_id = $(this).val();
                 var product_id = {{ $product_details->id }};
                 //  alert(product_id);
+                $("#d_size_id").html(size_id);
 
                 $.ajaxSetup({
                     headers: {
@@ -1011,6 +1029,7 @@
             $("#color_dropdown").change(function() {
                 // alert("dropdown alert");
                 var color_dropdown_value = $(this).val();
+                $("#d_color_id").html(color_dropdown_value);
                 //alert(color_dropdown_value);
                 // $("#add_to_cart_btn").removeClass('d-none'); //add_to_cart button show(setps-1)
                 if (color_dropdown_value) {
@@ -1018,6 +1037,11 @@
                 } else {
                     $("#add_to_cart_btn").addClass('d-none');
                 }
+            });
+
+            //add to cart niye kaj korbo
+            $("#add_to_cart_btn").click(function() {
+                alert("button working");
             });
         });
     </script>

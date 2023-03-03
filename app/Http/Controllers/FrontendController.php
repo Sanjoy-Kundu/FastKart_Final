@@ -106,7 +106,7 @@ function wishlist_delete($id){
        // <option value="111">Red</option>
         foreach($Inventories as $inventory){
             //echo $inventory->relationshipWIthColor->color_name;
-            $generated_color_options .= "<option value=".$inventory->relationshipWIthColor->id.">".$inventory->relationshipWIthColor->color_name."</option>";
+            $generated_color_options .= "<option value=".$inventory->relationshipWIthColor->id.">".$inventory->relationshipWIthColor->color_name.""."(stock-".$inventory->product_quantity.")"."</option>";
         }
         return $generated_color_options;
     }

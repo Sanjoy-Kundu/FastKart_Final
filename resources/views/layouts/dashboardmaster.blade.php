@@ -428,6 +428,8 @@
             <!-- Theme js -->
             <script src="{{ asset('assets') }}/js/script.js"></script>
 
+
+
             <!-- Data table js -->
             <script src="assets/js/jquery.dataTables.js"></script>
             <script src="assets/js/custom-data-table.js"></script>
