@@ -51,9 +51,28 @@ color id dhorar jonno amra color_dropdown e jabo and id ke dhore html er value b
 
 4.  akhon amr kaj hoitece je ami size choose korbo + color choose korbo quentity choose kore jokhon add to cart e click korbo tokhn ai sobgulo dhorte hobe and database e niye jabo
         amra quntity input er value nibo
-        
+
+      //add to cart niye kaj korbo
+            $("#add_to_cart_btn").click(function() {
+                alert("hello");
+                var quantityNumber = $(".qty-input").val(); //quantity er input ke nilam
+                alert(quantityNumber); deklam thik ace ki na
+            });
+bakigulore dhorlam
+         //add to cart niye kaj korbo
+            $("#add_to_cart_btn").click(function() {
+                // alert("hello");
+                var quantityNumber = $(".qty-input").val();
+                var d_color_id = $("#d_color_id").html(); html dekhe sathe .html()dilam
+                var d_size_id = $("#d_size_id").html();
+                var d_product_id = $("#d_product_id").html();
+                alert(d_product_id);
+            });
 
 
+
+
+5. ajax er maddhome pathabo
 
                 */
 @endphp
