@@ -72,7 +72,23 @@ bakigulore dhorlam
 
 
 
-5. ajax er maddhome pathabo
+5. ajax er maddhome pathabo database pathabo
+jokhon kono user add to cart button e click korbe tahole seikhae best kicu bishoy store thabe
+        1. uesr kono proudct click kortece tar id thakbe
+        2. user kono poruduct er size_choose kotece tar size_id koto thakbe
+        3. user kon product er color choose kortece tar color_id koto seita thakbe
+ai bishoy gulo niye ajax er maddhome chole jabe database and seikahe giye dekbe je dhora jay amra 3no proudct ke choose koreci sei 3 no product er size_id, color_id ke niye amra ajax er maddhome database jabo
+
+          //add to cart niye kaj korbo
+            $("#add_to_cart_btn").click(function() {
+                // alert("hello");
+                var quantityNumber = $(".qty-input").val();
+                var d_color_id = $("#d_color_id").html();
+                var d_size_id = $("#d_size_id").html();
+                var d_product_id = $("#d_product_id").html();
+                // alert(d_product_id);
+                ajax setup kore ajax er maddhom data ami database ee nibo
+            });
 
                 */
 @endphp
