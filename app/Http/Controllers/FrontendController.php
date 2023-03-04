@@ -111,4 +111,10 @@ function wishlist_delete($id){
         return $generated_color_options;
     }
 
+
+    //Add to cart
+    public function add_to_cart(){
+        return "add to cart working";
+    }
+
 }

@@ -88,7 +88,53 @@ ai bishoy gulo niye ajax er maddhome chole jabe database and seikahe giye dekbe 
                 var d_product_id = $("#d_product_id").html();
                 // alert(d_product_id);
                 ajax setup kore ajax er maddhom data ami database ee nibo
+
+
+                ajax setup korbo
+            //add to cart niye kaj korbo
+            $("#add_to_cart_btn").click(function() {
+                // alert("hello");
+                var quantityNumber = $(".qty-input").val();
+                var d_color_id = $("#d_color_id").html();
+                var d_size_id = $("#d_size_id").html();
+                var d_product_id = $("#d_product_id").html();
+                // alert(d_product_id);
+                //ajax setup start
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/add/to/cart",
+                    data: {
+                        d_color_id: d_color_id,
+                        d_size_id: d_size_id,
+                        d_product_id: d_product_id,
+                        quantityNumber: quantityNumber,
+                    },
+                    success: function(data) {
+
+                        //   alert(data);
+                        //  alert(data);
+                    }
+                });
+                //ajax setup end
+            });
             });
 
+
+
+
+
+            ajax setup korar por akta error khabe karon amra url e je link dici seita kintu web.php te create kora nai tai first  e web.php te orthat FrontendController e akta route banabo tarpor sei function niye FrontendControlle eee jabo and method create korbo
+
+            akhon 500 error khabo karon amra frontendController ee mathod banainai.
+            web.php
+            Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name("add.to.cart");
+
+            FrontendController ee amra add_to_cart name methaod bananbo and dekbo je ajax er maddhome alert ante pari kina
+            
                 */
 @endphp

@@ -949,7 +949,7 @@
                                                             <i class="fa fa-minus" aria-hidden="true"></i>
                                                         </button>
                                                         <input class="form-control input-number qty-input" type="text"
-                                                            name="quantity" value="0">
+                                                            name="quantity" value="0" id="">
                                                         <button type="button"
                                                             class="qty-right-plus bg-gray addcart-button" data-type="plus"
                                                             data-field="">
@@ -990,12 +990,12 @@
 
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        alert('Hello world');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $(document).ready(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                $('#hello_btn').click(function() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alert('Hello world');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    */
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 $('#add_to_cart_btn').addClass('d-none'); //add_to_cart button hide(2 no steps)
@@ -1047,6 +1047,29 @@
                 var d_size_id = $("#d_size_id").html();
                 var d_product_id = $("#d_product_id").html();
                 // alert(d_product_id);
+                //ajax setup start
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/add/to/cart",
+                    data: {
+                        d_color_id: d_color_id,
+                        d_size_id: d_size_id,
+                        d_product_id: d_product_id,
+                        quantityNumber: quantityNumber,
+                    },
+                    success: function(data) {
+
+                        alert(data);
+                        //   alert(data);
+                        //  alert(data);
+                    }
+                });
+                //ajax setup end
             });
         });
     </script>
