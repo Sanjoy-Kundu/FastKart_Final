@@ -113,8 +113,23 @@ function wishlist_delete($id){
 
 
     //Add to cart
-    public function add_to_cart(){
-        return "add to cart working";
+    public function add_to_cart(Request $request){
+        // echo $request->d_color_id;
+        // echo $request->d_size_id;
+        // echo $request->d_product_id;
+        $user_quantity = $request->quantityNumber;
+        $real_stock_products =  Inventory::where([
+            "product_id" => $request->d_product_id,
+            'product_size_id' => $request->d_size_id,
+            'product_color_id' => $request->d_color_id,
+        ])->first()->product_quantity; //database quantity er nam
+
+       // echo $real_stock_products;
+       if($real_stock_products> $user_quantity){
+        echo " add to cart kaj korbe";
+       }else{
+        echo "add to cart kaj korbe na";
+       }
     }
 
 }

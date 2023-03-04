@@ -135,6 +135,51 @@ ai bishoy gulo niye ajax er maddhome chole jabe database and seikahe giye dekbe 
             Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name("add.to.cart");
 
             FrontendController ee amra add_to_cart name methaod bananbo and dekbo je ajax er maddhome alert ante pari kina
-            
+
+            PRODUCT DETAILS.BLADE.PHP
+             $.ajax({
+                    type: "POST",
+                    url: "/add/to/cart",
+                    data: {
+                        d_color_id: d_color_id,
+                        d_size_id: d_size_id,
+                        d_product_id: d_product_id,
+                        quantityNumber: quantityNumber,
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+
+
+            FRONTENDCONTROLLER
+                function add_to_cart(){
+                    return "Add to cart ajax working"
+                }
+
+                opor pash theke pathano data gulo dhorlam
+                 public function add_to_cart(Request $request){
+                            // echo $request->d_color_id;
+                            // echo $request->d_size_id;
+                            // echo $request->d_product_id;
+                            // echo $request->quantityNumber;
+ ################amra  inventory table ee giye milabo#############
+                            $user_quantity = $request->quantityNumber;
+                            $real_stock_products =  Inventory::where([
+                                "product_id" => $request->d_product_id,
+                                'product_size_id' => $request->d_size_id,
+                                'product_color_id' => $request->d_color_id,
+                            ])->first()->product_quantity; //database quantity er nam
+                        // echo $real_stock_products;
+                        if($real_stock_products> $user_quantity){
+                            echo " add to cart kaj korbe";
+                        }else{
+                            echo "add to cart kaj korbe na";
+                        }
+
+
+
+                     }
+
+
                 */
 @endphp
