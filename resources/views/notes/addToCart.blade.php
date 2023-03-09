@@ -175,10 +175,63 @@ ai bishoy gulo niye ajax er maddhome chole jabe database and seikahe giye dekbe 
                         }else{
                             echo "add to cart kaj korbe na";
                         }
-
-
-
                      }
+
+
+
+#################New step::::::::::::::::::
+jokhon stoke theke quantity kom thakbe tokhon ei to add_to_cart hobe tai amra akhon add to cart niye kaj korbo. add to cart korar jonno amder besh kicu jinish maintain kortehobe
+## sony unser er koto no poruduct 2no product er blue color er large size er 4 ta product ke tumi add to cart koro
+tar mane amder
+                        a. user_id lagbe
+                        b. product_id lagbe
+                        c. color_id lagbe
+                        d. size_id lagbe
+                        e. product_quantity lagbe
+aigula niye cart er jonno amke akta migration table and model banate hobe
+
+########MIGRATION TABLE ER JONNO #################
+1. php artisan make:model Cart -m dilam
+Cart er jonno amder database toyri hoye gelo
+        public function up()
+            {
+                Schema::create('carts', function (Blueprint $table) {
+                    $table->id();
+                    $table->integer("user_id");
+                    $table->integer('product_id');
+                    $table->integer('color_id');
+                    $table->integer('size_id');
+                    $table->integer('quantity');
+                    $table->timestamps();
+                });
+            }
+
+akhon amra data insert korbo kothey korbo jodi kono user add to cart korte pare seitkhane
+
+    //jodi user  product quantity 0 dey tahole bolte hobe je 0 hoitece bad number  aitar jonno amrader akta if likte hobe
+        if($user_quantity < 0 ){
+            echo "Its a bad number";
+        }else{
+            if($real_stock_products > $user_quantity){
+                Cart::insert([
+                    "user_id" => auth()->id(),
+                    'product_id' => $request->d_product_id,
+                    "color_id" => $request->d_color_id,
+                    'size_id' => $request->d_size_id,
+                    "quantity" => $user_quantity,
+                    "created_at" => Carbon::now(),
+                ]);
+                echo "Successfully";
+            }else{
+                echo "Sorry you cant add";
+            }
+        }
+
+
+
+
+
+
 
 
                 */

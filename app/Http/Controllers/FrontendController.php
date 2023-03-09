@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Color;
 use App\Models\FeaturedPhoto;
 use App\Models\Inventory;
@@ -19,6 +20,10 @@ class FrontendController extends Controller
     function index(){
         $products = Product::latest()->get();
         return view('frontend.index.index', compact('products'));
+    }
+
+    function shop(){
+        return view('frontend.shop.shop');
     }
 
 
@@ -110,8 +115,6 @@ function wishlist_delete($id){
         }
         return $generated_color_options;
     }
-
-
     //Add to cart
     public function add_to_cart(Request $request){
         // echo $request->d_color_id;
@@ -125,11 +128,29 @@ function wishlist_delete($id){
         ])->first()->product_quantity; //database quantity er nam
 
        // echo $real_stock_products;
-       if($real_stock_products> $user_quantity){
-        echo " add to cart kaj korbe";
-       }else{
-        echo "add to cart kaj korbe na";
-       }
+    //    if($real_stock_products> $user_quantity){
+    //     echo "finally add to cart working";
+    //    }else{
+    //     echo "your function error";
+    //    }
+    //jodi user  product quantity 0 dey tahole bolte hobe je 0 hoitece bad number  aitar jonno amrader akta if likte hobe
+        if($user_quantity < 0 ){
+            echo "Its a bad number";
+        }else{
+            if($real_stock_products > $user_quantity){
+                Cart::insert([
+                    "user_id" => auth()->id(),
+                    'product_id' => $request->d_product_id,
+                    "color_id" => $request->d_color_id,
+                    'size_id' => $request->d_size_id,
+                    "quantity" => $user_quantity,
+                    "created_at" => Carbon::now(),
+                ]);
+                echo "Successfully";
+            }else{
+                echo "Sorry you cant add";
+            }
+        }
     }
 
 }

@@ -25,15 +25,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
-
 Route::get('product/wishlist/add/{id}', [FrontendController::class, 'product_wishlist_add'])->name('product.wishlist.add');
 Route::get('wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');
 Route::get('product/wishlist/delete/{id}', [FrontendController::class, 'wishlist_delete'])->name('product.wishlist.delete');
 Route::post('custom/login', [FrontendController::class, 'custom_login'])->name('custom.login');
-
 Route::post('get/color/list', [FrontendController::class, 'get_color_list'])->name('get.color.list');
-Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name("add.to.cart");
+Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
+
 /* Route::get('/', function () {
     return view('welcome');
 }); */
