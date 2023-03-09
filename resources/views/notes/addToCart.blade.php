@@ -258,9 +258,33 @@ At first amra chole jabo  product_details er ajax er moddhey success::er moddey
                     }
 
 
+:::::::::::::::::::CART CALCULATION :::::::::::::::
+Cart Calculation er jonno amy je jinsh ta kortehobe
+1. frontendmaseter e jekhane cart er foreach choleche seikhane orthart foreach er uplore amy
+                    @php
+                        $total_amount = 0
+                    @endphp
+                    @forelse (cats() as $cart)
+                             <h6>
+                                 <span>{{ $cart->quantity }} x</span> $ {{ $cart->relationToProduct->product_regular_price }}
+                                      @php
+                                        $total_amount += $cart->quantity * $cart->relationToProduct->product_regular_price;
+                                           @endphp
+                                  </h6>
+                    @empty
 
-
-
+                    @endforelse
+                                   <div class="price-box">
+                                                        <h5>Total :</h5>
+                                                        <h4 class="theme-color fw-bold">${{ $total_amount }}</h4>
+                                                    </div>
+                                                    <div class="button-group">
+                                                        <a href="cart.html" class="btn btn-sm cart-button">View
+                                                            Cart</a>
+                                                        <a href="checkout.html"
+                                                            class="btn btn-sm cart-button theme-bg-color
+                                                        text-white">Checkout</a>
+                                                    </div>
 
                 */
 @endphp

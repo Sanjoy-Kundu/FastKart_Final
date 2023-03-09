@@ -193,6 +193,10 @@
 
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
+                                                    @php
+                                                        $total_amount = 0;
+                                                    @endphp
+
                                                     @forelse (carts() as $cart)
                                                         <li class="product-box-contain">
                                                             <div class="drop-cart">
@@ -207,8 +211,13 @@
                                                                         <h5>{{ $cart->relationToProduct->product_name }}
                                                                         </h5>
                                                                     </a>
-                                                                    <h6><span>{{ $cart->quantity }} x</span>
-                                                                        ${{ $cart->relationToProduct->product_regular_price }}
+                                                                    <h6>
+                                                                        <span>{{ $cart->quantity }} x</span> $
+                                                                        {{ $cart->relationToProduct->product_regular_price }}
+                                                                        @php
+                                                                            $total_amount += $cart->quantity * $cart->relationToProduct->product_regular_price;
+                                                                        @endphp
+
                                                                     </h6>
                                                                     <a href="">
                                                                         <i
@@ -253,20 +262,22 @@
                                                         </div>
                                                     </li> --}}
                                                 </ul>
+
                                                 @if (carts()->count() > 0)
                                                     <div class="price-box">
                                                         <h5>Total :</h5>
-                                                        <h4 class="theme-color fw-bold">$106.58</h4>
+                                                        <h4 class="theme-color fw-bold">${{ $total_amount }}</h4>
                                                     </div>
-
                                                     <div class="button-group">
                                                         <a href="cart.html" class="btn btn-sm cart-button">View
                                                             Cart</a>
                                                         <a href="checkout.html"
                                                             class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
+                                                        text-white">Checkout</a>
                                                     </div>
                                                 @endif
+
+                                         
 
                                             </div>
                                         </div>
