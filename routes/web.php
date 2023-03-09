@@ -33,6 +33,8 @@ Route::get('product/wishlist/delete/{id}', [FrontendController::class, 'wishlist
 Route::post('custom/login', [FrontendController::class, 'custom_login'])->name('custom.login');
 Route::post('get/color/list', [FrontendController::class, 'get_color_list'])->name('get.color.list');
 Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
+Route::get('add/to/cart/remove/{cart_id}', [FrontendController::class, 'add_to_cart_remove'])->name('add.to.cart.remove');
+Route::get('view/cart', [FrontendController::class, 'view_cart'])->name('view.cart');
 
 /* Route::get('/', function () {
     return view('welcome');

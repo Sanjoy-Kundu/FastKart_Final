@@ -197,11 +197,13 @@
                                             login</a> --}}
                                     @endauth
                                 </div>
+                                <div class="d-none">
+                                    <p>Color id : <span id="d_color_id"></span> </p>
+                                    <p>Size id : <span id="d_size_id"></span></p>
+                                    <p>User Quantity : <span id="user_quantiry"></span></p>
+                                    <p>Product Id : <span id="d_product_id">{{ $product_details->id }}</span></p>
+                                </div>
 
-                                <p>Color id : <span id="d_color_id"></span> </p>
-                                <p>Size id : <span id="d_size_id"></span></p>
-                                <p>User Quantity : <span id="user_quantiry"></span></p>
-                                <p>Product Id : <span id="d_product_id">{{ $product_details->id }}</span></p>
 
 
                                 @auth

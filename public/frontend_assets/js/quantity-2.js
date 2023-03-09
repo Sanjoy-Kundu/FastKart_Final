@@ -4,7 +4,7 @@
 function incrementValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
-    if (value > 0) {
+    if (value >= 0) {
         value++;
         document.getElementById('number').value = value;
     }
@@ -12,12 +12,13 @@ function incrementValue() {
 function decrementValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 0 : value;
-    if (value > 1) {
+    if (value > 0) {
         value--;
         document.getElementById('number').value = value;
     }
 
 }
+
 
 
 

@@ -219,7 +219,8 @@
                                                                         @endphp
 
                                                                     </h6>
-                                                                    <a href="">
+                                                                    <a
+                                                                        href="{{ route('add.to.cart.remove', $cart->id) }}">
                                                                         <i
                                                                             class="fa-sharp fa-solid fa-trash fs-5 py-3 pt-3 text-danger"></i>
                                                                     </a>
@@ -269,7 +270,8 @@
                                                         <h4 class="theme-color fw-bold">${{ $total_amount }}</h4>
                                                     </div>
                                                     <div class="button-group">
-                                                        <a href="cart.html" class="btn btn-sm cart-button">View
+                                                        <a href="{{ route('view.cart') }}"
+                                                            class="btn btn-sm cart-button">View
                                                             Cart</a>
                                                         <a href="checkout.html"
                                                             class="btn btn-sm cart-button theme-bg-color
@@ -277,7 +279,7 @@
                                                     </div>
                                                 @endif
 
-                                         
+
 
                                             </div>
                                         </div>

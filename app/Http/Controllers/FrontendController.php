@@ -23,7 +23,8 @@ class FrontendController extends Controller
     }
 
     function shop(){
-        return view('frontend.shop.shop');
+        $products = Product::all();
+        return view('frontend.shop.shop', compact('products'));
     }
 
 
@@ -152,5 +153,21 @@ function wishlist_delete($id){
             }
         }
     }
+
+
+
+
+
+    //ViewCart
+    function view_cart(){
+        return view('frontend.shop.viewCart');
+    }
+
+    //cart product remove
+    function add_to_cart_remove($cart_remove_product){
+        Cart::find($cart_remove_product)->forceDelete();
+        return back();
+    }
+
 
 }

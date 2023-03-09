@@ -286,5 +286,8 @@ Cart Calculation er jonno amy je jinsh ta kortehobe
                                                         text-white">Checkout</a>
                                                     </div>
 
+
+        :::::::::::::::::::VIEW CART :::::::::::::::::::::::
+        view cart calculation korlam and net theke javascript copy kore button kaj korailam
                 */
 @endphp
