@@ -186,33 +186,54 @@
                                             <button type="button" class="btn p-0 position-relative header-wishlist">
                                                 <i data-feather="shopping-cart"></i>
                                                 <span
-                                                    class="position-absolute top-0 start-100 translate-middle badge">2
+                                                    class="position-absolute top-0 start-100 translate-middle badge">{{ carts()->count() }}
                                                     <span class="visually-hidden">unread messages</span>
                                                 </span>
                                             </button>
 
                                             <div class="onhover-div">
                                                 <ul class="cart-list">
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left-thumbnail.html" class="drop-image">
-                                                                <img src="{{ asset('frontend_assets') }}/images/vegetable/product/1.png"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
-
-                                                            <div class="drop-contain">
-                                                                <a href="product-left-thumbnail.html">
-                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                    @forelse (carts() as $cart)
+                                                        <li class="product-box-contain">
+                                                            <div class="drop-cart">
+                                                                <a href="product-left-thumbnail.html"
+                                                                    class="drop-image">
+                                                                    <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $cart->relationToProduct->product_image }}"
+                                                                        class="blur-up lazyload" alt="">
                                                                 </a>
-                                                                <h6><span>1 x</span> $80.58</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </li>
 
-                                                    <li class="product-box-contain">
+                                                                <div class="drop-contain">
+                                                                    <a href="product-left-thumbnail.html">
+                                                                        <h5>{{ $cart->relationToProduct->product_name }}
+                                                                        </h5>
+                                                                    </a>
+                                                                    <h6><span>{{ $cart->quantity }} x</span>
+                                                                        ${{ $cart->relationToProduct->product_regular_price }}
+                                                                    </h6>
+                                                                    <a href="">
+                                                                        <i
+                                                                            class="fa-sharp fa-solid fa-trash fs-5 py-3 pt-3 text-danger"></i>
+                                                                    </a>
+
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @empty
+                                                        <li class="product-box-contain">
+                                                            <div class="drop-cart">
+                                                                <div class="drop-contain">
+                                                                    <a href="product-left-thumbnail.html">
+                                                                        <h5 class="text-danger">Please Add to Product
+                                                                            first
+                                                                        </h5>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforelse
+
+
+                                                    {{--    <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left-thumbnail.html" class="drop-image">
                                                                 <img src="{{ asset('frontend_assets') }}/images/vegetable/product/2.png"
@@ -230,20 +251,23 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                    </li>
+                                                    </li> --}}
                                                 </ul>
+                                                @if (carts()->count() > 0)
+                                                    <div class="price-box">
+                                                        <h5>Total :</h5>
+                                                        <h4 class="theme-color fw-bold">$106.58</h4>
+                                                    </div>
 
-                                                <div class="price-box">
-                                                    <h5>Total :</h5>
-                                                    <h4 class="theme-color fw-bold">$106.58</h4>
-                                                </div>
-
-                                                <div class="button-group">
-                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                                    <a href="checkout.html"
-                                                        class="btn btn-sm cart-button theme-bg-color
+                                                    <div class="button-group">
+                                                        <a href="cart.html" class="btn btn-sm cart-button">View
+                                                            Cart</a>
+                                                        <a href="checkout.html"
+                                                            class="btn btn-sm cart-button theme-bg-color
                                                     text-white">Checkout</a>
-                                                </div>
+                                                    </div>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </li>
@@ -254,7 +278,7 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 @auth()
-                                                    <h5>Hello</h5>
+                                                    <h5>{{ auth()->user()->name }}</h5>
                                                 @else
                                                     <h5>My Account</h5>
                                                 @endauth

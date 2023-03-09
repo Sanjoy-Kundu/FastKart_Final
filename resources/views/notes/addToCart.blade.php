@@ -231,6 +231,34 @@ akhon amra data insert korbo kothey korbo jodi kono user add to cart korte pare 
 
 
 
+:::::::::::::::::::::::ADD TO CART ICON e data dekhanor pala ::::::::::::::::::::::::
+1. amader khujete hobe je add to cat icon kothry ace frontendmaster.blade.php te ace tai amra seikhna jabo
+2. cart e kono gulo product add to cart kora hoyece seita dekhanor jonno mader helpers function er help nite hobe
+    helpers.php
+    function carts(){
+    return Cart::all();
+}
+akhon frontendmaseter giye carts() function ke call korlei hoye jabe.
+akhon aita ke niye amra frontendmaseter e cart model er sather product model er relation ghotiye amader information anbo
+
+
+amra akta product add to cart korlam data base e data dhuke gece but icon e konto amader 1ta product je add hoise seita show koraitece na . seita show koranor jonno amader page reload dewa lage. ai page reload dewa amra javascript er maddhome korbo
+javacript e location.reload() name akta function ace seita diye  korbo
+
+RELOAD PROCESS
+At first amra chole jabo  product_details er ajax er moddhey success::er moddey
+        success: function(data) {
+                        //   alert(data);
+                        //  alert(data);
+                        if (data == 'Successfully') { //successfully == FrontnedController er add_to_cart er alert er moddey ace
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
+                    }
+
+
+
 
 
 
