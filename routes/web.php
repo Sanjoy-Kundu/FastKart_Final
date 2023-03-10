@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
-Route::get('shop', [FrontendController::class, 'shop'])->name('shop');
+Route::get('shop/{category_id}', [FrontendController::class, 'shop'])->name('shop');
 Route::get('product/details/{id}', [FrontendController::class, 'product_details'])->name('product.details');
 Route::get('product/wishlist/add/{id}', [FrontendController::class, 'product_wishlist_add'])->name('product.wishlist.add');
 Route::get('wishlist', [FrontendController::class, 'wishlist'])->name('wishlist');

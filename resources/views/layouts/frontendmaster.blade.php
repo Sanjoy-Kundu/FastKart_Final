@@ -341,10 +341,9 @@
                                 </div>
 
                                 <ul class="category-list">
-
                                     @forelse (listOfCategories() as $category_list)
                                         <li class="onhover-category-list">
-                                            <a href="" class="category-name">
+                                            <a href="{{route('shop', $category_list->id)}}" class="category-name">
                                                 <img src="{{ asset('uploads/categories') }}/{{ $category_list->category_image }}"
                                                     alt="">
                                                 <h6>{{ $category_list->category_name }}</h6>
@@ -383,7 +382,7 @@
                                             </li>
 
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                                                <a class="nav-link" href="{{ route('shop', 'all') }}">Shop</a>
                                             </li>
 
                                             <li class="nav-item dropdown">

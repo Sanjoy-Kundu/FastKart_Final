@@ -22,8 +22,12 @@ class FrontendController extends Controller
         return view('frontend.index.index', compact('products'));
     }
 
-    function shop(){
-        $products = Product::all();
+    function shop($category_id){
+        if($category_id == "all"){
+            $products = Product::all();
+        }else{
+            $products = Product::where('product_category', $category_id);
+        }
         return view('frontend.shop.shop', compact('products'));
     }
 

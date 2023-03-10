@@ -289,5 +289,34 @@ Cart Calculation er jonno amy je jinsh ta kortehobe
 
         :::::::::::::::::::VIEW CART :::::::::::::::::::::::
         view cart calculation korlam and net theke javascript copy kore button kaj korailam
+
+
+
+
+        ::::::::::::::AKHON AMAR KAJ HOLO JE AMI JODI  CATEGORY RELATED PRODUCT DEKHANO :::::::::::
+        ami jodi electronics category select kori tahole oi related je koyta product ace sob gulo shop page e show korbe . aitar jonno
+        air jonno amder jete frontendmaseter ee
+Frontendmaster.blade.php
+          <a href="{{route('shop', $category_list->id)}}" class="category-name">
+                                                <img src="{{ asset('uploads/categories') }}/{{ $category_list->category_image }}"
+                                                    alt="">
+                                                <h6>{{ $category_list->category_name }}</h6>
+                                            </a>
+ just link e bole dilam kothey jete hobe
+
+ aita dile amra akta error khabo seita holo amra web.php te shop er moddey category_id pass kori nai tai category_id pass korbo
+ web.php
+ Route::get('shop/{category_id}', [FrontendController::class, 'shop'])->name('shop');
+ frontendController er shop() function er moddey category_id ke return korbo
+
+     function shop($category_id){
+        if($category_id == "all"){
+            $products = Product::all();
+        }else{
+            $products = Product::where('product_category', $category_id);
+        }
+        return view('frontend.shop.shop', compact('products'));
+    }
+amra ai kaj gulo korbo
                 */
 @endphp
