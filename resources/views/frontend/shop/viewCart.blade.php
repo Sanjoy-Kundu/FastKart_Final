@@ -31,14 +31,18 @@
             <div class="row g-sm-5 g-3">
                 <div class="col-xxl-9">
                     <div class="cart-table">
+
                         <div class="table-responsive-xl">
                             <table class="table">
                                 <tbody>
+                                    @php
+                                        $total = 0;
+                                    @endphp
                                     @forelse (carts() as $cart)
-                                        <tr class="product-box-contain">
+                                        <tr class="product-box-contain @if(stocks($cart->product_id, $cart->color_id, $cart->size_id) < $cart->quantity) bg-danger @endif">
                                             <td class="product-detail">
                                                 <div class="product border-0">
-                                                    <a href="product-left-thumbnail.html" class="product-image">
+                                                    <a href="{{route('product.details', $cart->product_id)}}" class="product-image">
                                                         <img src="{{ asset('uploads/products/mainPhoto') }}/{{ $cart->relationToProduct->product_image }}"
                                                             class="img-fluid blur-up lazyload" alt="not found">
                                                     </a>
@@ -46,11 +50,15 @@
                                                         <ul>
                                                             <li class="name">
                                                                 <a
-                                                                    href="product-left-thumbnail.html">{{ $cart->relationToProduct->product_name }}</a>
+                                                                    href="{{route('product.details', $cart->product_id)}}">{{ $cart->relationToProduct->product_name }}</a>
                                                             </li>
                                                             <li class="text-content"><span
                                                                     class="text-title">Quantity</span>{{ $cart->quantity }}
                                                             </li>
+                                                           <li  class="text-content"><span
+                                                                    class="text-title badge bg-warning">Stock: {{stocks($cart->product_id, $cart->color_id, $cart->size_id)}}</span>
+                                                            </li>
+
 
                                                             <li>
                                                                 <h5 class="text-content d-inline-block">Price :</h5>
@@ -58,6 +66,9 @@
                                                                 <span
                                                                     class="text-content">$<del>{{ $cart->relationToProduct->product_regular_price }}</del></span>
                                                             </li>
+                                                            <p>Product Id{{$cart->product_id}}</p>
+                                                            <p> Color: {{$cart->relationToColor->color_name}}</p>
+                                                            <p> Size: {{$cart->relationToSize->size_name}}</p>
 
                                                             <li>
                                                                 <h5 class="saving theme-color">Saving :10</h5>
@@ -99,7 +110,10 @@
                                                 </h5>
                                                 <h6 class="theme-color">You Save : $
                                                     {{ $cart->relationToProduct->product_regular_price - $cart->relationToProduct->discounted_price }}
-                                                </h6>
+                                                    {{
+                                                        $total += $cart->relationToProduct->product_regular_price - $cart->relationToProduct->discounted_price
+                                                    }}
+                                                        </h6>
                                             </td>
 
                                             <td class="quantity">
@@ -125,8 +139,8 @@
 
                                             <td class="subtotal">
                                                 <h4 class="table-title text-content">Total</h4>
-                                                <h5>${{ $cart->quantity * $cart->relationToProduct->product_regular_price }}
-                                                </h5>
+                                                <h5>{{$cart->quantity * $cart->relationToProduct->discounted_price}} </h5>
+
                                             </td>
 
                                             <td class="save-remove">
@@ -172,7 +186,7 @@
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$125.65</h4>
+                                    <h4 class="price">${{$total}}</h4>
                                 </li>
 
                                 <li>

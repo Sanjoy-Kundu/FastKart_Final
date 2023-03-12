@@ -12,4 +12,12 @@ class Cart extends Model
         //return $this->hasOne(Product::class, 'cart_id', 'product_id');
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
+
+    function relationToColor(){
+        return $this->hasOne(Color::class, 'id', 'color_id');
+    }
+
+    function relationToSize(){
+        return $this->hasOne(Size::class, 'id', 'size_id');
+    }
 }

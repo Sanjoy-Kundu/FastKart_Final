@@ -33,7 +33,6 @@ class FrontendController extends Controller
 
 
     function product_details ($id){
-
          $product_details = Product::find($id);
      //    $product_details->product_category;
         $vendor = User::find($product_details->user_id);
@@ -143,27 +142,38 @@ function wishlist_delete($id){
             echo "Its a bad number";
         }else{
             if($real_stock_products > $user_quantity){
-                Cart::insert([
+                //exists check
+                if(Cart::where([
                     "user_id" => auth()->id(),
                     'product_id' => $request->d_product_id,
                     "color_id" => $request->d_color_id,
                     'size_id' => $request->d_size_id,
-                    "quantity" => $user_quantity,
-                    "created_at" => Carbon::now(),
-                ]);
+                ])->exists()){
+                    //quantity increment koro
+                    Cart::where([
+                        "user_id" => auth()->id(),
+                        'product_id' => $request->d_product_id,
+                        "color_id" => $request->d_color_id,
+                        'size_id' => $request->d_size_id,
+                    ])->increment('quantity',$user_quantity);
+                }else{
+                    //if bosanor purbe aita cilo
+                    Cart::insert([
+                        "user_id" => auth()->id(),
+                        'product_id' => $request->d_product_id,
+                        "color_id" => $request->d_color_id,
+                        'size_id' => $request->d_size_id,
+                        "quantity" => $user_quantity,
+                        "created_at" => Carbon::now(),
+                    ]);
+                }
                 echo "Successfully";
-            }else{
-                echo "Sorry you cant add";
-            }
+                }
         }
     }
 
-
-
-
-
-    //ViewCart
-    function view_cart(){
+//view cart
+        function view_cart(){
         return view('frontend.shop.viewCart');
     }
 
