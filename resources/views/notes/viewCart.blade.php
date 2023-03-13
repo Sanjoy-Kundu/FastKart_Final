@@ -135,8 +135,56 @@ function stocks($product_id, $color_id, $size_id){
 view cart e user quantity jodi stock thke beshi hoy tahole akta lal error dekhabo
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=====================Sub totla e total amount dekhanor jonno amay je steps nite hobe seita holo ===========
+view_cart.blade.php
+amy foreach er age
+STEPS = 1
+@php
+ $cart_total = 0;
+ @endphp
+
+ amra bolbo jotobar ghurba totalbar aigula gun kore kore agaba
+             <td class="subtotal">
+                        <h4 class="table-title text-content">Total</h4>
+                              <h5> {{$cart->quantity * $cart->relationToProduct->discounted_price}}
+                                            @php
+                                                    $cart_total += ($cart->quantity * $cart->relationToProduct->discounted_price)
+                                            @endphp
+                                </h5>
+                        </td>
+
+Last sub total er moddey aita call korlei sob gula jog hoye jabe.
 */
 
+
+
+/*
+=============Update cart button niye kaj korbo =================
+
+
+
+
+*/
 
 
 ?>

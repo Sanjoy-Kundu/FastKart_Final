@@ -36,7 +36,7 @@
                             <table class="table">
                                 <tbody>
                                     @php
-                                        $total = 0;
+                                        $cart_total = 0;
                                     @endphp
                                     @forelse (carts() as $cart)
                                         <tr class="product-box-contain @if(stocks($cart->product_id, $cart->color_id, $cart->size_id) < $cart->quantity) bg-danger @endif">
@@ -103,18 +103,25 @@
                                                 </div>
                                             </td>
 
+                                            @if ($cart->relationToProduct->discount)
                                             <td class="price">
                                                 <h4 class="table-title text-content">Price</h4>
                                                 <h5>${{ $cart->relationToProduct->discounted_price }} <del
                                                         class="text-content">${{ $cart->relationToProduct->product_regular_price }}</del>
                                                 </h5>
+                                                <h6 class="theme-color">Discount: {{$cart->relationToProduct->discount}}%</h6>
                                                 <h6 class="theme-color">You Save : $
                                                     {{ $cart->relationToProduct->product_regular_price - $cart->relationToProduct->discounted_price }}
-                                                    {{
-                                                        $total += $cart->relationToProduct->product_regular_price - $cart->relationToProduct->discounted_price
-                                                    }}
                                                         </h6>
                                             </td>
+                                            @else
+                                            <td class="price">
+                                                <h4 class="table-title text-content">Price</h4>
+                                                <h5>${{ $cart->relationToProduct->product_regular_price  }} </h5>
+                                            </td>
+
+                                            @endif
+
 
                                             <td class="quantity">
                                                 <h4 class="table-title text-content">Qty</h4>
@@ -139,7 +146,13 @@
 
                                             <td class="subtotal">
                                                 <h4 class="table-title text-content">Total</h4>
-                                                <h5>{{$cart->quantity * $cart->relationToProduct->discounted_price}} </h5>
+                                                <h5>
+                                                    {{$cart->quantity * $cart->relationToProduct->discounted_price}}
+
+                                                    @php
+                                                        $cart_total += ($cart->quantity * $cart->relationToProduct->discounted_price)
+                                                    @endphp
+                                                </h5>
 
                                             </td>
 
@@ -186,7 +199,7 @@
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">${{$total}}</h4>
+                                    <h4 class="price">{{$cart_total}}</h4>
                                 </li>
 
                                 <li>

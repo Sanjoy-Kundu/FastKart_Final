@@ -213,9 +213,9 @@
                                                                     </a>
                                                                     <h6>
                                                                         <span>{{ $cart->quantity }} x</span> $
-                                                                        {{ $cart->relationToProduct->product_regular_price }}
+                                                                        {{ $cart->relationToProduct->discounted_price }}
                                                                         @php
-                                                                            $total_amount += $cart->quantity * $cart->relationToProduct->product_regular_price;
+                                                                            $total_amount += $cart->quantity * $cart->relationToProduct->discounted_price;
                                                                         @endphp
 
                                                                     </h6>
