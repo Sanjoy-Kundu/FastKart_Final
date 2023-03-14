@@ -184,4 +184,20 @@ function wishlist_delete($id){
     }
 
 
+
+    //view_cart.blade.php update cart button working
+    function update_cart(Request $request){
+    //return $request->quantity;
+    foreach ($request->quantity as $cart_id => $cart_quantity) {
+        //echo $cart_id;
+        // echo "<br/>";
+        // echo $cart_quantity;
+        Cart::find($cart_id)->update([
+            'quantity' => $cart_quantity
+        ]);
+    }
+    return back();
+    }
+
+
 }

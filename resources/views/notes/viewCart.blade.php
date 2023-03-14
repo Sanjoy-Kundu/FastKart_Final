@@ -180,8 +180,67 @@ Last sub total er moddey aita call korlei sob gula jog hoye jabe.
 
 /*
 =============Update cart button niye kaj korbo =================
+1. amader kaj ki amader kaj hoitece amra jokhon updateCart button e click korbo tokhoni sob change krito jinish update hobe jabe  seitar jonno amder akta form dorkar
+2. amra akta form nibo and ai form er moddey amra mader sob gulio jinish rakbo orthat foreach er sokol jinish rakbo
+3. web.php te route banailam  Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('update.cart');
+4. form er method = "POST" dibo and action ta set korbo action = {{route(update.cart)}}
+
+5. FrontendController er moddey update_cart(Request $request){return  $request; } dile amder akta data asbe but amder to 3 ta produdct er quantity asar kotha kinto ta na ase lart er quantity asbe
+6. loop  chalanor por amra jdoi akadik datake niye aste chai tahole input field er namer por akta [] faka empty diye dibo
+
+7. input field er moddey name = "quantity[]" array dewar karon hoitece je jotobar aita ghurbe totobarei new field toyri korebe .
+8. new field tokhoni korbe jokhonei amra array er moody cart er id diye dhorte parbo je oi prouduct
+
+9. akhon amra foreach chaliye jabo cart database seikhan theke cart id diye find kore quantity barabo
 
 
+10.akhon query chalabo foreach ($request->quantity as $cart_id => $cart_quantity)  and cart_id diye find kore quantity update korbo .
+    function update_cart(Request $request){
+    //return $request->quantity;
+    foreach ($request->quantity as $cart_id => $cart_quantity) {
+        //echo $cart_id;
+        // echo "<br/>";
+        // echo $cart_quantity;
+        Cart::find($cart_id)->update([
+            'quantity' => $cart_quantity
+        ]);
+    }
+    return back();
+    }
+
+
+11. process to chekout button guyeb korar jonno amder je jinish lokkho rakte hobe je....
+    foreach er purbe akta php blog nibo and seikhane bole je $error = false;
+    @php
+        $error = false;
+    @endphp
+
+    12. foreach er moddey  amder aibar kaj koraite hobe je : jokhonei forech cholbe tokhei error check korbe je jodi user_quantity jodi stock thke beshi hoy tahole error ta true kore dibe
+
+    @php
+        $error = false;
+    @endphp
+
+      13.               if (stocks($cart->product_id, $cart->color_id, $cart->size_id) < $cart->quantity) {
+                                            $error = true;
+                                        }
+                                    @endphp
+
+14. erpor ai $error ke niye chole jabo button er kace jeikhane seikahne jabo je process to checkout button e $error ke print korle 1 dekhabe jodi error thake r na thakle kicuei dekhabe na .
+
+15. jodi error thake tahole tahole button gayeb hoye jabe. ar error solve korle button asbe .
+
+error print           {{$error}}
+                                @if ($error)
+                                <li> error thakle aita dekhabo
+                                    <button class="btn btn-animation proceed-btn fw-bold">Please solve your error</button>
+                                </li>
+                                @else error na thakle button dekhabo
+                                <li>
+                                    <button onclick="location.href = 'checkout.html';"
+                                        class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+                                </li>
+                                @endif
 
 
 */

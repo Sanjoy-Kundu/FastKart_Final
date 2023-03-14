@@ -36,6 +36,7 @@ Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name('ad
 Route::get('add/to/cart/remove/{cart_id}', [FrontendController::class, 'add_to_cart_remove'])->name('add.to.cart.remove');
 Route::get('view/cart', [FrontendController::class, 'view_cart'])->name('view.cart');
 
+Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('update.cart');
 /* Route::get('/', function () {
     return view('welcome');
 }); */

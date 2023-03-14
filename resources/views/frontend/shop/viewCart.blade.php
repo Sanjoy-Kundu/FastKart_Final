@@ -37,8 +37,17 @@
                                 <tbody>
                                     @php
                                         $cart_total = 0;
+                                       $error = false;
                                     @endphp
+                                    <form action="{{route('update.cart')}}" method="post">
+                                        @csrf
                                     @forelse (carts() as $cart)
+                                    @php
+                                        if (stocks($cart->product_id, $cart->color_id, $cart->size_id) < $cart->quantity) {
+                                            $error = true;
+                                        }
+                                    @endphp
+
                                         <tr class="product-box-contain @if(stocks($cart->product_id, $cart->color_id, $cart->size_id) < $cart->quantity) bg-danger @endif">
                                             <td class="product-detail">
                                                 <div class="product border-0">
@@ -83,7 +92,7 @@
                                                                                 aria-hidden="true"></i>
                                                                         </button>
                                                                         <input class="form-control input-number qty-input"
-                                                                            type="text" name="quantity" value="0">
+                                                                            type="text" name="quantity[{{$cart->id}}]" value="0">
                                                                         <button type="button" class="btn qty-right-plus"
                                                                             data-type="plus" data-field="">
                                                                             <i class="fa fa-plus ms-0"
@@ -133,7 +142,7 @@
                                                                 <i class="fa fa-minus ms-0" aria-hidden="true"></i>
                                                             </button>
                                                             <input class="form-control input-number qty-input val"
-                                                                type="number" name="quantity" value="{{ $cart->quantity }}"
+                                                                type="number" name="quantity[{{$cart->id}}]" value="{{ $cart->quantity }}"
                                                                 id="cartNumber">
                                                             <button type="button" class="btn qty-right-plus plus-btn"
                                                                 id="quantity_plus" data-type="plus" data-field="">
@@ -171,10 +180,11 @@
 
                                     @if (carts()->count() > 0)
                                     <tr>
-                                        <td><button class="btn btn bg-info">Update Cart</button></td>
+                                        <td colspan="2"></td>
+                                        <td><button type="submit" class="btn btn bg-info">Update Cart</button></td>
                                     </tr>
                                     @endif
-
+                                </form>
                                 </tbody>
                             </table>
                         </div>
@@ -216,17 +226,27 @@
 
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
-                                <h4>Total (USD)</h4>
+                                <h4>Total (USD) </h4>
                                 <h4 class="price theme-color">$132.58</h4>
                             </li>
                         </ul>
 
                         <div class="button-group cart-button">
                             <ul>
+                       {{$error}}
+                                @if ($error)
+                                <li>
+                                    <button class="btn btn-animation proceed-btn fw-bold">Please solve your error</button>
+                                </li>
+                                @else
                                 <li>
                                     <button onclick="location.href = 'checkout.html';"
                                         class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
                                 </li>
+                                @endif
+
+
+
 
                                 <li>
                                     <button onclick="location.href = 'index.html';"
