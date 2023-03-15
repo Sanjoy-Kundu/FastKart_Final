@@ -335,7 +335,7 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="coupon-list.html">Coupon List</a>
+                                            <a href="{{route('coupon.list')}}">Coupon List</a>
                                         </li>
 
                                         <li>

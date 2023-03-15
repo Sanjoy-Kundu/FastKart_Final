@@ -101,6 +101,7 @@ Route::post('change/password', [PasswordChangerController::class, 'store'])->nam
 //::::::::::::::::::::::Coupon Controller ::::::::::::::::::::::::::
 Route::get('/coupon', [CouponController::class, 'create'])->name('coupon');
 Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
+Route::get('coupon/list', [CouponController::class, 'index'])->name('coupon.list');
 
 /*
 Route::get('/dashboard', function () {
