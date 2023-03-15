@@ -339,7 +339,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="create-coupon.html">Create Coupon</a>
+                                            <a href="{{route('coupon')}}">Create Coupon</a>
                                         </li>
                                     </ul>
                                 </li>

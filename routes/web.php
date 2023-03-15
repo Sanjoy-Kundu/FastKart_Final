@@ -4,6 +4,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PasswordChangerController;
 use App\Http\Controllers\ProductController;
@@ -43,6 +44,7 @@ Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('up
 
 
 Route::get('/dashboard', [BackendController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
 
 //::::::::::::::::::::::::::::::::::::Category part start ::::::::::::::::::::::::::::::::::::::::
 Route::get('category', [CategoryController::class, 'index']);
@@ -95,6 +97,10 @@ Route::get('change/password', [PasswordChangerController::class, 'index'])->name
 Route::post('change/password', [PasswordChangerController::class, 'store'])->name('change.store');
 
 
+
+//::::::::::::::::::::::Coupon Controller ::::::::::::::::::::::::::
+Route::get('/coupon', [CouponController::class, 'create'])->name('coupon');
+Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
 
 /*
 Route::get('/dashboard', function () {
