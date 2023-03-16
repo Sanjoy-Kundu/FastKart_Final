@@ -200,11 +200,16 @@
                         <div class="summery-contain">
                             <div class="coupon-cart">
                                 <h6 class="text-content mb-2">Coupon Apply</h6>
-                                <div class="mb-3 coupon-box input-group">
-                                    <input type="email" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="Enter Coupon Code Here...">
-                                    <button class="btn-apply">Apply</button>
-                                </div>
+                                <form action="" method="GET">
+                                    <div class="mb-3 coupon-box input-group">
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="Enter Coupon Code Here..." name="coupon_name">
+                                        <button type="submit" class="btn-apply">Apply</button>
+                                    </div>
+                                </form>
+                              @if (session('error'))
+                                  <div class="alert alert-primary">{{session('error')}}</div>
+                              @endif
                             </div>
                             <ul>
                                 <li>
@@ -213,8 +218,12 @@
                                 </li>
 
                                 <li>
-                                    <h4>Coupon Discount</h4>
-                                    <h4 class="price">(-) 0.00</h4>
+                                    <h4>Discount (-) </h4>
+                                    <h4 class="price">{{$discount}}%</h4>
+                                </li>
+                                <li>
+                                    <h4>Total Save (-) </h4>
+                                    <h4 class="price">${{($cart_total * $discount)/ 100}}</h4>
                                 </li>
 
                                 <li class="align-items-start">
@@ -227,7 +236,7 @@
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
                                 <h4>Total (USD) </h4>
-                                <h4 class="price theme-color">$132.58</h4>
+                                <h4 class="price theme-color">${{$cart_total - ($cart_total * $discount)/ 100}} </h4>
                             </li>
                         </ul>
 
@@ -249,7 +258,7 @@
 
 
                                 <li>
-                                    <button onclick="location.href = 'index.html';"
+                                    <button onclick="location.href = '{{route('shop', 'all')}}';"
                                         class="btn btn-light shopping-button text-dark">
                                         <i class="fa-solid fa-arrow-left-long"></i>Return To Shopping</button>
                                 </li>

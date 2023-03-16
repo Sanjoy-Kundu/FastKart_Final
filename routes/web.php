@@ -37,6 +37,7 @@ Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name('ad
 Route::get('add/to/cart/remove/{cart_id}', [FrontendController::class, 'add_to_cart_remove'])->name('add.to.cart.remove');
 Route::get('view/cart', [FrontendController::class, 'view_cart'])->name('view.cart');
 
+
 Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('update.cart');
 /* Route::get('/', function () {
     return view('welcome');
@@ -102,6 +103,7 @@ Route::post('change/password', [PasswordChangerController::class, 'store'])->nam
 Route::get('/coupon', [CouponController::class, 'create'])->name('coupon');
 Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
 Route::get('coupon/list', [CouponController::class, 'index'])->name('coupon.list');
+
 
 /*
 Route::get('/dashboard', function () {

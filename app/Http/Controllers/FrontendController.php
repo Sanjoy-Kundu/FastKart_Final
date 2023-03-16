@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Color;
+use App\Models\Coupon;
 use App\Models\FeaturedPhoto;
 use App\Models\Inventory;
 use App\Models\Product;
@@ -173,8 +174,54 @@ function wishlist_delete($id){
     }
 
 //view cart
+/*
+ function view_cart(){
+    return view('frontend.shop.viewCart');
+}
+*/
+
+//view cart e coupon implenet korar por
         function view_cart(){
-        return view('frontend.shop.viewCart');
+              // return $_GET['coupon_name'];
+              if(isset($_GET['coupon_name'])){
+                    $coupon_name = $_GET['coupon_name'];
+                    $coupon = Coupon::where('coupon_name', $coupon_name)->first();
+                    //exists check start
+                   //return  Coupon::where('coupon_name', $coupon_name)->exists();
+                   //exists check end
+                   $discount = 90;
+                     if(Coupon::where('coupon_name', $coupon_name)->exists()){
+                       // return Carbon::now();//today date
+                       // return $coupon->coupon_expried_date; //database theke expired date nilam
+                        //return Carbon::parse($coupon-> $coupon->coupon_expried_date); //parsre er maddhome carbon e convert korlam
+                        if(Carbon::now() >= Carbon::parse($coupon->coupon_expried_date)){
+                           // return "INvalid coupon";
+                            return redirect('view/cart')->with('error', 'This coupon is invalid.Pease try again later.');
+                        }else{
+                           // return "valid coupon";
+                          // return $coupon->coupon_limit; limit ber kore chek dibo
+                          if($coupon->coupon_limit >= 0){
+                           // return  "good coupon";
+                            $discount = $coupon->coupon_discount;
+                            $name = $coupon->coupon_name;
+                            return view('frontend.shop.viewCart', compact('discount', 'name'));
+                          }else{
+                            //return "Coupon kaj korbe na ";
+                            return redirect('view/cart')->with('error', 'Coupon limitation is over');
+                        }
+                        }
+                        // return "coupon name database er coupon er sathe milse";
+                   }else{
+                    return redirect('view/cart')->with('error', 'Coupon name does not exists');
+                    //return "Couon name databse er sathe mile nai";
+                   }
+
+              }else{
+                $coupon_name = ' ';
+                $discount = 0;
+                echo "coupon nai";
+              }
+        return view('frontend.shop.viewCart', compact('discount'));
     }
 
     //cart product remove
@@ -198,6 +245,8 @@ function wishlist_delete($id){
     }
     return back();
     }
+
+
 
 
 }
