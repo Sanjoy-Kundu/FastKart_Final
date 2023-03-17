@@ -6,20 +6,36 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Your Address Here</h5>
+          <h5 class="modal-title text-center" id="exampleModalLabel">Add Your Address Here</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method="POST" action="{{route('customer.address')}}">
+                @csrf
                 <div class="mb-3">
                   <label class="form-label"><h3>Label</h3></label>
-                  <input type="text" class="form-control" placeholder="House Shop Home address">
+                  <input type="text" class="form-control" placeholder="House Shop Home address" name="label">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label"><h3>Customer Name</h3></label>
-                  <input type="text" class="form-control" placeholder="Your name here ... ">
+                  <input type="text" class="form-control" placeholder="Your name here ... " name="customer_name">
                 </div>
+
+                <div class="mb-3">
+                  <label class="form-label"><h3>Customer Adress</h3></label>
+                 <textarea class="form-control" name="customer_address" id=""  rows="4"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><h3>Zipcode</h3></label>
+                    <input type="text" class="form-control" name="zip_code" placeholder="Your name here ... ">
+                  </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><h3>Mobile</h3></label>
+                    <input type="tel" class="form-control" name="customer_mobile" placeholder="Your name Mobile Here">
+                  </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
@@ -76,7 +92,8 @@
 
                                         <div class="checkout-detail">
                                             <div class="row g-4">
-                                                <div class="col-xxl-6 col-lg-12 col-md-6">
+                                                @forelse ($addresses as $address)
+                                                <div class="col-xxl-6 col-lg-12 col-md-6 col-sm-12 col-xxl-4">
                                                     <div class="delivery-address-box">
                                                         <div>
                                                             <div class="form-check">
@@ -85,77 +102,46 @@
                                                             </div>
 
                                                             <div class="label">
-                                                                <label>Home</label>
+                                                                <label>{{$address->label}}</label>
                                                             </div>
 
                                                             <ul class="delivery-address-detail">
                                                                 <li>
-                                                                    <h4 class="fw-500">Jack Jennas</h4>
+                                                                    <h4 class="fw-500">{{$address->customer_name}}</h4>
                                                                 </li>
 
                                                                 <li>
                                                                     <p class="text-content"><span
                                                                             class="text-title">Address
-                                                                            : </span>8424 James Lane South San
-                                                                        Francisco, CA 94080</p>
+                                                                            : </span>{{$address->customer_address}}</p>
                                                                 </li>
 
                                                                 <li>
                                                                     <h6 class="text-content"><span
-                                                                            class="text-title">Pin Code
-                                                                            :</span> +380</h6>
+                                                                            class="text-title">Zip Code
+                                                                            :</span>{{$address->zip_code}}</h6>
                                                                 </li>
 
                                                                 <li>
                                                                     <h6 class="text-content mb-0"><span
                                                                             class="text-title">Phone
-                                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
+                                                                            :</span>{{$address->customer_mobile}}</h6>
+                                                                </li>
+                                                                <li>
+                                                                    <h4 class="text-content mb-0"><span
+                                                                            class="text-title">Delete
+                                                                            :</span><a href="{{route('address.delete', $address->id)}}"><i class="fa fa-remove fs-2 text-danger"></i></a></h4>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @empty
 
-                                                <div class="col-xxl-6 col-lg-12 col-md-6">
-                                                    <div class="delivery-address-box">
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="jack"
-                                                                    id="flexRadioDefault2" checked="checked">
-                                                            </div>
+                                                @endforelse
 
-                                                            <div class="label">
-                                                                <label>Office</label>
-                                                            </div>
 
-                                                            <ul class="delivery-address-detail">
-                                                                <li>
-                                                                    <h4 class="fw-500">Jack Jennas</h4>
-                                                                </li>
 
-                                                                <li>
-                                                                    <p class="text-content"><span
-                                                                            class="text-title">Address
-                                                                            :</span>Nakhimovskiy R-N / Lastovaya Ul.,
-                                                                        bld. 5/A, appt. 12
-                                                                    </p>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content"><span
-                                                                            class="text-title">Pin Code :</span>
-                                                                        +380</h6>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h6 class="text-content mb-0"><span
-                                                                            class="text-title">Phone
-                                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 delivery-option text-center">
                                                {{--      <a href="#"><i class="fa fa-plus"></i>Add Address</a> --}}
                                                <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-plus"></i>  Add Address </a>

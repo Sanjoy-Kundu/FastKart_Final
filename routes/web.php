@@ -40,7 +40,12 @@ Route::get('view/cart', [FrontendController::class, 'view_cart'])->name('view.ca
 Route::get('product/checkout', [FrontendController::class, 'checkout'])->name('product.checkout');
 
 Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('update.cart');
+Route::post('customer/address', [FrontendController::class, 'address'])->name('customer.address');
+Route::get('address/delete/{id}', [FrontendController::class, 'address_delete'])->name('address.delete');
+
 Route::get('contact', [ContactController::class, 'create'])->name('contact');
+
+
 /* Route::get('/', function () {
     return view('welcome');
 }); */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Coupon;
@@ -259,9 +260,10 @@ function checkout(){
     /*return url()->previous();
     return strpos('hello', 'e');
     return strpos(url()->previous(), 'view/cart');*/
+     $addresses = Address::where('user_id', auth()->id())->latest()->get();
     if(strpos(url()->previous(), 'view/cart') || strpos(url()->previous(), 'product/details')){
         //return "wellcome";
-        return view('frontend.checkout.checkout');
+        return view('frontend.checkout.checkout', compact('addresses'));
     }else{
         return view('frontend.errorPage.error');
     }
@@ -271,4 +273,30 @@ function checkout(){
 
 
 
+
+
+
+//checkout address
+function address(Request $request){
+    Address::insert([
+        'user_id'=>auth()->id(),
+        'label'=>$request->label,
+        'customer_name'=>$request->customer_name,
+        'customer_address'=>$request->customer_address,
+        'zip_code'=>$request->zip_code,
+        'customer_mobile'=>$request->customer_mobile,
+        'created_at'=>Carbon::now()
+    ]);
+
+    echo "done";
+}
+
+
+
+//checkout address delete
+function address_delete($id){
+   // return $id;
+Address::find($id)->forceDelete();
+echo "Delete";
+}
 }
