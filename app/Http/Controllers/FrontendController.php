@@ -247,11 +247,27 @@ function wishlist_delete($id){
 
 
 
-//checkout start
+/*checkout start step-01
 function checkout(){
     return view('frontend.checkout.checkout');
 }
-//checkout end
+checkout end
+*/
+
+//checkout start step-02
+function checkout(){
+    /*return url()->previous();
+    return strpos('hello', 'e');
+    return strpos(url()->previous(), 'view/cart');*/
+    if(strpos(url()->previous(), 'view/cart') || strpos(url()->previous(), 'product/details')){
+        //return "wellcome";
+        return view('frontend.checkout.checkout');
+    }else{
+        return view('frontend.errorPage.error');
+    }
+}
+
+//checkout start
 
 
 
