@@ -1,5 +1,34 @@
 @extends('layouts.frontendmaster')
 @section('content')
+<!--Modal Start--->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Your Address Here</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                  <label class="form-label"><h3>Label</h3></label>
+                  <input type="text" class="form-control" placeholder="House Shop Home address">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label"><h3>Customer Name</h3></label>
+                  <input type="text" class="form-control" placeholder="Your name here ... ">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Modal End--->
+
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
@@ -127,6 +156,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 delivery-option text-center">
+                                               {{--      <a href="#"><i class="fa fa-plus"></i>Add Address</a> --}}
+                                               <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa fa-plus"></i>  Add Address </a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
