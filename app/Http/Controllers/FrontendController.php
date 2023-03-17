@@ -108,7 +108,6 @@ function wishlist_delete($id){
         ])->get(); */
 
         $generated_color_options = "<option value=' '>--select color---</option>";
-
         $Inventories =  Inventory::where([
             'product_id' => $request->product_id,
             'product_size_id' => $request->size_id,
@@ -246,6 +245,13 @@ function wishlist_delete($id){
     return back();
     }
 
+
+
+//checkout start
+function checkout(){
+    return view('frontend.checkout.checkout');
+}
+//checkout end
 
 
 

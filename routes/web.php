@@ -4,6 +4,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PasswordChangerController;
@@ -36,9 +37,10 @@ Route::post('get/color/list', [FrontendController::class, 'get_color_list'])->na
 Route::post('add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 Route::get('add/to/cart/remove/{cart_id}', [FrontendController::class, 'add_to_cart_remove'])->name('add.to.cart.remove');
 Route::get('view/cart', [FrontendController::class, 'view_cart'])->name('view.cart');
-
+Route::get('product/checkout', [FrontendController::class, 'checkout'])->name('product.checkout');
 
 Route::post('update/cart', [FrontendController::class, 'update_cart'])->name('update.cart');
+Route::get('contact', [ContactController::class, 'create'])->name('contact');
 /* Route::get('/', function () {
     return view('welcome');
 }); */

@@ -156,13 +156,13 @@
                                     <div class="product-title">
                                         <h4>Size</h4>
                                     </div>
-                                    {{-- <button id="hello_btn">hello</button> --}}
+                                {{--    <button id="hello_btn">hello</button> --}}
                                     <select name="" id="size_dropdown" class="form-control">
                                         <option value="">----select one size ---</option>
                                         @foreach ($inventories->unique('product_size_id') as $inventory)
                                             <option value="{{ $inventory->relationshipWithSize->id }}">
-                                                {{ $inventory->relationshipWithSize->size_name }}
 
+                                                {{ $inventory->relationshipWithSize->size_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -981,23 +981,105 @@
 
 <!---Custom javascript from frontend master --->
 @section('footer_script')
-    <script>
+{{--     <script>
         var plusButton = document.getElementById('quantity_plus');
         console.log("hello");
         console.log(plusButton);
-    </script>
+    </script> --}}
 
 
 
 
     <script>
         /*   =========Basic Jquery =========
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $(document).ready(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                $('#hello_btn').click(function() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    alert('Hello world');
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    */
+            $(document).ready(function() {
+            $('#hello_btn').click(function() {
+            alert('Hello world');
+            });
+            });
+        */
+
+/* $(document).ready(function(){
+    $('#hello_btn').click(function(){
+        alert('hello');
+    })
+}) */
+$(document).ready(function(){
+    $('#size_dropdown').change(function(){
+        $('#add_to_cart_btn').addClass('d-none');
+        var size_id = $(this).val();
+        var product_id = {{$product_details->id}};
+        $("#d_size_id").html(size_id);
+
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+
+        type: "POST",
+                    url: "/get/color/list",
+                    data: {
+                        size_id: size_id,
+                        product_id: product_id,
+                    },
+                    success: function(data) {
+                        $('#color_dropdown').html(data);
+                    }
+        });
+    });
+
+    $("#color_dropdown").change(function(){
+        var color_dropdown_value = $(this).val();
+        $("#d_color_id").html(color_dropdown_value);
+             if (color_dropdown_value) {
+                    $("#add_to_cart_btn").removeClass('d-none');
+                } else {
+                    $("#add_to_cart_btn").addClass('d-none');
+                }
+    });
+    $("#add_to_cart_btn").click(function(){
+        var quantityNumber = $(".qty-input").val();
+                var d_color_id = $("#d_color_id").html();
+                var d_size_id = $("#d_size_id").html();
+                var d_product_id = $("#d_product_id").html();
+                //alert(d_product_id);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "/add/to/cart",
+                    data: {
+                        d_color_id: d_color_id,
+                        d_size_id: d_size_id,
+                        d_product_id: d_product_id,
+                        quantityNumber: quantityNumber,
+                    },
+                    success: function(data) {
+                        //   alert(data);
+                        //  alert(data);
+                        if (data == 'Successfully') {
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
+
+                    }
+                });
+
+
+    });
+})
+
+
+
+
+            /*
         $(document).ready(function() {
             $('#size_dropdown').change(function() {
                 $('#add_to_cart_btn').addClass('d-none'); //add_to_cart button hide(2 no steps)
@@ -1023,10 +1105,12 @@
                     success: function(data) {
 
                         $('#color_dropdown').html(data);
-                        //  alert(data);
+                        alert(data);
                     }
                 });
             });
+
+
             //working with color dropdown
             $("#color_dropdown").change(function() {
                 // alert("dropdown alert");
@@ -1062,7 +1146,7 @@
                         d_color_id: d_color_id,
                         d_size_id: d_size_id,
                         d_product_id: d_product_id,
-                        quantityNumber: quantityNumber,
+                        quantityNumber: ,
                     },
                     success: function(data) {
                         //   alert(data);
@@ -1078,5 +1162,8 @@
                 //ajax setup end
             });
         });
+
+*/
+
     </script>
 @endsection

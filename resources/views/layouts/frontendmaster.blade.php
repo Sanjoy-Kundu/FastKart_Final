@@ -157,7 +157,7 @@
                                         </div>
                                     </li>
                                     <li class="right-side">
-                                        <a href="contact-us.html" class="delivery-login-box">
+                                        <a href="{{route('contact')}}" class="delivery-login-box">
                                             <div class="delivery-icon">
                                                 <i data-feather="phone-call"></i>
                                             </div>
@@ -273,7 +273,7 @@
                                                         <a href="{{ route('view.cart') }}"
                                                             class="btn btn-sm cart-button">View
                                                             Cart</a>
-                                                        <a href="checkout.html"
+                                                        <a href="{{route('product.checkout')}}"
                                                             class="btn btn-sm cart-button theme-bg-color
                                                         text-white">Checkout</a>
                                                     </div>
@@ -389,7 +389,7 @@
                                                 <a class="nav-link" href="product-left-thumbnail.html">Product</a>
                                             </li>
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link" href="product-left-thumbnail.html">Contact Us</a>
+                                                <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
                                             </li>
                                         </ul>
                                     </div>
