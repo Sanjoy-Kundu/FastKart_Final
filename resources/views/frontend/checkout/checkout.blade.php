@@ -552,18 +552,23 @@
                     <div class="right-side-summery-box">
                         <div class="summery-box-2">
                             <div class="summery-header">
-                                <h3>Order Summery</h3>
+                                <h3>Order Summery of <sup><span class="text-danger"><b>{{auth()->user()->name}}</b></span></sup></h3>
                             </div>
 
                             <ul class="summery-contain">
-                                <li>
-                                    <img src="{{asset('assets')}}/images/vegetable/product/1.png"
-                                        class="img-fluid blur-up lazyloaded checkout-image" alt="">
-                                    <h4>Bell pepper <span>X 1</span></h4>
-                                    <h4 class="price">$32.34</h4>
-                                </li>
+                            {{--     {{Carts()}} --}}
+                              @foreach (Carts() as $cart)
+                              <li>
+                                <img src="{{asset('uploads/products/mainPhoto')}}/{{$cart->relationToProduct->product_image}}"
+                                    class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                <h4>{{$cart->relationToProduct->product_name}}<span>X {{$cart->quantity}}</span></h4>
+                                <h4 class="price">${{$cart->relationToProduct->discounted_price}}</h4>
+                            </li>
+                                @endforeach
 
-                                <li>
+
+
+                       {{--          <li>
                                     <img src="{{asset('assets')}}/images/vegetable/product/2.png"
                                         class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Eggplant <span>X 3</span></h4>
@@ -596,13 +601,13 @@
                                         class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Broccoli <span>X 2</span></h4>
                                     <h4 class="price">$29.69</h4>
-                                </li>
+                                </li> --}}
                             </ul>
 
                             <ul class="summery-total">
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$111.81</h4>
+                                    <h4 class="price">$==</h4>
                                 </li>
 
                                 <li>

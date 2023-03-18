@@ -157,7 +157,6 @@
                                                 <h4 class="table-title text-content">Total</h4>
                                                 <h5>
                                                     {{$cart->quantity * $cart->relationToProduct->discounted_price}}
-
                                                     @php
                                                         $cart_total += ($cart->quantity * $cart->relationToProduct->discounted_price)
                                                     @endphp
@@ -214,16 +213,20 @@
                             <ul>
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">{{$cart_total}}</h4>
+                                    <h4 class="price">{{session('session_subtotal', $cart_total)}}</h4>
+                                 {{--    <h4 class="price">{{ $cart_total}}</h4> --}}
                                 </li>
 
                                 <li>
                                     <h4>Discount (-) </h4>
-                                    <h4 class="price">{{$discount}}%</h4>
+                                   {{--  <h4 class="price">{{$discount}}%</h4> --}}
+                                    <h4 class="price">{{session("session_discount", $discount)}}%</h4>
                                 </li>
                                 <li>
-                                    <h4>Total Save (-) </h4>
-                                    <h4 class="price">${{($cart_total * $discount)/ 100}}</h4>
+                                    <h4>Discounted Amount  (-) </h4>
+                           {{--       <h4 class="price">${{($cart_total * $discount)/ 100}}</h4> --}}
+                                 <h4 class="price">${{session("session_discounted_amout",($cart_total * $discount)/ 100 )}}</h4>
+
                                 </li>
 
                                 <li class="align-items-start">
@@ -236,7 +239,8 @@
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
                                 <h4>Total (USD) </h4>
-                                <h4 class="price theme-color">${{$cart_total - ($cart_total * $discount)/ 100}} </h4>
+                             {{--    <h4 class="price theme-color">${{$cart_total - ($cart_total * $discount)/ 100}} </h4> --}}
+                                <h4 class="price theme-color">${{session("session_total",$cart_total - ($cart_total * $discount)/ 100 )}}</h4>
                             </li>
                         </ul>
 
