@@ -554,7 +554,7 @@
                             <div class="summery-header">
                                 <h3>Order Summery of <sup><span class="text-danger"><b>{{auth()->user()->name}}</b></span></sup></h3>
                             </div>
-
+                            <h1>{{session('test')}}</h1>
                             <ul class="summery-contain">
                             {{--     {{Carts()}} --}}
                               @foreach (Carts() as $cart)
@@ -562,7 +562,7 @@
                                 <img src="{{asset('uploads/products/mainPhoto')}}/{{$cart->relationToProduct->product_image}}"
                                     class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                 <h4>{{$cart->relationToProduct->product_name}}<span>X {{$cart->quantity}}</span></h4>
-                                <h4 class="price">${{$cart->relationToProduct->discounted_price}}</h4>
+                                <h4 class="price">${{$cart->relationToProduct->discounted_price * $cart->quantity}}</h4>
                             </li>
                                 @endforeach
 
@@ -607,10 +607,20 @@
                             <ul class="summery-total">
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">$==</h4>
+                                    <h4 class="price">${{session('session_sub_total')}}</h4>
                                 </li>
 
                                 <li>
+                                    <h4>Discount</h4>
+                                    <h4 class="price">${{session('session_discount')}}</h4>
+                                </li>
+
+                                <li>
+                                    <h4>Discount Amount</h4>
+                                    <h4 class="price">${{session('session_discounted_amount')}}</h4>
+                                </li>
+
+                           {{--      <li>
                                     <h4>Shipping</h4>
                                     <h4 class="price">$8.90</h4>
                                 </li>
@@ -628,7 +638,7 @@
                                 <li class="list-total">
                                     <h4>Total (USD)</h4>
                                     <h4 class="price">$19.28</h4>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
 
