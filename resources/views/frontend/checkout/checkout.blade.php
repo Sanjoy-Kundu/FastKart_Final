@@ -174,8 +174,7 @@
                                                                     <input class="form-check-input" type="radio"
                                                                         name="standard" id="standard" checked>
                                                                     <label class="form-check-label"
-                                                                        for="standard">Standard
-                                                                        Delivery Option</label>
+                                                                        for="standard">Inside Dhaka 60 (BDT)</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -190,8 +189,7 @@
                                                                     class="form-check mb-0 custom-form-check show-box-checked">
                                                                     <input class="form-check-input" type="radio"
                                                                         name="standard" id="future">
-                                                                    <label class="form-check-label" for="future">Future
-                                                                        Delivery Option</label>
+                                                                    <label class="form-check-label" for="future">Outside Dhaka 120 (BDT)</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -609,15 +607,22 @@
                                     <h4>Subtotal</h4>
                                     <h4 class="price">${{session('session_sub_total')}}</h4>
                                 </li>
-
-                                <li>
-                                    <h4>Discount</h4>
-                                    <h4 class="price">${{session('session_discount')}}</h4>
+                             <li>
+                                    <h4>Coupon Name</h4>
+                                    <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4>
                                 </li>
 
                                 <li>
+                                    <h4>Discount</h4>
+                                    <h4 class="price">{{session('session_discount')}}%</h4>
+                                </li>
+                                <li>
                                     <h4>Discount Amount</h4>
-                                    <h4 class="price">${{session('session_discounted_amount')}}</h4>
+                                    <h4 class="price">${{ (session('session_discounted_amount') * session('session_discount')) / 100}}</h4>
+                                </li>
+                                <li>
+                                    <h4>Total Amount</h4>
+                                    <h4 class="price">${{session('session_sub_total') -  (session('session_discounted_amount') * session('session_discount')) / 100}}</h4>
                                 </li>
 
                            {{--      <li>

@@ -205,7 +205,7 @@
                                 <form action="" method="GET">
                                     <div class="mb-3 coupon-box input-group">
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="Enter Coupon Code Here..." name="coupon_name" value="{{old('coupon_name')}}">
+                                            placeholder="Enter Coupon Code Here..." name="coupon_name" value="">
                                         <button type="submit" class="btn-apply">Apply</button>
                                     </div>
                                 </form>
@@ -215,6 +215,7 @@
                             </div>
                             <ul>
                                 @php
+                                    session(['session_coupon_name' => $name]);
                                     session(['session_sub_total' => $cart_total]);
                                     session(['session_discount' => $discount]);
                                     session(['session_discounted_amount' =>($cart_total * $discount)/ 100 ]);
@@ -226,6 +227,11 @@
                                     <h4 class="price">{{ $cart_total}}</h4>
                                 </li>
 
+                              <li>
+                                    <h4>Coupon Name</h4>
+                                    <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4>
+                                 {{--    <h4 class="price">{{session("session_discount", $discount)}}%</h4>
+                                </li>
                                 <li>
                                     <h4>Discount (-) </h4>
                                     <h4 class="price">{{$discount}}%</h4>

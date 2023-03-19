@@ -204,6 +204,7 @@ function wishlist_delete($id){
                            // return  "good coupon";
                             $discount = $coupon->coupon_discount;
                             $name = $coupon->coupon_name;
+                            session(['coupon_name' => $name]);
                             return view('frontend.shop.viewCart', compact('discount', 'name'));
                           }else{
                             //return "Coupon kaj korbe na ";
