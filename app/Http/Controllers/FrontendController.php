@@ -8,11 +8,13 @@ use App\Models\Color;
 use App\Models\Coupon;
 use App\Models\FeaturedPhoto;
 use App\Models\Inventory;
+use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\ProductInventory;
 use App\Models\User;
 use App\Models\Wishlist;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -182,14 +184,55 @@ function wishlist_delete($id){
 
 //view cart e coupon implenet korar por
         function view_cart(){
-              // return $_GET['coupon_name'];
-              if(isset($_GET['coupon_name'])){
+           // return $_GET['coupon_name'];
+           if(isset($_GET['coupon_name'])){
+            $coupon_name = $_GET['coupon_name'];
+                $coupon = Coupon::where('coupon_name', $coupon_name)->first();
+                //return $coupon->coupon_name;
+                //return $coupon->coupon_expried_date;
+                 //return $coupon->coupon_limit;
+                 // return $coupon->coupon_discount;
+                //exists check start
+                //Coupon::where('coupon_name', $coupon_name)->exists()rn ;
+                if( Coupon::where('coupon_name', $coupon_name)->exists()){
+                    //return  "coupon exists kore";
+                    //return $coupon->coupon_expried_date; coupon date
+                   // return Carbon::parse($coupon->coupon_expried_date);
+                  // return  Carbon::now();
+                   if(Carbon::now() >Carbon::parse($coupon->coupon_expried_date)){
+                   return redirect('view/cart')->with('error','Your coupon is invalid');
+                   // return "invalid Coupon";
+                   }else{
+                    //return "valid coupon";
+                    //return $coupon->coupon_limit;
+                    if($coupon->coupon_limit>0){
+                        //return "good coupon";
+                        $discount =  $coupon->coupon_discount;
+                        return view('frontend.shop.viewCart', compact('discount', 'coupon_name'));
+                    }else{
+                        return redirect('view/cart')->with('error', "Your Coupon limit is over");
+                        //return "limit over";
+                    }
+                   }
+                }else{
+                   return  redirect('view/cart')->with('error', 'Your Coupon does not exists.');
+                   // return "does not exists";
+                }
+                //exists check end
+           }else{
+            $coupon_name = " ";
+            $discount = 0;
+            // return redirect('view/cart')->with('error', "Coupon name error.");
+            // return "coupon name error";
+           }
+
+      /*         if(isset($_GET['coupon_name'])){
                     $coupon_name = $_GET['coupon_name'];
                     $coupon = Coupon::where('coupon_name', $coupon_name)->first();
                     //exists check start
                    //return  Coupon::where('coupon_name', $coupon_name)->exists();
                    //exists check end
-                   $discount = 90;
+                  // $discount = 90;
                      if(Coupon::where('coupon_name', $coupon_name)->exists()){
                        // return Carbon::now();//today date
                        // return $coupon->coupon_expried_date; //database theke expired date nilam
@@ -203,9 +246,9 @@ function wishlist_delete($id){
                           if($coupon->coupon_limit >= 0){
                            // return  "good coupon";
                             $discount = $coupon->coupon_discount;
-                            $name = $coupon->coupon_name;
-                            session(['coupon_name' => $name]);
-                            return view('frontend.shop.viewCart', compact('discount', 'name'));
+                            //$name = $coupon->coupon_name;
+                            //$session_coupon_name = session(['coupon_name' => $name]);
+                            return view('frontend.shop.viewCart', compact('discount', 'coupon_name'));
                           }else{
                             //return "Coupon kaj korbe na ";
                             return redirect('view/cart')->with('error', 'Coupon limitation is over');
@@ -221,8 +264,9 @@ function wishlist_delete($id){
                 $coupon_name = ' ';
                 $discount = 0;
                // echo "coupon nai";
-              }
-        return view('frontend.shop.viewCart', compact('discount'));
+              } */
+            //   , compact('discount', 'coupon_name')
+        return view('frontend.shop.viewCart', compact('coupon_name', 'discount'));
     }
 
     //cart product remove
@@ -300,4 +344,42 @@ function address_delete($id){
 Address::find($id)->forceDelete();
 return back();
 }
+
+
+//Final Chekcout to cheakout page
+function final_checkout(Request $request){
+    //return session('session_coupon_name');
+    //return session('session_discount');
+   // return session('session_sub_total');
+    //return session('session_checkout_discounted_amount');
+   // return session('session_total_amount');
+    //return $request;
+    //return $request->delivery_charge;
+    //$currentTime = Carbon::now();
+     //  return $invoice_number = Carbon::now()->format('d-M-Y') . "-".$currentTime->toDateTimeString();
+     $invoice_number = "<b>Time</b>-".Carbon::now()->format('d-M-Y') . "-<b>Time</b>-". Carbon::now()->format('h:i:s')." "."<b>Your Invoice Id</b>:". Str::upper(Str::random(10));
+    if($request->delivery_charge == 1){
+        $delivery_charge = 60;
+    }else{
+        $delivery_charge = 120;
+    }
+    //die();
+    $invoice_id = Invoice::insertGetId([
+        'user_id' => auth()->id(),
+        'invoice_number' => $invoice_number,
+        'address_id' => $request -> address_id,
+        'coupon_name' => session('s_coupon_name'),
+        'coupon_discount' => session('s_coupon_discount'),
+        'coupon_discounted_amount' =>  session('s_discounted_amount'),
+        'delivery_charge' => $delivery_charge,
+        'payment_option' => $request -> payment_option,
+        //'payment_status' => $request -> name,
+        'subtotal' => session('s_subtotal'),
+        'total_amount' =>session('s_total'),
+        'created_at' =>Carbon::now(),
+    ]);
+    echo $invoice_id;
+}
+
+
 }

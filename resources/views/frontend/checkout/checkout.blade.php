@@ -72,6 +72,8 @@
     <!-- Checkout section Start -->
     <section class="checkout-section-2 section-b-space">
         <div class="container-fluid-lg">
+        <form action="{{route('final.checkout')}}" method="POST">
+            @csrf
             <div class="row g-sm-4 g-3">
                 <div class="col-lg-8">
                     <div class="left-sidebar-checkout">
@@ -97,8 +99,7 @@
                                                     <div class="delivery-address-box">
                                                         <div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="jack"
-                                                                    id="flexRadioDefault1">
+                                                                <input class="form-check-input" type="radio" name="address_id" {{$loop-> index == 0 ? 'checked' : ' '}} value={{$address->id}}>
                                                             </div>
 
                                                             <div class="label">
@@ -160,7 +161,7 @@
                                     </div>
                                     <div class="checkout-box">
                                         <div class="checkout-title">
-                                            <h4>Delivery Option</h4>
+                                            <h4>Delivery Charge</h4>
                                         </div>
 
                                         <div class="checkout-detail">
@@ -171,10 +172,8 @@
                                                             <div class="shipment-detail">
                                                                 <div
                                                                     class="form-check custom-form-check hide-check-box">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="standard" id="standard" checked>
-                                                                    <label class="form-check-label"
-                                                                        for="standard">Inside Dhaka 60 (BDT)</label>
+                                                                    <input class="form-check-input" type="radio" name="delivery_charge" id="standard" value="1">
+                                                                    <label class="form-check-label" for="standard" >Inside Dhaka 60 (BDT)</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -187,8 +186,7 @@
                                                             <div class="shipment-detail">
                                                                 <div
                                                                     class="form-check mb-0 custom-form-check show-box-checked">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="standard" id="future">
+                                                                    <input class="form-check-input" type="radio" name="delivery_charge" id="future" value="2">
                                                                     <label class="form-check-label" for="future">Outside Dhaka 120 (BDT)</label>
                                                                 </div>
                                                             </div>
@@ -257,7 +255,7 @@
                                                             <div class="custom-form-check form-check mb-0">
                                                                 <label class="form-check-label" for="cash"><input
                                                                         class="form-check-input mt-0" type="radio"
-                                                                        name="flexRadioDefault" id="cash" checked> Cash
+                                                                        name="payment_option" id="cash" value="cod"> Cash
                                                                     On Delivery</label>
                                                             </div>
                                                         </div>
@@ -274,7 +272,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="accordion-item">
+                                               <div class="accordion-item">
                                                     <div class="accordion-header" id="flush-headingOne">
                                                         <div class="accordion-button collapsed"
                                                             data-bs-toggle="collapse"
@@ -282,11 +280,11 @@
                                                             <div class="custom-form-check form-check mb-0">
                                                                 <label class="form-check-label" for="credit"><input
                                                                         class="form-check-input mt-0" type="radio"
-                                                                        name="flexRadioDefault" id="credit">
-                                                                    Credit or Debit Card</label>
+                                                                        name="payment_option" id="credit" value="online"> Online Payment</label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                            {{--
                                                     <div id="flush-collapseOne" class="accordion-collapse collapse"
                                                         data-bs-parent="#accordionFlushExample">
                                                         <div class="accordion-body">
@@ -536,7 +534,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -601,28 +599,47 @@
                                     <h4 class="price">$29.69</h4>
                                 </li> --}}
                             </ul>
+                            <div>
+                                {{-- s_coupon_name
+                                s_coupon_discount
+                                s_discounted_amount
+                                s_subtotal
+                                s_total
+                                <h1>{{session('s_coupon_name')}}</h1>
+ --}}
+                            </div>
 
                             <ul class="summery-total">
                                 <li>
                                     <h4>Subtotal</h4>
-                                    <h4 class="price">${{session('session_sub_total')}}</h4>
+                                    <h4 class="price">${{session('s_subtotal')}}</h4>
                                 </li>
                              <li>
                                     <h4>Coupon Name</h4>
-                                    <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4>
+                                    <h4 class="price">{{session('s_coupon_name')}}</h4>
                                 </li>
 
                                 <li>
                                     <h4>Discount</h4>
-                                    <h4 class="price">{{session('session_discount')}}%</h4>
+                                    <h4 class="price">{{session('s_coupon_discount')}}%</h4>
                                 </li>
+                                @php
+
+                                @endphp
                                 <li>
                                     <h4>Discount Amount</h4>
-                                    <h4 class="price">${{ (session('session_discounted_amount') * session('session_discount')) / 100}}</h4>
+                                    {{-- @php
+                                        session(['session_checkout_discounted_amount' => (session('session_discounted_amount') * session('session_discount')) / 100 ])
+                                    @endphp --}}
+                                   {{--  <h4 class="price">${{ (session('session_discounted_amount') * session('session_discount')) / 100}}</h4> --}}
+                                    <h4 class="price">${{ session('s_discounted_amount')}}</h4>
                                 </li>
                                 <li>
+                                    {{-- @php
+                                        session(['session_total_amount' => session('session_sub_total') -  (session('session_discounted_amount') * session('session_discount')) / 100])
+                                    @endphp --}}
                                     <h4>Total Amount</h4>
-                                    <h4 class="price">${{session('session_sub_total') -  (session('session_discounted_amount') * session('session_discount')) / 100}}</h4>
+                                    <h4 class="price">${{session('s_total')}}</h4>
                                 </li>
 
                            {{--      <li>
@@ -670,7 +687,9 @@
                         <button class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place Order</button>
                     </div>
                 </div>
+
             </div>
+        </form>
         </div>
     </section>
     <!-- Checkout section End -->

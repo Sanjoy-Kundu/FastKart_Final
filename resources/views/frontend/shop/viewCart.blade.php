@@ -215,32 +215,43 @@
                             </div>
                             <ul>
                                 @php
-                                    session(['session_coupon_name' => $name]);
-                                    session(['session_sub_total' => $cart_total]);
-                                    session(['session_discount' => $discount]);
-                                    session(['session_discounted_amount' =>($cart_total * $discount)/ 100 ]);
-                                    session(['session_total_amount' => ($cart_total - ($cart_total * $discount)/ 100)]);
+                                session(['s_coupon_name' => $coupon_name]);
+                                //  session(['s_coupon_discount' => $discount]);
+                                //   session(['s_discounted_amount' => (($cart_total * $discount)/ 100)]);
+                                //  session(['s_subtotal' => $cart_total]);
+                                //  session(['s_total' => ($cart_total - ($cart_total * $discount)/ 100)]);
+                         @endphp
+                                @php
+
+                                    // session(['session_coupon_name' => $name]);
+                                    // session(['session_sub_total' => $cart_total]);
+                                    // session(['session_discount' => $discount]);
+                                    // session(['session_discounted_amount' =>($cart_total * $discount)/ 100 ]);
+                                    // session(['session_total_amount' => ($cart_total - ($cart_total * $discount)/ 100)]);
                                 @endphp
                                 <li>
                                     <h4>Subtotal</h4>
                                     {{-- <h4 class="price"><h4 class="price">{{ $cart_total}}</h4></h4> --}}
-                                    <h4 class="price">{{ $cart_total}}</h4>
+                                    <h4 class="price">{{session('s_subtotal')}}</h4>
                                 </li>
 
                               <li>
                                     <h4>Coupon Name</h4>
-                                    <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4>
-                                 {{--    <h4 class="price">{{session("session_discount", $discount)}}%</h4>
-                                </li>
-                                <li>
-                                    <h4>Discount (-) </h4>
-                                    <h4 class="price">{{$discount}}%</h4>
+                                    <h4 class="price">{{ session('s_coupon_name') ? session('s_coupon_name') : "-"}}</h4>
+                                  {{--   <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4> --}}
+                                    {{-- <h4 class="price">{{session('session_coupon_name') ? session('session_coupon_name') : "N/A" }}</h4> --}}
                                  {{--    <h4 class="price">{{session("session_discount", $discount)}}%</h4> --}}
                                 </li>
                                 <li>
+                                    <h4>Discount (-) </h4>
+                                    <h4 class="price">{{session('s_coupon_discount')}}%</h4>
+                               {{-- <h4 class="price">{{session("session_discount", $discount)}}%</h4> --}}
+                                </li>
+                                <li>
                                     <h4>Discounted Amount  (-) </h4>
-                                <h4 class="price">${{($cart_total * $discount)/ 100}}</h4>
-                        {{--          <h4 class="price">${{session("session_discounted_amout",($cart_total * $discount)/ 100 )}}</h4> --}}
+                                    <h4 class="price">{{session('s_discounted_amount')}}</h4>
+                                 {{--    <h4 class="price">${{($cart_total * $discount)/ 100}}</h4>
+                               <h4 class="price">${{session("session_discounted_amout",($cart_total * $discount)/ 100 )}}</h4> --}}
 
                                 </li>
 
@@ -254,10 +265,12 @@
                         <ul class="summery-total">
                             <li class="list-total border-top-0">
                                 <h4>Total (USD) </h4>
-                              <h4 class="price theme-color">${{$cart_total - ($cart_total * $discount)/ 100}} </h4>
-                           {{--      <h4 class="price theme-color">${{session("session_total",$cart_total - ($cart_total * $discount)/ 100 )}}</h4> --}}
+                                <h4 class="price">{{session('s_total')}}</h4>
+                           {{--   <h4 class="price theme-color">${{$cart_total - ($cart_total * $discount)/ 100}} </h4>
+                              <h4 class="price theme-color">${{session("session_total",$cart_total - ($cart_total * $discount)/ 100 )}}</h4> --}}
                             </li>
                         </ul>
+
 
                         <div class="button-group cart-button">
                             <ul>

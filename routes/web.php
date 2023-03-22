@@ -44,6 +44,7 @@ Route::post('customer/address', [FrontendController::class, 'address'])->name('c
 Route::get('address/delete/{id}', [FrontendController::class, 'address_delete'])->name('address.delete');
 
 Route::get('contact', [ContactController::class, 'create'])->name('contact');
+Route::post('final/checkout', [FrontendController::class, 'final_checkout'])->name('final.checkout');
 
 
 /* Route::get('/', function () {
