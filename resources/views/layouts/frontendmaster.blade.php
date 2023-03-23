@@ -674,8 +674,9 @@
                 </div>
 
                 <div class="payment">
-                    <img src="{{ asset('frontend_assets') }}/images/payment/1.png" class="blur-up lazyload"
-                        alt="">
+                    <a target="_blank" href="https://www.sslcommerz.com/" title="SSLCommerz" alt="SSLCommerz"><img style="width:600px;height:200px;" class="blur-up lazyload" src="https://securepay.sslcommerz.com/public/image/SSLCommerz-Pay-With-logo-All-Size-05.png" /></a>
+                  {{--   <img src="{{ asset('frontend_assets') }}/images/payment/1.png" class="blur-up lazyload"
+                        alt=""> --}}
                 </div>
 
                 <div class="social-link">
