@@ -216,10 +216,10 @@
                             <ul>
                                 @php
                                 session(['s_coupon_name' => $coupon_name]);
-                                //  session(['s_coupon_discount' => $discount]);
-                                //   session(['s_discounted_amount' => (($cart_total * $discount)/ 100)]);
-                                //  session(['s_subtotal' => $cart_total]);
-                                //  session(['s_total' => ($cart_total - ($cart_total * $discount)/ 100)]);
+                                  session(['s_coupon_discount' => $discount]);
+                                  session(['s_discounted_amount' => (($cart_total * $discount)/ 100)]);
+                                 session(['s_subtotal' => $cart_total]);
+                                session(['s_total' => ($cart_total - ($cart_total * $discount)/ 100)]);
                          @endphp
                                 @php
 
@@ -243,7 +243,7 @@
                                  {{--    <h4 class="price">{{session("session_discount", $discount)}}%</h4> --}}
                                 </li>
                                 <li>
-                                    <h4>Discount (-) </h4>
+                                    <h4>Discount (%) </h4>
                                     <h4 class="price">{{session('s_coupon_discount')}}%</h4>
                                {{-- <h4 class="price">{{session("session_discount", $discount)}}%</h4> --}}
                                 </li>
@@ -255,10 +255,10 @@
 
                                 </li>
 
-                                <li class="align-items-start">
+                            {{--     <li class="align-items-start">
                                     <h4>Shipping</h4>
                                     <h4 class="price text-end">$6.90</h4>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
 

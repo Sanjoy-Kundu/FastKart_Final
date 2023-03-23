@@ -70,24 +70,69 @@ amder checkout page e ki ki thakbe
 
     aita dile amder sob kaj korbe and amader kakj hoiteje je jokhonei invoice inset hobe tokhon amder Invoice_id dekhabe.
     tar jonno
+    if($request->payment_option == "cod"){
+        //echo "cash on delivary";
         $invoice_id = Invoice::insertGetId([
-        'user_id' => auth()->id(),
-        'address_id' => $request -> address_id,
-        'coupon_name' => session('s_coupon_name'),
-        'coupon_discount' => session('s_coupon_discount'),
-        'coupon_discounted_amount' =>  session('s_discounted_amount'),
-        'delivery_charge' => $delivery_charge,
-        'payment_option' => $request -> payment_option,
-        //'payment_status' => $request -> name,
-        'subtotal' => session('s_subtotal'),
-        'total_amount' =>session('s_total'),
-        'created_at' =>Carbon::now(),
-    ]);
-    echo $invoice_id;
+            'user_id' => auth()->id(),
+            'invoice_number' => $invoice_number,
+            'address_id' => $request -> address_id,
+            'coupon_name' => session('s_coupon_name'),
+            'coupon_discount' => session('s_coupon_discount'),
+            'coupon_discounted_amount' =>  session('s_discounted_amount'),
+            'delivery_charge' => $delivery_charge,
+            'payment_option' => $request -> payment_option,
+            //'payment_status' => $request -> name,
+            'subtotal' => session('s_subtotal'),
+            'total_amount' =>session('s_total'),
+            'created_at' =>Carbon::now(),
+        ]);
+        //if coupon used then - coupon limit  start
+        if(session('s_coupon_name')){
+          Coupon::where('coupon_name', session('s_coupon_name'))->decrement('coupon_limit');
+        }
+        //if coupon used then - coupon limit  end
+        echo $invoice_id;
+    }else{
+        echo "online payment";
+    }
 
     ====================Invoice Number Genarate Kora ===================
 invoice hobe and sathe sathe akta numbr genarate hobe  tar jonno amder migration table and frontendController e change korte  hobe .
 
+
+:::::::::::::::Next Steps ::::::::::::::
+Jokhon CASH ON DELIVARY HOBE
+orthat cashon delivary hobe age then jodi sei user coupon_use kore tahole 1 remove hobe .
+    if(session('s_coupon_name')){
+          Coupon::where('coupon_name', session('s_coupon_name'))->decrement('coupon_limit');
+        }
+
+Coupon minus howar por amra aigula niye alada akta invoice_details table er moddey rakbo Tarmane amra akhon akta model+migration table banabo invoice_details name
+php artisan make:model invoice_details -m
+akhon ai invoice_details table er moddey amra ki rakbo amra rakbo hoice view_cart table er je information gulo cilo seigula + product_table theke tar price lable
+Cart table theke
+            $table->integer("user_id");
+            $table->integer(invoice_number");
+            $table->integer('product_id');
+            $table->integer('color_id');
+            $table->integer('size_id');
+            $table->integer('quantity');
+            $table->integer("product_purches_price);
+
+            ai jinish gula lagbe
+ Schema::create('invoice_details', function (Blueprint $table) {
+            $table->id();
+            $table->integer("invoice_number");
+            $table->integer("user_id");
+            $table->integer('product_id');
+            $table->integer('color_id');
+            $table->integer('size_id');
+            $table->integer('quantity');
+            $table->integer("product_purches_price");
+            $table->timestamps();
+        });
+
+Akhon coupon user hole coupon er limit katar por invoice_details e invoice er details information pathaite hobe.
 
 
 

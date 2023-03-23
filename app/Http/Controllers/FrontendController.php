@@ -225,6 +225,7 @@ function wishlist_delete($id){
             // return redirect('view/cart')->with('error', "Coupon name error.");
             // return "coupon name error";
            }
+         return view('frontend.shop.viewCart', compact('coupon_name', 'discount'));
 
       /*         if(isset($_GET['coupon_name'])){
                     $coupon_name = $_GET['coupon_name'];
@@ -266,7 +267,7 @@ function wishlist_delete($id){
                // echo "coupon nai";
               } */
             //   , compact('discount', 'coupon_name')
-        return view('frontend.shop.viewCart', compact('coupon_name', 'discount'));
+
     }
 
     //cart product remove
@@ -348,6 +349,7 @@ return back();
 
 //Final Chekcout to cheakout page
 function final_checkout(Request $request){
+   // return $request->payment_option;
     //return session('session_coupon_name');
     //return session('session_discount');
    // return session('session_sub_total');
@@ -364,22 +366,32 @@ function final_checkout(Request $request){
         $delivery_charge = 120;
     }
     //die();
-    $invoice_id = Invoice::insertGetId([
-        'user_id' => auth()->id(),
-        'invoice_number' => $invoice_number,
-        'address_id' => $request -> address_id,
-        'coupon_name' => session('s_coupon_name'),
-        'coupon_discount' => session('s_coupon_discount'),
-        'coupon_discounted_amount' =>  session('s_discounted_amount'),
-        'delivery_charge' => $delivery_charge,
-        'payment_option' => $request -> payment_option,
-        //'payment_status' => $request -> name,
-        'subtotal' => session('s_subtotal'),
-        'total_amount' =>session('s_total'),
-        'created_at' =>Carbon::now(),
-    ]);
-    echo $invoice_id;
+    if($request->payment_option == "cod"){
+        //echo "cash on delivary";
+        //invoice working start
+        $invoice_id = Invoice::insertGetId([
+            'user_id' => auth()->id(),
+            'invoice_number' => $invoice_number,
+            'address_id' => $request -> address_id,
+            'coupon_name' => session('s_coupon_name'),
+            'coupon_discount' => session('s_coupon_discount'),
+            'coupon_discounted_amount' =>  session('s_discounted_amount'),
+            'delivery_charge' => $delivery_charge,
+            'payment_option' => $request -> payment_option,
+            //'payment_status' => $request -> name,
+            'subtotal' => session('s_subtotal'),
+            'total_amount' =>session('s_total'),
+            'created_at' =>Carbon::now(),
+        ]);
+        //if coupon used then - coupon limit  start
+        if(session('s_coupon_name')){
+          Coupon::where('coupon_name', session('s_coupon_name'))->decrement('coupon_limit');
+        }
+        //if coupon used then - coupon limit  end
+
+        echo $invoice_id;
+    }else{
+        echo "online payment";
+    }
 }
-
-
 }
