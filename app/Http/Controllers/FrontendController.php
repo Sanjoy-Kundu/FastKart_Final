@@ -9,6 +9,7 @@ use App\Models\Coupon;
 use App\Models\FeaturedPhoto;
 use App\Models\Inventory;
 use App\Models\Invoice;
+use App\Models\invoice_detail;
 use App\Models\Product;
 use App\Models\ProductInventory;
 use App\Models\User;
@@ -359,7 +360,7 @@ function final_checkout(Request $request){
     //return $request->delivery_charge;
     //$currentTime = Carbon::now();
      //  return $invoice_number = Carbon::now()->format('d-M-Y') . "-".$currentTime->toDateTimeString();
-     $invoice_number = "<b>Time</b>-".Carbon::now()->format('d-M-Y') . "-<b>Time</b>-". Carbon::now()->format('h:i:s')." "."<b>Your Invoice Id</b>:". Str::upper(Str::random(10));
+     $invoice_number = "Time -".Carbon::now()->format('d-M-Y') . "-Time-". Carbon::now()->format('h:i:s')." "."<b>Your Invoice Id</b>:". Str::upper(Str::random(10));
     if($request->delivery_charge == 1){
         $delivery_charge = 60;
     }else{
@@ -389,7 +390,43 @@ function final_checkout(Request $request){
         }
         //if coupon used then - coupon limit  end
 
-        echo $invoice_id;
+        //insert all information to the invoice_details database start
+        //return Carts();
+        foreach (Carts() as $cart) {
+            //echo $cart;
+            invoice_detail::insert([
+                'invoice_number' => $invoice_number,
+                'user_id' => $cart->user_id,
+                'product_id' => $cart->product_id,
+                'color_id' => $cart->color_id,
+                'size_id' => $cart->size_id,
+                'quantity' => $cart->quantity,
+                'product_purches_price' => Product::find($cart->product_id)->discounted_price,
+                'created_at' => Carbon::now(),
+            ]);
+                //Inventory quantity decrement start
+                Inventory::where([
+                    "product_id" => $cart->product_id,
+                    "product_size_id" => $cart->size_id,
+                    "product_color_id" => $cart->color_id
+                ])->decrement("product_quantity", $cart->quantity);
+                //Inventory quantity decrement end
+                //remove all prouduct form adding cart start
+                    $cart->delete();
+                //remove all prouduct form adding cart end
+        }
+        //insert all information to the invoice_details database end
+
+        //session destroy start
+        session()->forget('s_coupon_name');
+        session()->forget('s_coupon_discount');
+        session()->forget('s_discounted_amount');
+        session()->forget('s_subtotal');
+        session()->forget('total_amount');
+        //session destroy end
+
+        //echo $invoice_id;
+        return redirect('view/cart')->with("success", "Your order has been submited by cash on delivery");
     }else{
         echo "online payment";
     }

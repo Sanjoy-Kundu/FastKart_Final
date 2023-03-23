@@ -29,6 +29,10 @@
     <section class="cart-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-sm-5 g-3">
+                @if (session('success'))
+                <div class="alert alert-danger">{{session('success')}}</div>
+                @endif
+
                 <div class="col-xxl-9">
                     <div class="cart-table">
 

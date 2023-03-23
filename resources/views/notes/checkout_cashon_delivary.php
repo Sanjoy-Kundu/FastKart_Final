@@ -132,8 +132,121 @@ Cart table theke
             $table->timestamps();
         });
 
-Akhon coupon user hole coupon er limit katar por invoice_details e invoice er details information pathaite hobe.
+Product Purches price ta ki hobe
+'product_purches_price' => Product::find($cart->product_id)->discounted_price,
+Product model er moddey theke find kore ki dara find korbo cart er moddey je id ace seita diye and ber korbo discounted_price;
 
+
+Akhon coupon user hole coupon er limit katar por invoice_details e invoice er details information pathaite hobe. tahole amra akhon jabo frontendController e
+amra akta product er product_id + color_id + size_id + qunatity + purches_price aigula kothry pabo aigula pabo Carts() namok helpers function er moddey.
+================================
+amra khon carts() helpers function er upon foreach chalabo. foreach ghurbe and akta akta kore data invoice_details er moddey dhukabe.
+  foreach (Carts() as $cart) {
+            //echo $cart;
+        }
+
+===============================
+Invoice_details e jawar porei to prouct er quantitry decrement hobbe
+
+product quantity decrement er jonno amder Inventoty te jete hobe karon amra akta product upload dewar porei to inventory add kori tai na . tai amader Inventory Table er kace jete hobe
+ Inventory::where([
+            "product_id" => $cart()->product_id,
+            "product_size_id" => $cart()->size_id,
+            "product_color_id" => $cart()->color_id
+        ])->decrement("product_quantity", $cart->quantity);
+sobgula miliye kombe konta product_quantity and koyta jeikoyta $cart_quantity te theke;
+
+
+//inventory decrement korar por to cart er add kirto porduck ke remove korete hobe tar jonno amder je steps jante hobe ta  holo
+$cart->delete();
+cart delete bollei cart theke sokol proudct remove hoye jabe.
+
+delete hoye jawar por amder sokol session_unset korte hobe .
+unset hobe foreach loop er bahire
+ //session destroy start
+        session()->forget('s_coupon_name');
+        session()->forget('s_coupon_discount');
+        session()->forget('s_discounted_amount');
+        session()->forget('s_subtotal');
+        session()->forget('total_amount');
+        //session destroy end
+
+
+
+
+
+//Cash on delivery final code start
+//:::::::::::::::::::::::::::Final Chekcout to cheakout page::::::::::::::::::::::::::::::::::::::::
+function final_checkout(Request $request){
+     $invoice_number = "Time -".Carbon::now()->format('d-M-Y') . "-Time-". Carbon::now()->format('h:i:s')." "."<b>Your Invoice Id</b>:". Str::upper(Str::random(10));
+    if($request->delivery_charge == 1){
+        $delivery_charge = 60;
+    }else{
+        $delivery_charge = 120;
+    }
+    //die();
+    if($request->payment_option == "cod"){
+        $invoice_id = Invoice::insertGetId([
+            'user_id' => auth()->id(),
+            'invoice_number' => $invoice_number,
+            'address_id' => $request -> address_id,
+            'coupon_name' => session('s_coupon_name'),
+            'coupon_discount' => session('s_coupon_discount'),
+            'coupon_discounted_amount' =>  session('s_discounted_amount'),
+            'delivery_charge' => $delivery_charge,
+            'payment_option' => $request -> payment_option,
+            //'payment_status' => $request -> name,
+            'subtotal' => session('s_subtotal'),
+            'total_amount' =>session('s_total'),
+            'created_at' =>Carbon::now(),
+        ]);
+        //if coupon used then - coupon limit  start
+        if(session('s_coupon_name')){
+          Coupon::where('coupon_name', session('s_coupon_name'))->decrement('coupon_limit');
+        }
+        //if coupon used then - coupon limit  end
+        //insert all information to the invoice_details database start
+        //return Carts();
+        foreach (Carts() as $cart) {
+            //echo $cart;
+            invoice_detail::insert([
+                'invoice_number' => $invoice_number,
+                'user_id' => $cart->user_id,
+                'product_id' => $cart->product_id,
+                'color_id' => $cart->color_id,
+                'size_id' => $cart->size_id,
+                'quantity' => $cart->quantity,
+                'product_purches_price' => Product::find($cart->product_id)->discounted_price,
+                'created_at' => Carbon::now(),
+            ]);
+                //Inventory quantity decrement start
+                Inventory::where([
+                    "product_id" => $cart->product_id,
+                    "product_size_id" => $cart->size_id,
+                    "product_color_id" => $cart->color_id
+                ])->decrement("product_quantity", $cart->quantity);
+                //Inventory quantity decrement end
+                //remove all prouduct form adding cart start
+                    $cart->delete();
+                //remove all prouduct form adding cart end
+        }
+        //insert all information to the invoice_details database end
+
+        //session destroy start
+        session()->forget('s_coupon_name');
+        session()->forget('s_coupon_discount');
+        session()->forget('s_discounted_amount');
+        session()->forget('s_subtotal');
+        session()->forget('total_amount');
+        //session destroy end
+
+        //echo $invoice_id;
+        return redirect('view/cart')->with("success", "Your order has been submited by cash on delivery");
+    }else{
+        echo "online payment";
+    }
+}
+//Cash on delivery final code end
 
 
 
