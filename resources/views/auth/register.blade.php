@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="email" class="form-control" id="email"
+                                        <input type="email" class="form-control" id="email"og
                                             placeholder="Email Address" name="email" value="{{ old('email') }}">
                                         <label for="email">Email Address</label>
                                         @error('email')
