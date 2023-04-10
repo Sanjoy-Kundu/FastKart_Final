@@ -48,6 +48,7 @@ Route::get('contact', [ContactController::class, 'create'])->name('contact');
 Route::post('final/checkout', [FrontendController::class, 'final_checkout'])->name('final.checkout');
 
 
+
 /* Route::get('/', function () {
     return view('welcome');
 }); */

@@ -13,7 +13,17 @@ tahole amder pay option e diye jabe and seikhane amder sob dynamic korte hobe. s
 
  bkahs diye success page na pele env te giye app url e ==http://127.0.0.1:8000 aita dibo tahole successfull dekhabe
 
- 
+
+ akhon success howar por amy logout kore dey aita thik kora jonno amder jete hobe
+sslcommarz.php
+success er moddey jokhn dhukteci tokhnei logout kore ditece
+'success_url' => '/success', (success er name change korbo successdone)
+payment kora kor amy niye jabe successdone e
+'success_url' => '/onlinePaymentDone', (success er name change korbo successdone)
+aita korar por deklam je amy logout korce na
+
+
+
 
 */
 
