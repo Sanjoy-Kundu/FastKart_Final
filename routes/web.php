@@ -54,31 +54,30 @@ Route::post('final/checkout', [FrontendController::class, 'final_checkout'])->na
 }); */
 
 
-Route::get('/dashboard', [BackendController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [BackendController::class, 'dashboard'])->middleware(['auth', 'verified','check.customer'])->name('dashboard');
 
-
+//without login cant access using middelwere group category start
+Route::middleware(['auth','check.customer'])->group(function () {
 //::::::::::::::::::::::::::::::::::::Category part start ::::::::::::::::::::::::::::::::::::::::
-Route::get('category', [CategoryController::class, 'index']);
-Route::get('category/create', [CategoryController::class, 'create']);
-Route::post('category/insert', [CategoryController::class, 'insert']);
-Route::get('category/edit/{category_id}', [CategoryController::class, 'edit']);
-Route::post('category/update/{category_id}', [CategoryController::class, 'update']);
-Route::get('category/delete/{category_id}', [CategoryController::class, 'delete']);
-Route::get('category/restore/{category_id}', [CategoryController::class, 'restore']);
-Route::get('category/permanent/delete/{category_id}', [CategoryController::class, 'permanent_delete']);
+Route::get('category', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('category.index');
+Route::get('category/create', [CategoryController::class, 'create'])->name("category.create");
+Route::post('category/insert', [CategoryController::class, 'insert'])->name("category.insert");
+Route::get('category/edit/{category_id}', [CategoryController::class, 'edit'])->name("category.edit");
+Route::post('category/update/{category_id}', [CategoryController::class, 'update'])->name("category.update");
+Route::get('category/delete/{category_id}', [CategoryController::class, 'delete'])->name("category.delete");
+Route::get('category/restore/{category_id}', [CategoryController::class, 'restore'])->name("category.restore");
+Route::get('category/permanent/delete/{category_id}', [CategoryController::class, 'permanent_delete'])->name("category.permanent.delete");
 //:::::::::::::::::::::::::::::::::::Category part end :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::Product part start :::::::::::::::::::::::::::::::::::::::::::::
 Route::get('product/list', [ProductController::class, 'index'])->name('product.index');
-Route::get('product', [ProductController::class, 'create'])->name('product.create');
-Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('product/list', [ProductController::class, 'store'])->name('product.list');
 Route::get('product/add/inventory/{id}', [ProductController::class, 'product_add_inventory'])->name('product.add.inventory');
 Route::post('product/inventory/insert/{id}', [ProductController::class, 'product_inventory_insert'])->name('product.inventory.insert');
-
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::Product part end
-
 
 
 //::::::::::::::::::::::::::::::::::::ProductInventory Controller start ::::::::::::::::::::::::::::::::::
@@ -88,11 +87,33 @@ Route::post('product/inventory/color', [ProductInventoryController::class,'produ
 
 //::::::::::::::::::::::::::::::::::::ProductInventory Controller end::::::::::::::::::::::::::::::::::
 
+
+
 //:::::::::::::User Start ::::::::::::::
 Route::get('user/form', [UserController::class, "create"])->name('user.create');
 Route::post('user', [UserController::class,"store"])->name('user.store');
 Route::get('user', [UserController::class, 'index'])->name('user.index');
 //:::::::::::::User End ::::::::::::::
+
+
+
+//::::::::::::::::::::::Coupon Controller ::::::::::::::::::::::::::
+Route::get('/coupon', [CouponController::class, 'create'])->name('coupon');
+Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
+Route::get('coupon/list', [CouponController::class, 'index'])->name('coupon.list');
+
+
+
+});
+//without login cant access category start
+
+
+
+
+
+
+
+
 
 
 
@@ -103,16 +124,14 @@ Route::post('myProfile', [UserProfileController::class, 'store'])->name('myProfi
 
 
 
+
+
+
 //::::::::::::::::::::password change ::::::::::::::::
 Route::get('change/password', [PasswordChangerController::class, 'index'])->name('change.index');
 Route::post('change/password', [PasswordChangerController::class, 'store'])->name('change.store');
 
 
-
-//::::::::::::::::::::::Coupon Controller ::::::::::::::::::::::::::
-Route::get('/coupon', [CouponController::class, 'create'])->name('coupon');
-Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
-Route::get('coupon/list', [CouponController::class, 'index'])->name('coupon.list');
 
 
 
