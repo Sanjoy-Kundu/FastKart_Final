@@ -36,6 +36,10 @@ class ProductController extends Controller
      */
     public function create()
     {
+
+        // return view('backend.product.create_product');
+        // return "good";
+        // die();
         $categories = Category::all();
         return view('backend.product.create_product', compact('categories'));
     }

@@ -92,6 +92,8 @@ akhon ami kinto checkCustomer middlewere er moddey kono code likhi nai ami ki kr
 
 akhon ami jodi customer hishebe registrion korbi tahole kono change hoi nai karon ami to CheckCustomer er kace kono code likhi nai
 
+
+13.
 just ChekCustomer eer amy
     public function handle(Request $request, Closure $next)
     {
@@ -104,6 +106,15 @@ just ChekCustomer eer amy
 
     and checkCustomer e jege custoemer er dashbord design korte hobe
 
+
+
+14. Customer er  dashboard design korar jonno amr akte Controller lagbe
+php artisan make:controller CustomerDashboardController
+
+middlewere er bahire amra Route toyri korlam
+//Customer Dashboard making start
+Route::get('customer/dashboard', [CustomerDashboardController::class, "customer_dashboard"])->name("customer.dashboard");
+//Customer Dashboard making end
 
 
 

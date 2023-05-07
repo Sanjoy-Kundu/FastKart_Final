@@ -16,7 +16,7 @@
                                     </div>
 
 
-                                    <form method="post" action="{{ route('product.store') }}"
+                                    <form method="post" action="{{ route('product.create') }}"
                                         class="theme-form theme-form-2 mega-form" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-4 row align-items-center">

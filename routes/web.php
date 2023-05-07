@@ -6,6 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PasswordChangerController;
 use App\Http\Controllers\ProductController;
@@ -104,9 +105,14 @@ Route::get('coupon/list', [CouponController::class, 'index'])->name('coupon.list
 
 
 
+
+
+
 });
 //without login cant access category start
-
+//Customer Dashboard making start
+Route::get('customer/dashboard', [CustomerDashboardController::class, "customer_dashboard"])->name("customer.dashboard");
+//Customer Dashboard making end
 
 
 
